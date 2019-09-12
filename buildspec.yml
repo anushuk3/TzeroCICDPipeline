@@ -1,0 +1,13 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      python: 3.7
+  build:
+    commands:
+      - aws cloudformation package --template-file samTemplate.yml --s3-bucket tzero-cicd-pipelinetest --output-template-file outputSamTemplate.yml
+artifacts:
+  type: zip
+  files:
+    - samTemplate.yml
+    - outputSamTemplate.yml
