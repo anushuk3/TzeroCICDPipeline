@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: 'AWS::Serverless-2016-10-31'
-Description: Tzero CICD Demo Test
+Description: Telkom Tzero CICD Demo Test
 Resources:
   TzeroLambda:
     Type: 'AWS::Serverless::Function'
@@ -8,7 +8,7 @@ Resources:
       Handler: lambda_function.lambda_handler
       Runtime: python3.7
       CodeUri: ./LambdaCode
-      Description: 'Tzero Lambda function for CICD Demo'
+      Description: 'Tzero Lambda function for CICD Test'
       MemorySize: 128
       Timeout: 30
       Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
