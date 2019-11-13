@@ -225,14 +225,7 @@ Resources:
       Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
       CodeUri: ./LambdaCode
       Runtime: "python3.7"
-      Environment:
-        Variables:
-          ConsumerClientId: !Ref ConsLamEnvConsClientId
-          ProducerClientId: !Ref ConsLamEnvConsPwTbl
-          ProducerPoolID: !Ref ConsLamEnvConsUsrPool
-          TempPass: !Ref ConsLamEnvTmpPw
-          ConfigBucket:
-          Configpath:
+
       MemorySize: 128
       Timeout: 25
 
@@ -260,12 +253,7 @@ Resources:
       Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
       CodeUri: ./LambdaCode
       Runtime: "python3.7"
-      Environment:
-        Variables:
-          ClientId: !Ref ConsLamEnvConsClientId
-          UserPoolId: !Ref ConsLamEnvConsPwTbl
-      MemorySize: 128
-      Timeout: 25
+
 
   TzeroConsumerAccess:
     Type: "AWS::Serverless::Function"
@@ -276,14 +264,7 @@ Resources:
       Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
       CodeUri: ./LambdaCode
       Runtime: "python3.7"
-      Environment:
-        Variables:
-          ConsumerClientID: !Ref ConsLamEnvConsClientId
-          ConsumerPasswordTable: !Ref ConsLamEnvConsPwTbl
-          ConsumerTable: !Ref ConsLamEnvConsUsrPool
-          ConsumerUserPool: !Ref ConsLamEnvTmpPw
-          TempPass:
-          UpdateRewardsLambda:
+
       MemorySize: 128
       Timeout: 25
       
@@ -296,13 +277,7 @@ Resources:
       Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
       CodeUri: ./LambdaCode
       Runtime: "python3.7"
-      Environment:
-        Variables:
-          CompressedConsumerMedias: !Ref ConsLamEnvConsClientId
-          ConsumerInfoTable: !Ref ConsLamEnvConsPwTbl
-          ConsumerTransactionsTable: !Ref ConsLamEnvConsUsrPool
-          ProducerAdsTable: !Ref ConsLamEnvTmpPw
-          Region:
+
       MemorySize: 128
       Timeout: 25
 
@@ -333,11 +308,7 @@ Resources:
       Runtime: "python3.7"
       Environment:
         Variables:
-          CloudfrontDomainName: !Ref ConsLamEnvConsClientId
-          ConsumerInfoTable: !Ref ConsLamEnvConsPwTbl
-          ProducerAdsTable: !Ref ConsLamEnvConsUsrPool
-          ProducerTable:
-          Region: !Ref ConsLamEnvTmpPw
+
       MemorySize: 128
       Timeout: 25
       
@@ -350,12 +321,7 @@ Resources:
       Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
       CodeUri: ./LambdaCode
       Runtime: "python3.7"
-      Environment:
-        Variables:
-          CloudfrontDomainName: !Ref ConsLamEnvConsClientId
-          ConsumerInfoTable: !Ref ConsLamEnvConsPwTbl
-          ProducerAdsTable: !Ref ConsLamEnvConsUsrPool
-          Region: !Ref ConsLamEnvTmpPw
+
       MemorySize: 128
       Timeout: 25
 
@@ -384,13 +350,7 @@ Resources:
       Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
       CodeUri: ./LambdaCode
       Runtime: "python3.7"
-      Environment:
-        Variables:
-          CloudfrontDomainName: !Ref ConsLamEnvConsClientId
-          ConsumerTable: !Ref ConsLamEnvConsPwTbl
-          ProducerAdvertTable: !Ref ConsLamEnvConsUsrPool
-          ProducerTable: !Ref ConsLamEnvTmpPw
-          Region:
+
       MemorySize: 128
       Timeout: 25
       
@@ -403,11 +363,7 @@ Resources:
       Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
       CodeUri: ./LambdaCode
       Runtime: "python3.7"
-      Environment:
-        Variables:
-          ClientId: 2bgkrbjfq4suf57k3ac1jvdlmo
-          ProducerTableName: !Ref ConsLamEnvConsPwTbl
-          UserPoolId: !Ref ConsLamEnvConsUsrPool
+
       MemorySize: 128
       Timeout: 25
       
@@ -420,18 +376,7 @@ Resources:
       Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
       CodeUri: ./LambdaCode
       Runtime: "python3.7"
-      Environment:
-        Variables:
-          FilePath: !Ref ConsLamEnvConsClientId
-          ImageUploadUrlExpiry: !Ref ConsLamEnvConsPwTbl
-          IndustryTagsPath: !Ref ConsLamEnvConsUsrPool
-          ProducerAdvertTable: !Ref ConsLamEnvTmpPw
-          ProducerGlobalTagsTable:
-          ProducerInfoTable:
-          ProducerMediaFiles:
-          ProducerSupportTicketTable:
-          REGION:
-          ThumbNailAppend:
+
       MemorySize: 128
       Timeout: 25
       
@@ -444,12 +389,7 @@ Resources:
       Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
       CodeUri: ./LambdaCode
       Runtime: "python3.7"
-      Environment:
-        Variables:
-          ConsumerTableName: !Ref ConsLamEnvConsClientId
-          IndustryTagsPath: !Ref ConsLamEnvConsPwTbl
-          ProducerMediaFiles: !Ref ConsLamEnvConsUsrPool
-          ProducerTableName: !Ref ConsLamEnvTmpPw
+
       MemorySize: 128
       Timeout: 25
 
@@ -462,14 +402,7 @@ Resources:
       Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
       CodeUri: ./LambdaCode
       Runtime: "python3.7"
-      Environment:
-        Variables:
-          ProducerTableName: !Ref ConsLamEnvConsClientId
-          ReceiverEmailAddress: !Ref ConsLamEnvConsPwTbl
-          ReportingThreshold: !Ref ConsLamEnvConsUsrPool
-          SenderEmailAddress: !Ref ConsLamEnvTmpPw
-          ConfigBucket:
-          Configpath:
+
       MemorySize: 128
       Timeout: 25
 
@@ -482,14 +415,7 @@ Resources:
       Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
       CodeUri: ./LambdaCode
       Runtime: "python3.7"
-      Environment:
-        Variables:
-          ConsumerClientId: !Ref ConsLamEnvConsClientId
-          ProducerClientId: !Ref ConsLamEnvConsPwTbl
-          ProducerPoolID: !Ref ConsLamEnvConsUsrPool
-          TempPass: !Ref ConsLamEnvTmpPw
-          ConfigBucket:
-          Configpath:
+
       MemorySize: 128
       Timeout: 25
       
@@ -502,14 +428,7 @@ Resources:
       Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
       CodeUri: ./LambdaCode
       Runtime: "python3.7"
-      Environment:
-        Variables:
-          ConsumerClientId: !Ref ConsLamEnvConsClientId
-          ProducerClientId: !Ref ConsLamEnvConsPwTbl
-          ProducerPoolID: !Ref ConsLamEnvConsUsrPool
-          TempPass: !Ref ConsLamEnvTmpPw
-          ConfigBucket:
-          Configpath:
+
       MemorySize: 128
       Timeout: 25
       
@@ -522,14 +441,7 @@ Resources:
       Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
       CodeUri: ./LambdaCode
       Runtime: "python3.7"
-      Environment:
-        Variables:
-          ConsumerClientId: !Ref ConsLamEnvConsClientId
-          ProducerClientId: !Ref ConsLamEnvConsPwTbl
-          ProducerPoolID: !Ref ConsLamEnvConsUsrPool
-          TempPass: !Ref ConsLamEnvTmpPw
-          ConfigBucket:
-          Configpath:
+
       MemorySize: 128
       Timeout: 25
 
