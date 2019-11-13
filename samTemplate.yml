@@ -3,6 +3,99 @@ Transform: 'AWS::Serverless-2016-10-31'
 Description: Telkom Tzero Lambda
 Parameters:
 
+# ********** Tzero Cognito "UserPool/ClientID" Parameters- Start **************
+  TzeroProducerUserPoolName:
+    Description: Producer user pool name
+    Type: String
+    Default: 'TzeroProducerUserPool'
+    
+  TzeroConsumerUserPoolName:
+    Description: Consumer user pool name
+    Type: String
+    Default: 'TzeroConsumerUserPool'
+    
+  TzeroProducerAppClientName:
+    Description: Producer app client name
+    Type: String
+    Default: 'TzeroProducerAppClient'
+
+  TzeroConsumerAppClientName:
+    Description: Consumer App client name
+    Type: String
+    Default: 'TzeroConsumerAppClient'
+# ********** Tzero Cognito "UserPool/ClientID" Parameters- End **************
+
+# ********** Tzero DynamoDB Parameters -Start **************
+  TzeroProducerTableName:
+    Description:  This table is containing all the producer related informations 
+    Type: String
+    Default: 'TzeroProducerTable'
+  
+  TzeroProducerAdvertTableName:
+    Description:  This table is containing all the producer Advertisement informations 
+    Type: String
+    Default: 'TzeroProducerAdvertTable'
+
+  TzeroProducerSupportTicketTableName:
+    Description: This table contain all the support tickets is been logged by the producer
+    Type: String
+    Default: 'TzeroProducerSupportTicketTable'
+
+  TzeroProducerIndustryTagsTableName:
+    Description: This table is used to store Produce Industry informations
+    Type: String
+    Default: 'TzeroProducerIndustryTagsTable'
+
+  TzeroConsumerTableName:
+    Description: This table is containing all the consumer related informations
+    Type: String
+    Default: 'TzeroConsumerTable'
+
+  TzeroConsumerTransactionsTableName:
+    Description: This table is used for the consumer Transactions details 
+    Type: String
+    Default: 'TzeroConsumerTransactionsTable'
+
+  TzeroConsumerCredentialsTableName:
+    Description: This table is used to store consumer login Credentials
+    Type: String
+    Default: 'TzeroConsumerCredentialsTable'
+
+  TzeroConsumerExperiencePointsTableName:
+    Description: This table is used to store consumer experience point details
+    Type: String
+    Default: 'TzeroConsumerExperiencePointsTable'
+
+  TzeroSurveyTableName:
+    Description: This table is used to store producer survey details
+    Type: String
+    Default: 'TzeroSurveyTable'
+
+  TzeroBusinessRulesTableName:
+    Description: 'This table is used to store all the business rules --
+    table data is manually imported as per the business rules as configuration'
+    Type: String
+    Default: 'TzeroBusinessRulesTable'
+  
+  ReadCapacityUnits:
+    Description: Provisioned read throughput
+    Type: Number
+    Default: '1'
+    MinValue: '1'
+    MaxValue: '10000'
+    ConstraintDescription: must be between 5 and 10000
+
+  WriteCapacityUnits:
+    Description: Provisioned write throughput
+    Type: Number
+    Default: '1'
+    MinValue: '1'
+    MaxValue: '10000'
+    ConstraintDescription: must be between 5 and 10000
+  
+# ********** Tzero DynamoDB Parameters- End **************
+
+
 # ********** Tzero Lambda Functions Parameters- Start **************
 
 # Lambda Functions Name
@@ -214,6 +307,242 @@ Parameters:
 # ********** Tzero Lambda Functions Parameters- End **************
 
 Resources:
+
+# ********** Tzero Cognito "UserPool/ClientID" Resource- Start**************
+# TRIGGER NEED TO BE ADDED IN THIS CF 
+# Producer pool & AppClient creation
+  TzeroProducerUserPool:
+    Type: AWS::Cognito::UserPool
+    Properties:
+      MfaConfiguration: "OFF"
+      UserPoolName: !Ref "TzeroProducerUserPoolName"
+      UsernameAttributes:
+       - email
+      AutoVerifiedAttributes:
+       - email
+      VerificationMessageTemplate:
+        DefaultEmailOption: CONFIRM_WITH_LINK
+      EmailVerificationSubject: 'Tzero Registration'
+      EmailVerificationMessage: '<html> <body> Dear Producer, <Br> <h4>Welcome to Telkom T-Zero Community</h4><BR> Thank you for Registering as a producer, Complete your registration by clicking the link below to verify your email address.Verify Email{####} </p> <br> <p> Click here to Login : http://cloudtechnologies.cloud/login <p> Thanks,<Br> Team Tzero </body> </html>'
+      Schema:
+        - Name: name
+          AttributeDataType: String
+          Mutable: true
+          Required: true
+        - Name: email
+          AttributeDataType: String
+          Mutable: false
+          Required: true
+        - Name: profile
+          AttributeDataType: String
+          Mutable: false
+          Required: true
+      Policies:
+       PasswordPolicy:
+        MinimumLength: 8
+        RequireLowercase: True
+        RequireNumbers: True
+        RequireSymbols: False
+        RequireUppercase: True
+
+  TzeroProducerAppClient:
+    Type: "AWS::Cognito::UserPoolClient"
+    Properties:
+     ClientName: !Ref "TzeroProducerAppClientName"
+     GenerateSecret: False
+     UserPoolId:
+       Ref: TzeroProducerUserPool
+       
+# Consumer pool & Client creation
+  TzeroConsumerUserPool:
+    Type: AWS::Cognito::UserPool
+    Properties:
+      MfaConfiguration: "OFF"
+      UserPoolName: !Ref "TzeroConsumerUserPoolName"
+      UsernameAttributes:
+       - phone_number
+      Schema:
+        - Name: name
+          AttributeDataType: String
+          Mutable: true
+          Required: true
+        - Name: email
+          AttributeDataType: String
+          Mutable: false
+          Required: true
+        - Name: profile
+          AttributeDataType: String
+          Mutable: false
+          Required: true
+      Policies:
+       PasswordPolicy:
+        MinimumLength: 8
+        RequireLowercase: True
+        RequireNumbers: True
+        RequireSymbols: False
+        RequireUppercase: True
+
+  TzeroConsumerAppClient:
+    Type: "AWS::Cognito::UserPoolClient"
+    Properties:
+     ClientName: !Ref "TzeroConsumerAppClientName"
+     GenerateSecret: False
+     UserPoolId:
+       Ref: TzeroConsumerUserPool
+
+# ********** Tzero Cognito "UserPool/ClientID" Resource- End**************
+
+
+# ********** DynamoDB Resource creation- Start**************
+  TzeroProducerTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      KeySchema:
+      - AttributeName: producerID
+        KeyType: HASH
+      AttributeDefinitions:
+      - AttributeName: producerID
+        AttributeType: S
+      TableName: !Ref "TzeroProducerTableName"
+      ProvisionedThroughput:
+        ReadCapacityUnits: !Ref 'ReadCapacityUnits'
+        WriteCapacityUnits: !Ref 'WriteCapacityUnits'
+
+  TzeroProducerAdvertTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      KeySchema:
+      - AttributeName: advertisement_id
+        KeyType: HASH
+      AttributeDefinitions:
+      - AttributeName: advertisement_id
+        AttributeType: N
+      TableName: !Ref "TzeroProducerAdvertTableName"
+      ProvisionedThroughput:
+        ReadCapacityUnits: !Ref 'ReadCapacityUnits'
+        WriteCapacityUnits: !Ref 'WriteCapacityUnits'
+
+  TzeroProducerSupportTicketTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      KeySchema:
+      - AttributeName: supportTicketID
+        KeyType: HASH
+      AttributeDefinitions:
+      - AttributeName: supportTicketID
+        AttributeType: N
+      TableName: !Ref "TzeroProducerSupportTicketTableName"
+      ProvisionedThroughput:
+        ReadCapacityUnits: !Ref 'ReadCapacityUnits'
+        WriteCapacityUnits: !Ref 'WriteCapacityUnits'
+  
+  TzeroProducerIndustryTagsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      KeySchema:
+      - AttributeName: Industry
+        KeyType: HASH
+      AttributeDefinitions:
+      - AttributeName: Industry
+        AttributeType: S
+      TableName: !Ref "TzeroProducerIndustryTagsTableName"
+      ProvisionedThroughput:
+        ReadCapacityUnits: !Ref 'ReadCapacityUnits'
+        WriteCapacityUnits: !Ref 'WriteCapacityUnits'
+
+  TzeroConsumerTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      KeySchema:
+      - AttributeName: Cognito_Id
+        KeyType: HASH
+      - AttributeName: Phone_Number
+        KeyType: RANGE
+      AttributeDefinitions:
+      - AttributeName: Cognito_Id
+        AttributeType: S
+      - AttributeName: Phone_Number
+        AttributeType: S
+      TableName: !Ref "TzeroConsumerTableName"
+      ProvisionedThroughput:
+        ReadCapacityUnits: !Ref 'ReadCapacityUnits'
+        WriteCapacityUnits: !Ref 'WriteCapacityUnits'
+
+  TzeroConsumerTransactionsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      KeySchema:
+      - AttributeName: TransactionId
+        KeyType: HASH
+      - AttributeName: Phone_Number
+        KeyType: RANGE
+      AttributeDefinitions:
+      - AttributeName: TransactionId
+        AttributeType: S
+      - AttributeName: Phone_Number
+        AttributeType: S
+      TableName: !Ref "TzeroConsumerTransactionsTableName"
+      ProvisionedThroughput:
+        ReadCapacityUnits: !Ref 'ReadCapacityUnits'
+        WriteCapacityUnits: !Ref 'WriteCapacityUnits'
+
+  TzeroConsumerCredentialsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      KeySchema:
+      - AttributeName: User_Name
+        KeyType: HASH
+      AttributeDefinitions:
+      - AttributeName: User_Name
+        AttributeType: S
+      TableName: !Ref "TzeroConsumerCredentialsTableName"
+      ProvisionedThroughput:
+        ReadCapacityUnits: !Ref 'ReadCapacityUnits'
+        WriteCapacityUnits: !Ref 'WriteCapacityUnits'
+
+  TzeroConsumerExperiencePointsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      KeySchema:
+      - AttributeName: transactionId
+        KeyType: HASH
+      AttributeDefinitions:
+      - AttributeName: transactionId
+        AttributeType: N
+      TableName: !Ref "TzeroConsumerExperiencePointsTableName"
+      ProvisionedThroughput:
+        ReadCapacityUnits: !Ref 'ReadCapacityUnits'
+        WriteCapacityUnits: !Ref 'WriteCapacityUnits'
+
+  TzeroSurveyTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      KeySchema:
+      - AttributeName: survey_id
+        KeyType: HASH
+      AttributeDefinitions:
+      - AttributeName: survey_id
+        AttributeType: N
+      TableName: !Ref "TzeroSurveyTableName"
+      ProvisionedThroughput:
+        ReadCapacityUnits: !Ref 'ReadCapacityUnits'
+        WriteCapacityUnits: !Ref 'WriteCapacityUnits'
+
+  TzeroBusinessRulesTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      KeySchema:
+      - AttributeName: ruleName
+        KeyType: HASH
+      AttributeDefinitions:
+      - AttributeName: ruleName
+        AttributeType: S
+      TableName: !Ref "TzeroBusinessRulesTableName"
+      ProvisionedThroughput:
+        ReadCapacityUnits: !Ref 'ReadCapacityUnits'
+        WriteCapacityUnits: !Ref 'WriteCapacityUnits'
+
+# ********** DynamoDB Resource creation- End**************
 
 # ********** Tzero Lambda Function Resource- Start**************
   TzeroRegistration:
