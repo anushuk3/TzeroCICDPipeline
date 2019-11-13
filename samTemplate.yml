@@ -1,42 +1,593 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: 'AWS::Serverless-2016-10-31'
-Description: Deepak Demo Lambda CD for CapStone Project
+Description: Telkom Tzero Lambda
+Parameters:
+
+# ********** Tzero Lambda Functions Parameters- Start **************
+
+# Lambda Functions Name
+  TzeroRegistrationFunctionName:
+    Description: TzeroRegistrationFunction for both Consumer & Producer 
+    Type: String
+    Default: 'TzeroRegistration'
+
+  TzeroConsumerProfileFunctionName:
+    Description: TzeroConsumerProfileFunction
+    Type: String
+    Default: 'TzeroConsumerProfile'
+    
+  TzeroConsumerChangePhoneNumberFunctionName:
+    Description: TzeroConsumerChangePhoneNumberFunction
+    Type: String
+    Default: 'TzeroConsumerChangePhoneNumber'
+    
+  TzeroConsumerAccessFunctionName:
+    Description: TzeroConsumerAccessFunction
+    Type: String
+    Default: 'TzeroConsumerAccess'
+    
+  TzeroConsumerGetDetailsFunctionName:
+    Description: TzeroConsumerGetDetailsFunction
+    Type: String
+    Default: 'TzeroConsumerGetDetails'
+
+  TzeroGetConsumerTransactionsFunctionName:
+    Description: TzeroGetConsumerTransactionsFunction
+    Type: String
+    Default: 'TzeroGetConsumerTransactions'
+
+  TzeroConsumerTransactionsFunctionName:
+    Description: TzeroConsumerTransactionsFunction
+    Type: String
+    Default: 'TzeroConsumerTransactions'
+    
+  TzeroCosumerGetImageAdvertFunctionName:
+    Description: TzeroCosumerGetImageAdvertFunction
+    Type: String
+    Default: 'TzeroCosumerGetImageAdvert'
+    
+  TzeroProducerGetAdvertDetailsFunctionName:
+    Description: TzeroProducerGetAdvertDetailsFunction
+    Type: String
+    Default: 'TzeroProducerGetAdvertDetails'
+    
+  TzeroDisplayAdvertToConsumersFunctionName:
+    Description: TzeroDisplayAdvertToConsumersFunction
+    Type: String
+    Default: 'TzeroDisplayAdvertToConsumers'
+    
+  TzeroProducerAccountAdministrationFunctionName:
+    Description: TzeroProducerAccountAdministrationFunction 
+    Type: String
+    Default: 'TzeroProducerAccountAdministration'
+    
+  TzeroProducerMarketPlaceFunctionName:
+    Description: TzeroProducerMarketPlaceFunction
+    Type: String
+    Default: 'TzeroProducerMarketPlace'
+    
+  TzeroConsumerMarketPlaceFunctionName:
+    Description: TzeroConsumerMarketPlaceFunction
+    Type: String
+    Default: 'TzeroConsumerMarketPlace'
+    
+  TzeroConsumerReportContentFunctionName:
+    Description: TzeroConsumerReportContentFunction
+    Type: String
+    Default: 'TzeroConsumerReportContent'
+    
+  TzeroProducerSurveyManagementFunctionName:
+    Description: TzeroProducerSurveyManagementFunction
+    Type: String
+    Default: 'TzeroProducerSurveyManagement'
+    
+  TzeroConsumerAdvertViewsLikesUpdateFunctionName:
+    Description: TzeroConsumerAdvertViewsLikesUpdateFunction
+    Type: String
+    Default: 'TzeroConsumerAdvertViewsLikesUpdate'
+    
+  TzeroConsumerProfileUpdateFunctionName:
+    Description: TzeroConsumerProfileUpdateFunction
+    Type: String
+    Default: 'TzeroConsumerProfileUpdate'
+
+serverlessrepo-api-lambda-get-one-dyn-GetOneLambda-VU4KQWW2KDUBFunctionName:
+    Description: serverlessrepo-api-lambda-get-one-dyn-GetOneLambda-VU4KQWW2KDUBFunction
+    Type: String
+    Default: 'serverlessrepo-api-lambda-get-one-dyn-GetOneLambda-VU4KQWW2KDUB'
+
+serverlessrepo-api-lambda-update-dyna-UpdateLambda-129WDJ2OHXILNFunctionName:
+    Description: serverlessrepo-api-lambda-update-dyna-UpdateLambda-129WDJ2OHXILN
+    Type: String
+    Default: 'serverlessrepo-api-lambda-update-dyna-UpdateLambda-129WDJ2OHXILN'
+    
+# Lambda Function Target S3 key(CodePath) name
+  TzeroRegistrationS3Key:
+    Description: s3 key name for the lambda package in s3
+    Type: String
+    Default: 'backend/Consumer/Registration/Tzero-Consumer-Registration.zip'
+
+  TzeroConsumerProfileS3Key:
+    Description: s3 key name for the lambda package in s3
+    Type: String
+    Default: 'backend/Producer/Registration/Tzero-Producer-Registration.zip'
+
+  TzeroConsumerChangePhoneNumberS3Key:
+    Description: s3 key name for the lambda package in s3
+    Type: String
+    Default: 'backend/Producer/Registration/Tzero-Producer-Registration.zip'
+
+  TzeroConsumerAccessS3Key:
+    Description: s3 key name for the lambda package in s3
+    Type: String
+    Default: 'backend/Producer/Registration/Tzero-Producer-Registration.zip'
+
+  TzeroConsumerGetDetailsS3Key:
+    Description: s3 key name for the lambda package in s3
+    Type: String
+    Default: 'backend/Producer/Registration/Tzero-Producer-Registration.zip'
+
+  TzeroGetConsumerTransactionsS3Key:
+    Description: s3 key name for the lambda package in s3
+    Type: String
+    Default: 'backend/Producer/Registration/Tzero-Producer-Registration.zip'
+    
+  TzeroConsumerTransactionsS3Key:
+    Description: s3 key name for the lambda package in s3
+    Type: String
+    Default: 'backend/Producer/Registration/Tzero-Producer-Registration.zip'
+    
+  TzeroCosumerGetImageAdvertS3Key:
+    Description: s3 key name for the lambda package in s3
+    Type: String
+    Default: 'backend/Producer/Registration/Tzero-Producer-Registration.zip'
+    
+  TzeroProducerGetAdvertDetailsS3Key:
+    Description: s3 key name for the lambda package in s3
+    Type: String
+    Default: 'backend/Producer/Registration/Tzero-Producer-Registration.zip'
+    
+  TzeroDisplayAdvertToConsumersS3Key:
+    Description: s3 key name for the lambda package in s3
+    Type: String
+    Default: 'backend/Producer/Registration/Tzero-Producer-Registration.zip'
+
+  TzeroProducerAccountAdministrationS3Key:
+    Description: s3 key name for the lambda package in s3
+    Type: String
+    Default: 'backend/Producer/Registration/Tzero-Producer-Registration.zip'
+
+  TzeroProducerMarketPlaceS3Key:
+    Description: s3 key name for the lambda package in s3
+    Type: String
+    Default: 'backend/Producer/Registration/Tzero-Producer-Registration.zip'
+    
+  TzeroConsumerMarketPlaceS3Key:
+    Description: s3 key name for the lambda package in s3
+    Type: String
+    Default: 'backend/Producer/Registration/Tzero-Producer-Registration.zip'
+    
+  TzeroConsumerReportContentS3Key:
+    Description: s3 key name for the lambda package in s3
+    Type: String
+    Default: 'backend/Producer/Registration/Tzero-Producer-Registration.zip'
+    
+  TzeroProducerSurveyManagementS3Key:
+    Description: s3 key name for the lambda package in s3
+    Type: String
+    Default: 'backend/Producer/Registration/Tzero-Producer-Registration.zip'
+    
+  TzeroConsumerAdvertViewsLikesUpdateS3Key:
+    Description: s3 key name for the lambda package in s3
+    Type: String
+    Default: 'backend/Producer/Registration/Tzero-Producer-Registration.zip'
+    
+  TzeroConsumerProfileUpdateS3Key:
+    Description: s3 key name for the lambda package in s3
+    Type: String
+    Default: 'backend/Producer/Registration/Tzero-Producer-Registration.zip'
+
+serverlessrepo-api-lambda-get-one-dyn-GetOneLambda-VU4KQWW2KDUBS3Key:
+    Description: s3 key name for the lambda package in s3
+    Type: String
+    Default: 'backend/Producer/Registration/Tzero-Producer-Registration.zip'
+    
+serverlessrepo-api-lambda-update-dyna-UpdateLambda-129WDJ2OHXILNS3Key:
+    Description: s3 key name for the lambda package in s3
+    Type: String
+    Default: 'backend/Producer/Registration/Tzero-Producer-Registration.zip'
+    
+#Lambda Function Environment Variables
+  ConsumerClientId:
+      Type: "String"
+      Default: "45lajldmbah9731rfa6n1p7s01"
+
+  ProducerClientId:
+      Type: "String"
+      Default: "2bgkrbjfq4suf57k3ac1jvdlmo"
+
+  ProducerPoolId:
+      Type: "String"
+      Default: "eu-west-1_dcCfZIzzl"
+      
+  ConsumerPoolId:
+      Type: "String"
+      Default: "eu-west-1_3dZObG9HF"
+
+  TempPass:
+      Type: "String"
+      Default: "Test@09876"
+  
+  LambdaConfigFileBucket:
+      Type: "String"
+      Default: "tzero-lambda-configuration-bucket"
+
+  LambdaConfigFilePath:
+      Type: "String"
+      Default: "Config/TzeroConfig.json"
+      
+  ConsumerTableName:
+      Type: "String"
+      Default: "TzeroConsumerCredentialsTable"
+  
+    
+# ********** Tzero Lambda Functions Parameters- End **************
+
 Resources:
-  PUTLambda:
-    Type: 'AWS::Serverless::Function'
+
+# ********** Tzero Lambda Function Resource- Start**************
+  TzeroRegistration:
+    Type: "AWS::Serverless::Function"
     Properties:
-      Handler: lambda_function.lambda_handler
-      Runtime: python3.6
-      CodeUri: ./CreateInsertTable
-      Description: 'Lambda function to Create Table, Insert, Update and Delete DynamoDB data '
-      MemorySize: 128
-      Timeout: 30
+      Description: "TzeroRegistration"
+      FunctionName: !Ref "TzeroRegistrationFunctionName"
+      Handler: "index.handler"
       Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
-      Events:
-        PutResource:
-          Type: Api
-          Properties:
-            Path: "/Dynamo"
-            Method: PUT
+      CodeUri: ./LambdaCode
+      Runtime: "python3.7"
       Environment:
         Variables:
-          REGION: eu-west-1
-  GETLambda:
-    Type: 'AWS::Serverless::Function'
-    Properties:
-      Handler: lambda_function.lambda_handler
-      Runtime: python3.6
-      CodeUri: ./FetchTable
-      Description: 'Lambda function to Fetch DynamoDB data'
+          ConsumerClientId: !Ref ConsLamEnvConsClientId
+          ProducerClientId: !Ref ConsLamEnvConsPwTbl
+          ProducerPoolID: !Ref ConsLamEnvConsUsrPool
+          TempPass: !Ref ConsLamEnvTmpPw
+          ConfigBucket:
+          Configpath:
       MemorySize: 128
-      Timeout: 30
+      Timeout: 25
+
+  TzeroConsumerProfile:
+    Type: "AWS::Serverless::Function"
+    Properties:
+      Description: "TzeroConsumerProfile"
+      FunctionName: !Ref "TzeroConsumerProfileFunctionName"
+      Handler: "index.handler"
       Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
-      Events:
-        GetResource:
-          Type: Api
-          Properties:
-            Path: "/Dynamo"
-            Method: GET
+      CodeUri: ./LambdaCode
+      Runtime: "python3.7"
       Environment:
         Variables:
-          REGION: eu-west-1
+          ConsumerTableName: !Ref ConsLamEnvConsClientId
+      MemorySize: 128
+      Timeout: 25
+
+  TzeroConsumerChangePhoneNumber:
+    Type: "AWS::Serverless::Function"
+    Properties:
+      Description: "TzeroConsumerChangePhoneNumber"
+      FunctionName: !Ref "TzeroConsumerChangePhoneNumberFunctionName"
+      Handler: "index.handler"
+      Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
+      CodeUri: ./LambdaCode
+      Runtime: "python3.7"
+      Environment:
+        Variables:
+          ClientId: !Ref ConsLamEnvConsClientId
+          UserPoolId: !Ref ConsLamEnvConsPwTbl
+      MemorySize: 128
+      Timeout: 25
+
+  TzeroConsumerAccess:
+    Type: "AWS::Serverless::Function"
+    Properties:
+      Description: "TzeroConsumerAccess"
+      FunctionName: !Ref "TzeroConsumerAccessFunctionName"
+      Handler: "index.handler"
+      Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
+      CodeUri: ./LambdaCode
+      Runtime: "python3.7"
+      Environment:
+        Variables:
+          ConsumerClientID: !Ref ConsLamEnvConsClientId
+          ConsumerPasswordTable: !Ref ConsLamEnvConsPwTbl
+          ConsumerTable: !Ref ConsLamEnvConsUsrPool
+          ConsumerUserPool: !Ref ConsLamEnvTmpPw
+          TempPass:
+          UpdateRewardsLambda:
+      MemorySize: 128
+      Timeout: 25
+      
+  TzeroConsumerGetDetails:
+    Type: "AWS::Serverless::Function"
+    Properties:
+      Description: "TzeroConsumerGetDetails"
+      FunctionName: !Ref "TzeroConsumerGetDetailsFunctionName"
+      Handler: "index.handler"
+      Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
+      CodeUri: ./LambdaCode
+      Runtime: "python3.7"
+      Environment:
+        Variables:
+          CompressedConsumerMedias: !Ref ConsLamEnvConsClientId
+          ConsumerInfoTable: !Ref ConsLamEnvConsPwTbl
+          ConsumerTransactionsTable: !Ref ConsLamEnvConsUsrPool
+          ProducerAdsTable: !Ref ConsLamEnvTmpPw
+          Region:
+      MemorySize: 128
+      Timeout: 25
+
+  TzeroGetConsumerTransactions:
+    Type: "AWS::Serverless::Function"
+    Properties:
+      Description: "TzeroGetConsumerTransactions"
+      FunctionName: !Ref "TzeroGetConsumerTransactionsFunctionName"
+      Handler: "index.handler"
+      Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
+      CodeUri: ./LambdaCode
+      Runtime: "python3.7"
+      Environment:
+        Variables:
+          ConsumerInfoTable: !Ref ConsLamEnvConsClientId
+          ConsumerTransactionsTable: !Ref ConsLamEnvConsPwTbl
+      MemorySize: 128
+      Timeout: 25
+      
+  TzeroConsumerTransactions:
+    Type: "AWS::Serverless::Function"
+    Properties:
+      Description: "TzeroConsumerTransactions"
+      FunctionName: !Ref "TzeroConsumerTransactionsFunctionName"
+      Handler: "index.handler"
+      Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
+      CodeUri: ./LambdaCode
+      Runtime: "python3.7"
+      Environment:
+        Variables:
+          CloudfrontDomainName: !Ref ConsLamEnvConsClientId
+          ConsumerInfoTable: !Ref ConsLamEnvConsPwTbl
+          ProducerAdsTable: !Ref ConsLamEnvConsUsrPool
+          ProducerTable:
+          Region: !Ref ConsLamEnvTmpPw
+      MemorySize: 128
+      Timeout: 25
+      
+  TzeroCosumerGetImageAdvert:
+    Type: "AWS::Serverless::Function"
+    Properties:
+      Description: "TzeroCosumerGetImageAdvert"
+      FunctionName: !Ref "TzeroCosumerGetImageAdvertFunctionName"
+      Handler: "index.handler"
+      Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
+      CodeUri: ./LambdaCode
+      Runtime: "python3.7"
+      Environment:
+        Variables:
+          CloudfrontDomainName: !Ref ConsLamEnvConsClientId
+          ConsumerInfoTable: !Ref ConsLamEnvConsPwTbl
+          ProducerAdsTable: !Ref ConsLamEnvConsUsrPool
+          Region: !Ref ConsLamEnvTmpPw
+      MemorySize: 128
+      Timeout: 25
+
+  TzeroProducerGetAdvertDetails:
+    Type: "AWS::Serverless::Function"
+    Properties:
+      Description: "TzeroProducerGetAdvertDetails"
+      FunctionName: !Ref "TzeroProducerGetAdvertDetailsFunctionName"
+      Handler: "index.handler"
+      Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
+      CodeUri: ./LambdaCode
+      Runtime: "python3.7"
+      Environment:
+        Variables:
+          ProducerAdvertTable: !Ref ConsLamEnvConsClientId
+          ProducerInfoTable: !Ref ConsLamEnvConsPwTbl
+      MemorySize: 128
+      Timeout: 25
+      
+  TzeroDisplayAdvertToConsumers:
+    Type: "AWS::Serverless::Function"
+    Properties:
+      Description: "TzeroDisplayAdvertToConsumers"
+      FunctionName: !Ref "TzeroDisplayAdvertToConsumersFunctionName"
+      Handler: "index.handler"
+      Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
+      CodeUri: ./LambdaCode
+      Runtime: "python3.7"
+      Environment:
+        Variables:
+          CloudfrontDomainName: !Ref ConsLamEnvConsClientId
+          ConsumerTable: !Ref ConsLamEnvConsPwTbl
+          ProducerAdvertTable: !Ref ConsLamEnvConsUsrPool
+          ProducerTable: !Ref ConsLamEnvTmpPw
+          Region:
+      MemorySize: 128
+      Timeout: 25
+      
+  TzeroProducerAccountAdministration:
+    Type: "AWS::Serverless::Function"
+    Properties:
+      Description: "TzeroProducerAccountAdministration"
+      FunctionName: !Ref "TzeroProducerAccountAdministrationFunctionName"
+      Handler: "index.handler"
+      Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
+      CodeUri: ./LambdaCode
+      Runtime: "python3.7"
+      Environment:
+        Variables:
+          ClientId: 2bgkrbjfq4suf57k3ac1jvdlmo
+          ProducerTableName: !Ref ConsLamEnvConsPwTbl
+          UserPoolId: !Ref ConsLamEnvConsUsrPool
+      MemorySize: 128
+      Timeout: 25
+      
+  TzeroProducerMarketPlace:
+    Type: "AWS::Serverless::Function"
+    Properties:
+      Description: "TzeroProducerMarketPlace"
+      FunctionName: !Ref "TzeroProducerMarketPlaceFunctionName"
+      Handler: "index.handler"
+      Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
+      CodeUri: ./LambdaCode
+      Runtime: "python3.7"
+      Environment:
+        Variables:
+          FilePath: !Ref ConsLamEnvConsClientId
+          ImageUploadUrlExpiry: !Ref ConsLamEnvConsPwTbl
+          IndustryTagsPath: !Ref ConsLamEnvConsUsrPool
+          ProducerAdvertTable: !Ref ConsLamEnvTmpPw
+          ProducerGlobalTagsTable:
+          ProducerInfoTable:
+          ProducerMediaFiles:
+          ProducerSupportTicketTable:
+          REGION:
+          ThumbNailAppend:
+      MemorySize: 128
+      Timeout: 25
+      
+  TzeroConsumerMarketPlace:
+    Type: "AWS::Serverless::Function"
+    Properties:
+      Description: "TzeroConsumerMarketPlace"
+      FunctionName: !Ref "TzeroConsumerMarketPlaceFunctionName"
+      Handler: "index.handler"
+      Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
+      CodeUri: ./LambdaCode
+      Runtime: "python3.7"
+      Environment:
+        Variables:
+          ConsumerTableName: !Ref ConsLamEnvConsClientId
+          IndustryTagsPath: !Ref ConsLamEnvConsPwTbl
+          ProducerMediaFiles: !Ref ConsLamEnvConsUsrPool
+          ProducerTableName: !Ref ConsLamEnvTmpPw
+      MemorySize: 128
+      Timeout: 25
+
+  TzeroConsumerReportContent:
+    Type: "AWS::Serverless::Function"
+    Properties:
+      Description: "TzeroConsumerReportContent"
+      FunctionName: !Ref "TzeroConsumerReportContentFunctionName"
+      Handler: "index.handler"
+      Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
+      CodeUri: ./LambdaCode
+      Runtime: "python3.7"
+      Environment:
+        Variables:
+          ProducerTableName: !Ref ConsLamEnvConsClientId
+          ReceiverEmailAddress: !Ref ConsLamEnvConsPwTbl
+          ReportingThreshold: !Ref ConsLamEnvConsUsrPool
+          SenderEmailAddress: !Ref ConsLamEnvTmpPw
+          ConfigBucket:
+          Configpath:
+      MemorySize: 128
+      Timeout: 25
+
+  TzeroProducerSurveyManagement:
+    Type: "AWS::Serverless::Function"
+    Properties:
+      Description: "TzeroProducerSurveyManagement"
+      FunctionName: !Ref "TzeroProducerSurveyManagementFunctionName"
+      Handler: "index.handler"
+      Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
+      CodeUri: ./LambdaCode
+      Runtime: "python3.7"
+      Environment:
+        Variables:
+          ConsumerClientId: !Ref ConsLamEnvConsClientId
+          ProducerClientId: !Ref ConsLamEnvConsPwTbl
+          ProducerPoolID: !Ref ConsLamEnvConsUsrPool
+          TempPass: !Ref ConsLamEnvTmpPw
+          ConfigBucket:
+          Configpath:
+      MemorySize: 128
+      Timeout: 25
+      
+  TzeroConsumerAdvertViewsLikesUpdate:
+    Type: "AWS::Serverless::Function"
+    Properties:
+      Description: "TzeroConsumerAdvertViewsLikesUpdate"
+      FunctionName: !Ref "TzeroConsumerAdvertViewsLikesUpdateFunctionName"
+      Handler: "index.handler"
+      Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
+      CodeUri: ./LambdaCode
+      Runtime: "python3.7"
+      Environment:
+        Variables:
+          ConsumerClientId: !Ref ConsLamEnvConsClientId
+          ProducerClientId: !Ref ConsLamEnvConsPwTbl
+          ProducerPoolID: !Ref ConsLamEnvConsUsrPool
+          TempPass: !Ref ConsLamEnvTmpPw
+          ConfigBucket:
+          Configpath:
+      MemorySize: 128
+      Timeout: 25
+      
+ TzeroConsumerProfileUpdate:
+    Type: "AWS::Serverless::Function"
+    Properties:
+      Description: "TzeroConsumerProfileUpdate"
+      FunctionName: !Ref "TzeroConsumerProfileUpdateFunctionName"
+      Handler: "index.handler"
+      Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
+      CodeUri: ./LambdaCode
+      Runtime: "python3.7"
+      Environment:
+        Variables:
+          ConsumerClientId: !Ref ConsLamEnvConsClientId
+          ProducerClientId: !Ref ConsLamEnvConsPwTbl
+          ProducerPoolID: !Ref ConsLamEnvConsUsrPool
+          TempPass: !Ref ConsLamEnvTmpPw
+          ConfigBucket:
+          Configpath:
+      MemorySize: 128
+      Timeout: 25
+      
+ serverlessrepo-api-lambda-get-one-dyn-GetOneLambda-VU4KQWW2KDUB:
+    Type: "AWS::Serverless::Function"
+    Properties:
+      Description: "serverlessrepo-api-lambda-get-one-dyn-GetOneLambda-VU4KQWW2KDUB"
+      FunctionName: !Ref "serverlessrepo-api-lambda-get-one-dyn-GetOneLambda-VU4KQWW2KDUBFunctionName"
+      Handler: "index.handler"
+      Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
+      CodeUri: ./LambdaCode
+      Runtime: "python3.7"
+      Environment:
+        Variables:
+          CORS_ORIGIN: *
+          IS_CORS: IsCorsDefined
+          TABLE_NAME: Producer-Details-Dev
+      MemorySize: 128
+      Timeout: 25
+      
+ serverlessrepo-api-lambda-update-dyna-UpdateLambda-129WDJ2OHXILN:
+    Type: "AWS::Serverless::Function"
+    Properties:
+      Description: "serverlessrepo-api-lambda-update-dyna-UpdateLambda-129WDJ2OHXILN"
+      FunctionName: !Ref "serverlessrepo-api-lambda-update-dyna-UpdateLambda-129WDJ2OHXILNFunctionName"
+      Handler: "index.handler"
+      Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
+      CodeUri: ./LambdaCode
+      Runtime: "python3.7"
+      Environment:
+        Variables:
+          CORS_ORIGIN: *
+          IS_CORS: IsCorsDefined
+          TABLE_NAME: Producer-Details-Dev
+      MemorySize: 128
+      Timeout: 25
+# ********** Tzero Lambda Function Resource- End**************
+
+# ********** Tzero Lambda Function Output - Start**************
+      
+ # ********** Tzero Lambda Function Output- End**************
