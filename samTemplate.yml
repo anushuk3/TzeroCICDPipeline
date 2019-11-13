@@ -533,7 +533,7 @@ Resources:
       MemorySize: 128
       Timeout: 25
       
- TzeroConsumerProfileUpdate:
+  TzeroConsumerProfileUpdate:
     Type: "AWS::Serverless::Function"
     Properties:
       Description: "TzeroConsumerProfileUpdate"
@@ -553,7 +553,7 @@ Resources:
       MemorySize: 128
       Timeout: 25
       
- serverlessrepo-api-lambda-get-one-dyn-GetOneLambda-VU4KQWW2KDUB:
+  serverlessrepo-api-lambda-get-one-dyn-GetOneLambda-VU4KQWW2KDUB:
     Type: "AWS::Serverless::Function"
     Properties:
       Description: "serverlessrepo-api-lambda-get-one-dyn-GetOneLambda-VU4KQWW2KDUB"
@@ -570,7 +570,7 @@ Resources:
       MemorySize: 128
       Timeout: 25
       
- serverlessrepo-api-lambda-update-dyna-UpdateLambda-129WDJ2OHXILN:
+  serverlessrepo-api-lambda-update-dyna-UpdateLambda-129WDJ2OHXILN:
     Type: "AWS::Serverless::Function"
     Properties:
       Description: "serverlessrepo-api-lambda-update-dyna-UpdateLambda-129WDJ2OHXILN"
