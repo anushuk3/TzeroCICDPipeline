@@ -1,0 +1,92 @@
+{
+  "Items": [
+    {
+      "category": "Data Science",
+      "courseId": "DS00004",
+      "description": "Data Science DS00004",
+      "fee": 14.0
+    },
+    {
+      "category": "Data Science",
+      "courseId": "DS00005",
+      "description": "Data Science DS00005",
+      "fee": 15.0
+    },
+    {
+      "category": "Data Science",
+      "courseId": "DS00006",
+      "description": "Data Science DS00006",
+      "fee": 16.0
+    },
+    {
+      "category": "Data Science",
+      "courseId": "Data Analysis",
+      "description": "Data analysis courses address methods for managing and analyzing large datasets. Start your career as a data scientist by studying data mining, big data applications, and data product development.",
+      "fee": 14.0
+    },
+    {
+      "category": "Data Science",
+      "courseId": "Machine Learning",
+      "description": "Machine learning courses focus on creating systems to utilize and learn from large sets of data. Topics of study include predictive algorithms, natural language processing, and statistical pattern recognition.",
+      "fee": 15.0
+    },
+    {
+      "category": "Data Science",
+      "courseId": "Probability and Statistics",
+      "description": "Probability and statistics courses teach skills in understanding whether data is meaningful, including optimization, inference, testing,and other methods for analyzing patterns in data and using them to predict, understand, and improve results.",
+      "fee": 16.0
+    },
+    {
+      "category": "Information Technology",
+      "courseId": "Cloud Computing",
+      "description": "Cloud Computing courses and specializations teach cloud architecture, services, hosting, and more. Differentiate yourself in the IT industry, by learning how to properly leverage the Cloud.",
+      "fee": 13.0
+    },
+    {
+      "category": "Information Technology",
+      "courseId": "Networking",
+      "description": "Networking courses and specializations teach network administration, architecture, infrastructure, troubleshooting, and more. Break into the IT industry by learning applied networking skills.",
+      "fee": 13.0
+    },
+    {
+      "category": "Computer Science",
+      "courseId": "CS00002",
+      "description": "Computer Science CS00002",
+      "fee": 13.0
+    },
+    {
+      "category": "Computer Science",
+      "courseId": "CS00003",
+      "description": "Computer Science CS00003",
+      "fee": 13.0
+    },
+    {
+      "category": "Computer Science",
+      "courseId": "Mobile and Web Development",
+      "description": "Mobile and web development courses will build your skills in creating web applications and native mobile apps for Android and iOS. Learn HTML/CSS and modern frameworks; PHP, JavaScript, Python, and other programming languages; and modern back-end technologies.",
+      "fee": 12.0
+    },
+    {
+      "category": "Computer Science",
+      "courseId": "Software Development",
+      "description": "Specializations and courses in software development address the process of creating software, including development tools and methodologies (such as Agile development), programming languages (including Python, C, Java, and Scala), and software architecture and testing.",
+      "fee": 13.0
+    }
+  ],
+  "Count": 12,
+  "ScannedCount": 12,
+  "ResponseMetadata": {
+    "RequestId": "S7KPN16TJPJ7E2EE7LNORDKHQRVV4KQNSO5AEMVJF66Q9ASUAAJG",
+    "HTTPStatusCode": 200,
+    "HTTPHeaders": {
+      "server": "Server",
+      "date": "Sun, 29 Jul 2018 14:56:56 GMT",
+      "content-type": "application/x-amz-json-1.0",
+      "content-length": "3031",
+      "connection": "keep-alive",
+      "x-amzn-requestid": "S7KPN16TJPJ7E2EE7LNORDKHQRVV4KQNSO5AEMVJF66Q9ASUAAJG",
+      "x-amz-crc32": "1657287754"
+    },
+    "RetryAttempts": 0
+  }
+}

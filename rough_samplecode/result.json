@@ -1,0 +1,106 @@
+[
+  {
+    "Items": [
+      {
+        "category": "Data Science",
+        "courseId": "DS00004",
+        "description": "Data Science DS00004",
+        "fee": 14.0
+      },
+      {
+        "category": "Data Science",
+        "courseId": "DS00005",
+        "description": "Data Science DS00005",
+        "fee": 15.0
+      },
+      {
+        "category": "Data Science",
+        "courseId": "DS00006",
+        "description": "Data Science DS00006",
+        "fee": 16.0
+      },
+      {
+        "category": "Computer Science",
+        "courseId": "CS00002",
+        "description": "Computer Science CS00002",
+        "fee": 13.0
+      },
+      {
+        "category": "Computer Science",
+        "courseId": "CS00003",
+        "description": "Computer Science CS00003",
+        "fee": 13.0
+      }
+    ],
+    "Count": 5,
+    "ScannedCount": 5,
+    "ResponseMetadata": {
+      "RequestId": "N1CI2G8P0T4GKTTQ7E6SM8NSIBVV4KQNSO5AEMVJF66Q9ASUAAJG",
+      "HTTPStatusCode": 200,
+      "HTTPHeaders": {
+        "server": "Server",
+        "date": "Sat, 28 Jul 2018 22:15:32 GMT",
+        "content-type": "application/x-amz-json-1.0",
+        "content-length": "659",
+        "connection": "keep-alive",
+        "x-amzn-requestid": "N1CI2G8P0T4GKTTQ7E6SM8NSIBVV4KQNSO5AEMVJF66Q9ASUAAJG",
+        "x-amz-crc32": "1780931666"
+      },
+      "RetryAttempts": 0
+    }
+  },
+  {
+    "Item": {
+      "category": "Computer Science",
+      "courseId": "CS00003",
+      "description": "Computer Science CS00003",
+      "fee": 13.0
+    },
+    "ResponseMetadata": {
+      "RequestId": "840744P8HLD6CSFSU1PGUGS1SVVV4KQNSO5AEMVJF66Q9ASUAAJG",
+      "HTTPStatusCode": 200,
+      "HTTPHeaders": {
+        "server": "Server",
+        "date": "Sat, 28 Jul 2018 22:15:32 GMT",
+        "content-type": "application/x-amz-json-1.0",
+        "content-length": "137",
+        "connection": "keep-alive",
+        "x-amzn-requestid": "840744P8HLD6CSFSU1PGUGS1SVVV4KQNSO5AEMVJF66Q9ASUAAJG",
+        "x-amz-crc32": "253546247"
+      },
+      "RetryAttempts": 0
+    }
+  },
+  {
+    "Items": [
+      {
+        "category": "Computer Science",
+        "courseId": "CS00002",
+        "description": "Computer Science CS00002",
+        "fee": 13.0
+      },
+      {
+        "category": "Computer Science",
+        "courseId": "CS00003",
+        "description": "Computer Science CS00003",
+        "fee": 13.0
+      }
+    ],
+    "Count": 2,
+    "ScannedCount": 2,
+    "ResponseMetadata": {
+      "RequestId": "DRBBBRRC3T0UAC7A4LRH6FHHMRVV4KQNSO5AEMVJF66Q9ASUAAJG",
+      "HTTPStatusCode": 200,
+      "HTTPHeaders": {
+        "server": "Server",
+        "date": "Sat, 28 Jul 2018 22:15:33 GMT",
+        "content-type": "application/x-amz-json-1.0",
+        "content-length": "296",
+        "connection": "keep-alive",
+        "x-amzn-requestid": "DRBBBRRC3T0UAC7A4LRH6FHHMRVV4KQNSO5AEMVJF66Q9ASUAAJG",
+        "x-amz-crc32": "3014585520"
+      },
+      "RetryAttempts": 0
+    }
+  }
+]

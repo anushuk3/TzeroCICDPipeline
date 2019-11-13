@@ -1,0 +1,3 @@
+{
+    "courId" : "$input.params('courId')"
+}
