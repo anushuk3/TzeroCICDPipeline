@@ -90,16 +90,6 @@ Parameters:
     Description: TzeroConsumerProfileUpdateFunction
     Type: String
     Default: 'TzeroConsumerProfileUpdate'
-
-  serverlessrepo-api-lambda-get-one-dyn-GetOneLambda-VU4KQWW2KDUBFunctionName:
-    Description: serverlessrepo-api-lambda-get-one-dyn-GetOneLambda-VU4KQWW2KDUBFunction
-    Type: String
-    Default: 'serverlessrepo-api-lambda-get-one-dyn-GetOneLambda-VU4KQWW2KDUB'
-
-  serverlessrepo-api-lambda-update-dyna-UpdateLambda-129WDJ2OHXILNFunctionName:
-    Description: serverlessrepo-api-lambda-update-dyna-UpdateLambda-129WDJ2OHXILN
-    Type: String
-    Default: 'serverlessrepo-api-lambda-update-dyna-UpdateLambda-129WDJ2OHXILN'
     
 # Lambda Function Target S3 key(CodePath) name
   TzeroRegistrationS3Key:
@@ -183,16 +173,6 @@ Parameters:
     Default: 'backend/Producer/Registration/Tzero-Producer-Registration.zip'
     
   TzeroConsumerProfileUpdateS3Key:
-    Description: s3 key name for the lambda package in s3
-    Type: String
-    Default: 'backend/Producer/Registration/Tzero-Producer-Registration.zip'
-
-  serverlessrepo-api-lambda-get-one-dyn-GetOneLambda-VU4KQWW2KDUBS3Key:
-    Description: s3 key name for the lambda package in s3
-    Type: String
-    Default: 'backend/Producer/Registration/Tzero-Producer-Registration.zip'
-    
-  serverlessrepo-api-lambda-update-dyna-UpdateLambda-129WDJ2OHXILNS3Key:
     Description: s3 key name for the lambda package in s3
     Type: String
     Default: 'backend/Producer/Registration/Tzero-Producer-Registration.zip'
