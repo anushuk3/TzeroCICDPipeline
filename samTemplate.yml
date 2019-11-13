@@ -187,12 +187,12 @@ Parameters:
     Type: String
     Default: 'backend/Producer/Registration/Tzero-Producer-Registration.zip'
 
-serverlessrepo-api-lambda-get-one-dyn-GetOneLambda-VU4KQWW2KDUBS3Key:
+  serverlessrepo-api-lambda-get-one-dyn-GetOneLambda-VU4KQWW2KDUBS3Key:
     Description: s3 key name for the lambda package in s3
     Type: String
     Default: 'backend/Producer/Registration/Tzero-Producer-Registration.zip'
     
-serverlessrepo-api-lambda-update-dyna-UpdateLambda-129WDJ2OHXILNS3Key:
+  serverlessrepo-api-lambda-update-dyna-UpdateLambda-129WDJ2OHXILNS3Key:
     Description: s3 key name for the lambda package in s3
     Type: String
     Default: 'backend/Producer/Registration/Tzero-Producer-Registration.zip'
