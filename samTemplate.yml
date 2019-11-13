@@ -552,40 +552,7 @@ Resources:
           Configpath:
       MemorySize: 128
       Timeout: 25
-      
-  serverlessrepo-api-lambda-get-one-dyn-GetOneLambda-VU4KQWW2KDUB:
-    Type: "AWS::Serverless::Function"
-    Properties:
-      Description: "serverlessrepo-api-lambda-get-one-dyn-GetOneLambda-VU4KQWW2KDUB"
-      FunctionName: !Ref "serverlessrepo-api-lambda-get-one-dyn-GetOneLambda-VU4KQWW2KDUBFunctionName"
-      Handler: "index.handler"
-      Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
-      CodeUri: ./LambdaCode
-      Runtime: "python3.7"
-      Environment:
-        Variables:
-          CORS_ORIGIN: *
-          IS_CORS: IsCorsDefined
-          TABLE_NAME: Producer-Details-Dev
-      MemorySize: 128
-      Timeout: 25
-      
-  serverlessrepo-api-lambda-update-dyna-UpdateLambda-129WDJ2OHXILN:
-    Type: "AWS::Serverless::Function"
-    Properties:
-      Description: "serverlessrepo-api-lambda-update-dyna-UpdateLambda-129WDJ2OHXILN"
-      FunctionName: !Ref "serverlessrepo-api-lambda-update-dyna-UpdateLambda-129WDJ2OHXILNFunctionName"
-      Handler: "index.handler"
-      Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
-      CodeUri: ./LambdaCode
-      Runtime: "python3.7"
-      Environment:
-        Variables:
-          CORS_ORIGIN: *
-          IS_CORS: IsCorsDefined
-          TABLE_NAME: Producer-Details-Dev
-      MemorySize: 128
-      Timeout: 25
+
 # ********** Tzero Lambda Function Resource- End**************
 
 # ********** Tzero Lambda Function Output - Start**************
