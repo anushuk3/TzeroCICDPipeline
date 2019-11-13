@@ -238,9 +238,7 @@ Resources:
       Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
       CodeUri: ./LambdaCode
       Runtime: "python3.7"
-      Environment:
-        Variables:
-          ConsumerTableName: !Ref ConsLamEnvConsClientId
+
       MemorySize: 128
       Timeout: 25
 
@@ -290,10 +288,7 @@ Resources:
       Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
       CodeUri: ./LambdaCode
       Runtime: "python3.7"
-      Environment:
-        Variables:
-          ConsumerInfoTable: !Ref ConsLamEnvConsClientId
-          ConsumerTransactionsTable: !Ref ConsLamEnvConsPwTbl
+
       MemorySize: 128
       Timeout: 25
       
@@ -306,8 +301,7 @@ Resources:
       Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
       CodeUri: ./LambdaCode
       Runtime: "python3.7"
-      Environment:
-        Variables:
+
 
       MemorySize: 128
       Timeout: 25
@@ -334,10 +328,7 @@ Resources:
       Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
       CodeUri: ./LambdaCode
       Runtime: "python3.7"
-      Environment:
-        Variables:
-          ProducerAdvertTable: !Ref ConsLamEnvConsClientId
-          ProducerInfoTable: !Ref ConsLamEnvConsPwTbl
+
       MemorySize: 128
       Timeout: 25
       
