@@ -91,12 +91,12 @@ Parameters:
     Type: String
     Default: 'TzeroConsumerProfileUpdate'
 
-serverlessrepo-api-lambda-get-one-dyn-GetOneLambda-VU4KQWW2KDUBFunctionName:
+  serverlessrepo-api-lambda-get-one-dyn-GetOneLambda-VU4KQWW2KDUBFunctionName:
     Description: serverlessrepo-api-lambda-get-one-dyn-GetOneLambda-VU4KQWW2KDUBFunction
     Type: String
     Default: 'serverlessrepo-api-lambda-get-one-dyn-GetOneLambda-VU4KQWW2KDUB'
 
-serverlessrepo-api-lambda-update-dyna-UpdateLambda-129WDJ2OHXILNFunctionName:
+  serverlessrepo-api-lambda-update-dyna-UpdateLambda-129WDJ2OHXILNFunctionName:
     Description: serverlessrepo-api-lambda-update-dyna-UpdateLambda-129WDJ2OHXILN
     Type: String
     Default: 'serverlessrepo-api-lambda-update-dyna-UpdateLambda-129WDJ2OHXILN'
