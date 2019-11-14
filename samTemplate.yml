@@ -1,25 +1,21 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: 'AWS::Serverless-2016-10-31'
-Description: 'Telkom Tzero CloudFormation For AWS Resources Cognito, DynamoDB, Lambda and API Gateway'
-
+Description: 'Telkom Tzero CloudFormation For AWS Resources Cognito,
+              DynamoDB, Lambda and API Gateway'
 Parameters:
-
 # ********** Tzero Cognito "UserPool/ClientID" Parameters- Start **************
   TzeroProducerUserPoolName:
     Description: Producer user pool name
     Type: String
-    Default: 'TzeroProducerUserPool'
-    
+    Default: 'TzeroProducerUserPool'    
   TzeroConsumerUserPoolName:
     Description: Consumer user pool name
     Type: String
-    Default: 'TzeroConsumerUserPool'
-    
+    Default: 'TzeroConsumerUserPool'    
   TzeroProducerAppClientName:
     Description: Producer app client name
     Type: String
     Default: 'TzeroProducerAppClient'
-
   TzeroConsumerAppClientName:
     Description: Consumer App client name
     Type: String
@@ -30,54 +26,44 @@ Parameters:
   TzeroProducerTableName:
     Description:  This table is containing all the producer related informations 
     Type: String
-    Default: 'TzeroProducerTable'
-  
+    Default: 'TzeroProducerTable' 
   TzeroProducerAdvertTableName:
     Description:  This table is containing all the producer Advertisement informations 
     Type: String
     Default: 'TzeroProducerAdvertTable'
-
   TzeroProducerSupportTicketTableName:
     Description: This table contain all the support tickets is been logged by the producer
     Type: String
     Default: 'TzeroProducerSupportTicketTable'
-
   TzeroProducerIndustryTagsTableName:
     Description: This table is used to store Produce Industry informations
     Type: String
     Default: 'TzeroProducerIndustryTagsTable'
-
   TzeroConsumerTableName:
     Description: This table is containing all the consumer related informations
     Type: String
     Default: 'TzeroConsumerTable'
-
   TzeroConsumerTransactionsTableName:
     Description: This table is used for the consumer Transactions details 
     Type: String
     Default: 'TzeroConsumerTransactionsTable'
-
   TzeroConsumerCredentialsTableName:
     Description: This table is used to store consumer login Credentials
     Type: String
     Default: 'TzeroConsumerCredentialsTable'
-
   TzeroConsumerExperiencePointsTableName:
     Description: This table is used to store consumer experience point details
     Type: String
     Default: 'TzeroConsumerExperiencePointsTable'
-
   TzeroSurveyTableName:
     Description: This table is used to store producer survey details
     Type: String
     Default: 'TzeroSurveyTable'
-
   TzeroBusinessRulesTableName:
     Description: 'This table is used to store all the business rules --
     table data is manually imported as per the business rules as configuration'
     Type: String
-    Default: 'TzeroBusinessRulesTable'
-  
+    Default: 'TzeroBusinessRulesTable' 
   ReadCapacityUnits:
     Description: Provisioned read throughput
     Type: Number
@@ -85,7 +71,6 @@ Parameters:
     MinValue: '1'
     MaxValue: '10000'
     ConstraintDescription: must be between 5 and 10000
-
   WriteCapacityUnits:
     Description: Provisioned write throughput
     Type: Number
@@ -93,156 +78,129 @@ Parameters:
     MinValue: '1'
     MaxValue: '10000'
     ConstraintDescription: must be between 5 and 10000
-  
 # ********** Tzero DynamoDB Parameters- End **************
 
-
 # ********** Tzero Lambda Functions Parameters- Start **************
+  EnvName:
+    Type: String
+    Description: Name of an environment. 'dev', 'staging', 'prod' and any name.
+    AllowedPattern: ^.*[^0-9]$
+    ConstraintDescription: Must end with non numeric character.
 
 # Lambda Functions Name
   TzeroRegistrationFunctionName:
     Description: TzeroRegistrationFunction for both Consumer & Producer 
     Type: String
     Default: 'TzeroRegistration'
-
   TzeroConsumerProfileFunctionName:
     Description: TzeroConsumerProfileFunction
     Type: String
-    Default: 'TzeroConsumerProfile'
-    
+    Default: 'TzeroConsumerProfile'    
   TzeroConsumerChangePhoneNumberFunctionName:
     Description: TzeroConsumerChangePhoneNumberFunction
     Type: String
-    Default: 'TzeroConsumerChangePhoneNumber'
-    
+    Default: 'TzeroConsumerChangePhoneNumber'    
   TzeroConsumerAccessFunctionName:
     Description: TzeroConsumerAccessFunction
     Type: String
-    Default: 'TzeroConsumerAccess'
-    
+    Default: 'TzeroConsumerAccess'    
   TzeroConsumerGetDetailsFunctionName:
     Description: TzeroConsumerGetDetailsFunction
     Type: String
     Default: 'TzeroConsumerGetDetails'
-
   TzeroGetConsumerTransactionsFunctionName:
     Description: TzeroGetConsumerTransactionsFunction
     Type: String
-    Default: 'TzeroGetConsumerTransactions'
-    
+    Default: 'TzeroGetConsumerTransactions'   
   TzeroCosumerGetImageAdvertFunctionName:
     Description: TzeroCosumerGetImageAdvertFunction
     Type: String
-    Default: 'TzeroCosumerGetImageAdvert'
-    
+    Default: 'TzeroCosumerGetImageAdvert'   
   TzeroProducerGetAdvertDetailsFunctionName:
     Description: TzeroProducerGetAdvertDetailsFunction
     Type: String
-    Default: 'TzeroProducerGetAdvertDetails'
-    
+    Default: 'TzeroProducerGetAdvertDetails'    
   TzeroDisplayAdvertToConsumersFunctionName:
     Description: TzeroDisplayAdvertToConsumersFunction
     Type: String
-    Default: 'TzeroDisplayAdvertToConsumers'
-    
+    Default: 'TzeroDisplayAdvertToConsumers'    
   TzeroProducerAccountAdministrationFunctionName:
     Description: TzeroProducerAccountAdministrationFunction 
     Type: String
-    Default: 'TzeroProducerAccountAdministration'
-    
+    Default: 'TzeroProducerAccountAdministration'    
   TzeroProducerMarketPlaceFunctionName:
     Description: TzeroProducerMarketPlaceFunction
     Type: String
-    Default: 'TzeroProducerMarketPlace'
-    
+    Default: 'TzeroProducerMarketPlace'    
   TzeroConsumerMarketPlaceFunctionName:
     Description: TzeroConsumerMarketPlaceFunction
     Type: String
-    Default: 'TzeroConsumerMarketPlace'
-    
+    Default: 'TzeroConsumerMarketPlace'    
   TzeroConsumerReportContentFunctionName:
     Description: TzeroConsumerReportContentFunction
     Type: String
-    Default: 'TzeroConsumerReportContent'
-    
+    Default: 'TzeroConsumerReportContent'    
   TzeroProducerSurveyManagementFunctionName:
     Description: TzeroProducerSurveyManagementFunction
     Type: String
-    Default: 'TzeroProducerSurveyManagement'
-    
+    Default: 'TzeroProducerSurveyManagement'    
   TzeroConsumerAdvertViewsLikesUpdateFunctionName:
     Description: TzeroConsumerAdvertViewsLikesUpdateFunction
     Type: String
-    Default: 'TzeroConsumerAdvertViewsLikesUpdate'
-    
+    Default: 'TzeroConsumerAdvertViewsLikesUpdate'    
   TzeroConsumerProfileUpdateFunctionName:
     Description: TzeroConsumerProfileUpdateFunction
     Type: String
     Default: 'TzeroConsumerProfileUpdate'
-    
+  
 # Lambda Function Target S3 key(CodePath) name
   TzeroRegistrationS3Key:
     Description: s3 key name for the lambda package in s3
     Type: String
-    Default: './LambdaCode'
-    
+    Default: './LambdaCode'    
 #Lambda Function Environment Variables
   LambdaTemporaryPassword:
     Type: "String"
-    Default: "Test@09876"
-    
+    Default: "Test@09876"    
   LambdaConfigurationBucket:
     Type: "String"
-    Default: "tzero-telkom-backend-dev"
-    
+    Default: "tzero-telkom-backend-dev"    
   RegistrationConfigPath:
     Type: "String"
-    Default: "Config/TzeroConfig.json"
-    
+    Default: "Config/TzeroConfig.json"    
   CompressedConsumerMediasCloudfrontDomainName:
-     Type: "String"
-     Default: "db8b0orzamzr7.cloudfront.net"
-     
+    Type: "String"
+    Default: "db8b0orzamzr7.cloudfront.net"     
   Region:
     Type: "String"
-    Default: "eu-west-1"
-    
+    Default: "eu-west-1"    
   ProducerMarketPlaceFilePath:
     Type: "String"
-    Default: "Producer/Media/"
-    
+    Default: "Producer/Media/"    
   ProducerMarketPlaceImageUploadUrlExpiry:
     Type: "Number"
-    Default: "900"
-    
+    Default: "900"    
   ProducerMarketPlaceIndustryTagsPath: 
     Type: "String"
-    Default: "Config/IndustriesAndTags.json"
-    
+    Default: "Config/IndustriesAndTags.json"    
   ProducerMarketPlaceMediaFilesBucket:
     Type: "String"
-    Default: "tzero-telkom-backend-dev"
-    
+    Default: "tzero-telkom-backend-dev"    
   ProducerMarketPlaceThumbNailAppend: 
     Type: "String"
-    Default: "-thumbnail.jpg"
-    
+    Default: "-thumbnail.jpg"    
   ConsumerReportContentReceiverEmailAddress:
     Type: "String"
-    Default: "engg.anuragshukla@gmail.com"
-    
+    Default: "engg.anuragshukla@gmail.com"    
   ConsumerReportContentReportingThreshold:
     Type: "Number"
-    Default: 5
-    
+    Default: 5    
   ConsumerReportContentSenderEmailAddress:
     Type: "String"
-    Default: "tzero@telkom.co.za"
-    
+    Default: "tzero@telkom.co.za"    
 # ********** Tzero Lambda Functions Parameters- End **************
 
 Resources:
-
 # ********** Tzero Cognito "UserPool/ClientID" Resource- Start**************
 # TRIGGER NEED TO BE ADDED IN THIS CF 
 # Producer pool & AppClient creation
@@ -279,15 +237,13 @@ Resources:
         RequireNumbers: True
         RequireSymbols: False
         RequireUppercase: True
-
   TzeroProducerAppClient:
     Type: "AWS::Cognito::UserPoolClient"
     Properties:
      ClientName: !Ref "TzeroProducerAppClientName"
      GenerateSecret: False
      UserPoolId:
-       Ref: TzeroProducerUserPool
-       
+       Ref: TzeroProducerUserPool       
 # Consumer pool & Client creation
   TzeroConsumerUserPool:
     Type: AWS::Cognito::UserPool
@@ -316,7 +272,6 @@ Resources:
         RequireNumbers: True
         RequireSymbols: False
         RequireUppercase: True
-
   TzeroConsumerAppClient:
     Type: "AWS::Cognito::UserPoolClient"
     Properties:
@@ -324,9 +279,7 @@ Resources:
      GenerateSecret: False
      UserPoolId:
        Ref: TzeroConsumerUserPool
-
 # ********** Tzero Cognito "UserPool/ClientID" Resource- End**************
-
 
 # ********** DynamoDB Resource creation- Start**************
   TzeroProducerTable:
@@ -342,7 +295,6 @@ Resources:
       ProvisionedThroughput:
         ReadCapacityUnits: !Ref 'ReadCapacityUnits'
         WriteCapacityUnits: !Ref 'WriteCapacityUnits'
-
   TzeroProducerAdvertTable:
     Type: AWS::DynamoDB::Table
     Properties:
@@ -356,7 +308,6 @@ Resources:
       ProvisionedThroughput:
         ReadCapacityUnits: !Ref 'ReadCapacityUnits'
         WriteCapacityUnits: !Ref 'WriteCapacityUnits'
-
   TzeroProducerSupportTicketTable:
     Type: AWS::DynamoDB::Table
     Properties:
@@ -369,8 +320,7 @@ Resources:
       TableName: !Ref "TzeroProducerSupportTicketTableName"
       ProvisionedThroughput:
         ReadCapacityUnits: !Ref 'ReadCapacityUnits'
-        WriteCapacityUnits: !Ref 'WriteCapacityUnits'
-  
+        WriteCapacityUnits: !Ref 'WriteCapacityUnits'  
   TzeroProducerIndustryTagsTable:
     Type: AWS::DynamoDB::Table
     Properties:
@@ -384,7 +334,6 @@ Resources:
       ProvisionedThroughput:
         ReadCapacityUnits: !Ref 'ReadCapacityUnits'
         WriteCapacityUnits: !Ref 'WriteCapacityUnits'
-
   TzeroConsumerTable:
     Type: AWS::DynamoDB::Table
     Properties:
@@ -402,7 +351,6 @@ Resources:
       ProvisionedThroughput:
         ReadCapacityUnits: !Ref 'ReadCapacityUnits'
         WriteCapacityUnits: !Ref 'WriteCapacityUnits'
-
   TzeroConsumerTransactionsTable:
     Type: AWS::DynamoDB::Table
     Properties:
@@ -420,7 +368,6 @@ Resources:
       ProvisionedThroughput:
         ReadCapacityUnits: !Ref 'ReadCapacityUnits'
         WriteCapacityUnits: !Ref 'WriteCapacityUnits'
-
   TzeroConsumerCredentialsTable:
     Type: AWS::DynamoDB::Table
     Properties:
@@ -434,7 +381,6 @@ Resources:
       ProvisionedThroughput:
         ReadCapacityUnits: !Ref 'ReadCapacityUnits'
         WriteCapacityUnits: !Ref 'WriteCapacityUnits'
-
   TzeroConsumerExperiencePointsTable:
     Type: AWS::DynamoDB::Table
     Properties:
@@ -448,7 +394,6 @@ Resources:
       ProvisionedThroughput:
         ReadCapacityUnits: !Ref 'ReadCapacityUnits'
         WriteCapacityUnits: !Ref 'WriteCapacityUnits'
-
   TzeroSurveyTable:
     Type: AWS::DynamoDB::Table
     Properties:
@@ -462,7 +407,6 @@ Resources:
       ProvisionedThroughput:
         ReadCapacityUnits: !Ref 'ReadCapacityUnits'
         WriteCapacityUnits: !Ref 'WriteCapacityUnits'
-
   TzeroBusinessRulesTable:
     Type: AWS::DynamoDB::Table
     Properties:
@@ -476,17 +420,43 @@ Resources:
       ProvisionedThroughput:
         ReadCapacityUnits: !Ref 'ReadCapacityUnits'
         WriteCapacityUnits: !Ref 'WriteCapacityUnits'
-
 # ********** DynamoDB Resource creation- End**************
 
 # ********** Tzero Lambda Function Resource- Start**************
+# Lambda Function IAM Role Creation
+  TzeroLambdaRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName:
+        Fn::Sub: TzeroLambdaRole
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action:
+            - sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service:
+              - lambda.amazonaws.com
+        Version: 2012-10-17
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AWSLambdaExecute
+        - arn:aws:iam::aws:policy/AmazonS3FullAccess
+        - arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess
+        - arn:aws:iam::aws:policy/AmazonKinesisFullAccess
+      Path: /
   TzeroRegistration:
     Type: "AWS::Serverless::Function"
     Properties:
+      FunctionName:
+        Fn::Sub: ${EnvName}_TzeroRegistration
       Description: "TzeroRegistration"
       FunctionName: !Ref "TzeroRegistrationFunctionName"
       Handler: "index.handler"
-      Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
+#      Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
+      Role:
+        fn::GetAtt:
+          - TzeroLambdaRole
+          - Arn    
       CodeUri: ./LambdaCode
       Runtime: "python3.7"
       Environment:
@@ -500,7 +470,6 @@ Resources:
           Region: !Ref "Region"
       MemorySize: 128
       Timeout: 25
-
   TzeroConsumerProfile:
     Type: "AWS::Serverless::Function"
     Properties:
@@ -516,7 +485,6 @@ Resources:
           Region: !Ref "Region"
       MemorySize: 128
       Timeout: 25
-
   TzeroConsumerChangePhoneNumber:
     Type: "AWS::Serverless::Function"
     Properties:
@@ -533,8 +501,6 @@ Resources:
           Region: !Ref "Region"
       MemorySize: 128
       Timeout: 25             
-
-
   TzeroConsumerAccess:
     Type: "AWS::Serverless::Function"
     Properties:
@@ -552,10 +518,9 @@ Resources:
           ConsumerUserPool: !Ref "TzeroConsumerUserPool"
           TempPass: !Ref "LambdaTemporaryPassword"
           Region: !Ref "Region"
-#          UpdateRewardsLambda: Lambda Name "ConsumerRewardManagement-Dev" needs to be created
+  #          UpdateRewardsLambda: Lambda Name "ConsumerRewardManagement-Dev" needs to be created
       MemorySize: 128
-      Timeout: 25
-      
+      Timeout: 25      
   TzeroConsumerGetDetails:
     Type: "AWS::Serverless::Function"
     Properties:
@@ -574,7 +539,6 @@ Resources:
           Region: !Ref "Region"
       MemorySize: 128
       Timeout: 25
-
   TzeroGetConsumerTransactions:
     Type: "AWS::Serverless::Function"
     Properties:
@@ -591,7 +555,6 @@ Resources:
           Region: !Ref "Region"
       MemorySize: 128
       Timeout: 25
-
   TzeroCosumerGetImageAdvert:
     Type: "AWS::Serverless::Function"
     Properties:
@@ -609,7 +572,6 @@ Resources:
           Region: !Ref "Region"
       MemorySize: 128
       Timeout: 25
-
   TzeroProducerGetAdvertDetails:
     Type: "AWS::Serverless::Function"
     Properties:
@@ -625,8 +587,7 @@ Resources:
           ProducerInfoTable: !Ref "TzeroProducerTable"
           Region: !Ref "Region"
       MemorySize: 128
-      Timeout: 25
-      
+      Timeout: 25      
   TzeroDisplayAdvertToConsumers:
     Type: "AWS::Serverless::Function"
     Properties:
@@ -644,8 +605,7 @@ Resources:
           ProducerTable: !Ref "TzeroProducerTable"
           Region: !Ref "Region"
       MemorySize: 128
-      Timeout: 25
-      
+      Timeout: 25      
   TzeroProducerAccountAdministration:
     Type: "AWS::Serverless::Function"
     Properties:
@@ -662,8 +622,7 @@ Resources:
           ProducerTable: !Ref "TzeroProducerTable"
           Region: !Ref "Region"
       MemorySize: 128
-      Timeout: 25
-      
+      Timeout: 25      
   TzeroProducerMarketPlace:
     Type: "AWS::Serverless::Function"
     Properties:
@@ -687,7 +646,6 @@ Resources:
           Region: !Ref "Region"
       MemorySize: 128
       Timeout: 25
-
   TzeroConsumerMarketPlace:
     Type: "AWS::Serverless::Function"
     Properties:
@@ -706,7 +664,6 @@ Resources:
           Region: !Ref "Region"
       MemorySize: 128
       Timeout: 25
-
   TzeroConsumerReportContent:
     Type: "AWS::Serverless::Function"
     Properties:
@@ -725,46 +682,62 @@ Resources:
           Region: !Ref "Region"
       MemorySize: 128
       Timeout: 25
-
-  # TzeroProducerSurveyManagement:
-    # Type: "AWS::Serverless::Function"
-    # Properties:
-      # Description: "TzeroProducerSurveyManagement"
-      # FunctionName: !Ref "TzeroProducerSurveyManagementFunctionName"
-      # Handler: "index.handler"
-      # Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
-      # CodeUri: ./LambdaCode
-      # Runtime: "python3.7"
-
-      # MemorySize: 128
-      # Timeout: 25
-      
-  # TzeroConsumerAdvertViewsLikesUpdate:
-    # Type: "AWS::Serverless::Function"
-    # Properties:
-      # Description: "TzeroConsumerAdvertViewsLikesUpdate"
-      # FunctionName: !Ref "TzeroConsumerAdvertViewsLikesUpdateFunctionName"
-      # Handler: "index.handler"
-      # Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
-      # CodeUri: ./LambdaCode
-      # Runtime: "python3.7"
-
-      # MemorySize: 128
-      # Timeout: 25
-      
-  # TzeroConsumerProfileUpdate:
-    # Type: "AWS::Serverless::Function"
-    # Properties:
-      # Description: "TzeroConsumerProfileUpdate"
-      # FunctionName: !Ref "TzeroConsumerProfileUpdateFunctionName"
-      # Handler: "index.handler"
-      # Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
-      # CodeUri: ./LambdaCode
-      # Runtime: "python3.7"
-
-      # MemorySize: 128
-      # Timeout: 25
-
+  TzeroProducerSurveyManagement:
+    Type: "AWS::Serverless::Function"
+    Properties:
+      Description: "TzeroProducerSurveyManagement"
+      FunctionName: !Ref "TzeroProducerSurveyManagementFunctionName"
+      Handler: "index.handler"
+      Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
+      CodeUri: ./LambdaCode
+      Runtime: "python3.7"
+      Environment:
+        Variables:
+          ProducerTable: !Ref "TzeroProducerTable"
+          SurveyTable: !Ref TzeroSurveyTable
+          Region: !Ref "Region"
+      MemorySize: 128
+      Timeout: 25      
+  TzeroConsumerAdvertViewsLikesUpdate:
+    Type: "AWS::Serverless::Function"
+    Properties:
+      Description: "TzeroConsumerAdvertViewsLikesUpdate"
+      FunctionName: !Ref "TzeroConsumerAdvertViewsLikesUpdateFunctionName"
+      Handler: "index.handler"
+      Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
+      CodeUri: ./LambdaCode
+      Runtime: "python3.7"
+      Environment:
+        Variables:
+          ConsumerInfoTable: !Ref "TzeroConsumerTable"
+          ProducerAdsTable: !Ref "TzeroProducerAdvertTable"
+          Region: !Ref "Region"
+      MemorySize: 128
+      Timeout: 25      
+  TzeroConsumerProfileUpdate:
+    Type: "AWS::Serverless::Function"
+    Properties:
+      Description: "TzeroConsumerProfileUpdate"
+      FunctionName: !Ref "TzeroConsumerProfileUpdateFunctionName"
+      Handler: "index.handler"
+      Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
+      CodeUri: ./LambdaCode
+      Runtime: "python3.7"
+      Environment:
+        Variables:
+#          AssumeRoleArn: arn:aws:iam::299869144443:role/Tzero-Roles-TzeroStsAssumeRole-EA88CQ4J1JAR
+          AssumeRoleExpiry: 1000
+          BusinessRulesTable: !Ref "TzeroBusinessRulesTable"
+          ConsumerInfoTable: !Ref "TzeroConsumerTable"
+          ConsumerPredefinedMediaPath: Consumer/Media/predefined-business-rules/
+          ConsumerTransactionsTable: !Ref "TzeroConsumerTransactionsTable"
+          FilePath: Producer/Media/
+          ProducerAdsTable: !Ref "TzeroProducerAdvertTable"
+          ProducerInfoTable:!Ref "TzeroProducerTable"
+          ProducerMediaBucket: tzero-telkom-backend-dev
+          Region: !Ref "Region"
+      MemorySize: 128
+      Timeout: 25
 # ********** Tzero Lambda Function Resource- End**************
 
 # ********** Tzero Lambda Function Output - Start**************
