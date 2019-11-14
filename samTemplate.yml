@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: 'AWS::Serverless-2016-10-31'
-Description: Telkom Tzero Lambda
+Description: Telkom Tzero CloudFormation For AWS Resources : Cognito, DynamoDB, Lambda and API Gateway
 Parameters:
 
 # ********** Tzero Cognito "UserPool/ClientID" Parameters- Start **************
@@ -272,37 +272,20 @@ Parameters:
     
 #Lambda Function Environment Variables
   ConsumerClientId:
-      Type: "String"
-      Default: "45lajldmbah9731rfa6n1p7s01"
-
+    Type: "String"
   ProducerClientId:
-      Type: "String"
-      Default: "2bgkrbjfq4suf57k3ac1jvdlmo"
-
-  ProducerPoolId:
-      Type: "String"
-      Default: "eu-west-1_dcCfZIzzl"
-      
-  ConsumerPoolId:
-      Type: "String"
-      Default: "eu-west-1_3dZObG9HF"
-
+    Type: "String"
+  ProducerPoolID:
+    Type: "String"
   TempPass:
-      Type: "String"
-      Default: "Test@09876"
-  
-  LambdaConfigFileBucket:
-      Type: "String"
-      Default: "tzero-lambda-configuration-bucket"
-
-  LambdaConfigFilePath:
-      Type: "String"
-      Default: "Config/TzeroConfig.json"
-      
-  ConsumerTableName:
-      Type: "String"
-      Default: "TzeroConsumerCredentialsTable"
-  
+    Type: "String"
+    Default: "Test@09876"
+  ConfigBucket:
+    Type: "String"
+    Default: "tzero-telkom-backend-dev"
+  Configpath:
+    Type: "String"
+     Default: "Config/TzeroConfig.json"
     
 # ********** Tzero Lambda Functions Parameters- End **************
 
@@ -554,216 +537,223 @@ Resources:
       Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
       CodeUri: ./LambdaCode
       Runtime: "python3.7"
-
+      Environment:
+        Variables:
+          ConsumerClientId: !Ref "TzeroConsumerAppClient"
+          ProducerClientId: !Ref "TzeroProducerAppClient"
+          ProducerPoolID: !Ref "TzeroProducerUserPool"
+          TempPass: "Test@09876"
+          ConfigBucket: "tzero-telkom-backend-dev"
+          Configpath: Config/TzeroConfig.json
       MemorySize: 128
       Timeout: 25
 
-  TzeroConsumerProfile:
-    Type: "AWS::Serverless::Function"
-    Properties:
-      Description: "TzeroConsumerProfile"
-      FunctionName: !Ref "TzeroConsumerProfileFunctionName"
-      Handler: "index.handler"
-      Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
-      CodeUri: ./LambdaCode
-      Runtime: "python3.7"
+  # TzeroConsumerProfile:
+    # Type: "AWS::Serverless::Function"
+    # Properties:
+      # Description: "TzeroConsumerProfile"
+      # FunctionName: !Ref "TzeroConsumerProfileFunctionName"
+      # Handler: "index.handler"
+      # Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
+      # CodeUri: ./LambdaCode
+      # Runtime: "python3.7"
 
-      MemorySize: 128
-      Timeout: 25
+      # MemorySize: 128
+      # Timeout: 25
 
-  TzeroConsumerChangePhoneNumber:
-    Type: "AWS::Serverless::Function"
-    Properties:
-      Description: "TzeroConsumerChangePhoneNumber"
-      FunctionName: !Ref "TzeroConsumerChangePhoneNumberFunctionName"
-      Handler: "index.handler"
-      Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
-      CodeUri: ./LambdaCode
-      Runtime: "python3.7"
+  # TzeroConsumerChangePhoneNumber:
+    # Type: "AWS::Serverless::Function"
+    # Properties:
+      # Description: "TzeroConsumerChangePhoneNumber"
+      # FunctionName: !Ref "TzeroConsumerChangePhoneNumberFunctionName"
+      # Handler: "index.handler"
+      # Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
+      # CodeUri: ./LambdaCode
+      # Runtime: "python3.7"
 
 
-  TzeroConsumerAccess:
-    Type: "AWS::Serverless::Function"
-    Properties:
-      Description: "TzeroConsumerAccess"
-      FunctionName: !Ref "TzeroConsumerAccessFunctionName"
-      Handler: "index.handler"
-      Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
-      CodeUri: ./LambdaCode
-      Runtime: "python3.7"
+  # TzeroConsumerAccess:
+    # Type: "AWS::Serverless::Function"
+    # Properties:
+      # Description: "TzeroConsumerAccess"
+      # FunctionName: !Ref "TzeroConsumerAccessFunctionName"
+      # Handler: "index.handler"
+      # Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
+      # CodeUri: ./LambdaCode
+      # Runtime: "python3.7"
 
-      MemorySize: 128
-      Timeout: 25
+      # MemorySize: 128
+      # Timeout: 25
       
-  TzeroConsumerGetDetails:
-    Type: "AWS::Serverless::Function"
-    Properties:
-      Description: "TzeroConsumerGetDetails"
-      FunctionName: !Ref "TzeroConsumerGetDetailsFunctionName"
-      Handler: "index.handler"
-      Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
-      CodeUri: ./LambdaCode
-      Runtime: "python3.7"
+  # TzeroConsumerGetDetails:
+    # Type: "AWS::Serverless::Function"
+    # Properties:
+      # Description: "TzeroConsumerGetDetails"
+      # FunctionName: !Ref "TzeroConsumerGetDetailsFunctionName"
+      # Handler: "index.handler"
+      # Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
+      # CodeUri: ./LambdaCode
+      # Runtime: "python3.7"
 
-      MemorySize: 128
-      Timeout: 25
+      # MemorySize: 128
+      # Timeout: 25
 
-  TzeroGetConsumerTransactions:
-    Type: "AWS::Serverless::Function"
-    Properties:
-      Description: "TzeroGetConsumerTransactions"
-      FunctionName: !Ref "TzeroGetConsumerTransactionsFunctionName"
-      Handler: "index.handler"
-      Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
-      CodeUri: ./LambdaCode
-      Runtime: "python3.7"
+  # TzeroGetConsumerTransactions:
+    # Type: "AWS::Serverless::Function"
+    # Properties:
+      # Description: "TzeroGetConsumerTransactions"
+      # FunctionName: !Ref "TzeroGetConsumerTransactionsFunctionName"
+      # Handler: "index.handler"
+      # Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
+      # CodeUri: ./LambdaCode
+      # Runtime: "python3.7"
 
-      MemorySize: 128
-      Timeout: 25
+      # MemorySize: 128
+      # Timeout: 25
       
-  TzeroConsumerTransactions:
-    Type: "AWS::Serverless::Function"
-    Properties:
-      Description: "TzeroConsumerTransactions"
-      FunctionName: !Ref "TzeroConsumerTransactionsFunctionName"
-      Handler: "index.handler"
-      Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
-      CodeUri: ./LambdaCode
-      Runtime: "python3.7"
+  # TzeroConsumerTransactions:
+    # Type: "AWS::Serverless::Function"
+    # Properties:
+      # Description: "TzeroConsumerTransactions"
+      # FunctionName: !Ref "TzeroConsumerTransactionsFunctionName"
+      # Handler: "index.handler"
+      # Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
+      # CodeUri: ./LambdaCode
+      # Runtime: "python3.7"
 
 
-      MemorySize: 128
-      Timeout: 25
+      # MemorySize: 128
+      # Timeout: 25
       
-  TzeroCosumerGetImageAdvert:
-    Type: "AWS::Serverless::Function"
-    Properties:
-      Description: "TzeroCosumerGetImageAdvert"
-      FunctionName: !Ref "TzeroCosumerGetImageAdvertFunctionName"
-      Handler: "index.handler"
-      Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
-      CodeUri: ./LambdaCode
-      Runtime: "python3.7"
+  # TzeroCosumerGetImageAdvert:
+    # Type: "AWS::Serverless::Function"
+    # Properties:
+      # Description: "TzeroCosumerGetImageAdvert"
+      # FunctionName: !Ref "TzeroCosumerGetImageAdvertFunctionName"
+      # Handler: "index.handler"
+      # Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
+      # CodeUri: ./LambdaCode
+      # Runtime: "python3.7"
 
-      MemorySize: 128
-      Timeout: 25
+      # MemorySize: 128
+      # Timeout: 25
 
-  TzeroProducerGetAdvertDetails:
-    Type: "AWS::Serverless::Function"
-    Properties:
-      Description: "TzeroProducerGetAdvertDetails"
-      FunctionName: !Ref "TzeroProducerGetAdvertDetailsFunctionName"
-      Handler: "index.handler"
-      Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
-      CodeUri: ./LambdaCode
-      Runtime: "python3.7"
+  # TzeroProducerGetAdvertDetails:
+    # Type: "AWS::Serverless::Function"
+    # Properties:
+      # Description: "TzeroProducerGetAdvertDetails"
+      # FunctionName: !Ref "TzeroProducerGetAdvertDetailsFunctionName"
+      # Handler: "index.handler"
+      # Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
+      # CodeUri: ./LambdaCode
+      # Runtime: "python3.7"
 
-      MemorySize: 128
-      Timeout: 25
+      # MemorySize: 128
+      # Timeout: 25
       
-  TzeroDisplayAdvertToConsumers:
-    Type: "AWS::Serverless::Function"
-    Properties:
-      Description: "TzeroDisplayAdvertToConsumers"
-      FunctionName: !Ref "TzeroDisplayAdvertToConsumersFunctionName"
-      Handler: "index.handler"
-      Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
-      CodeUri: ./LambdaCode
-      Runtime: "python3.7"
+  # TzeroDisplayAdvertToConsumers:
+    # Type: "AWS::Serverless::Function"
+    # Properties:
+      # Description: "TzeroDisplayAdvertToConsumers"
+      # FunctionName: !Ref "TzeroDisplayAdvertToConsumersFunctionName"
+      # Handler: "index.handler"
+      # Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
+      # CodeUri: ./LambdaCode
+      # Runtime: "python3.7"
 
-      MemorySize: 128
-      Timeout: 25
+      # MemorySize: 128
+      # Timeout: 25
       
-  TzeroProducerAccountAdministration:
-    Type: "AWS::Serverless::Function"
-    Properties:
-      Description: "TzeroProducerAccountAdministration"
-      FunctionName: !Ref "TzeroProducerAccountAdministrationFunctionName"
-      Handler: "index.handler"
-      Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
-      CodeUri: ./LambdaCode
-      Runtime: "python3.7"
+  # TzeroProducerAccountAdministration:
+    # Type: "AWS::Serverless::Function"
+    # Properties:
+      # Description: "TzeroProducerAccountAdministration"
+      # FunctionName: !Ref "TzeroProducerAccountAdministrationFunctionName"
+      # Handler: "index.handler"
+      # Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
+      # CodeUri: ./LambdaCode
+      # Runtime: "python3.7"
 
-      MemorySize: 128
-      Timeout: 25
+      # MemorySize: 128
+      # Timeout: 25
       
-  TzeroProducerMarketPlace:
-    Type: "AWS::Serverless::Function"
-    Properties:
-      Description: "TzeroProducerMarketPlace"
-      FunctionName: !Ref "TzeroProducerMarketPlaceFunctionName"
-      Handler: "index.handler"
-      Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
-      CodeUri: ./LambdaCode
-      Runtime: "python3.7"
+  # TzeroProducerMarketPlace:
+    # Type: "AWS::Serverless::Function"
+    # Properties:
+      # Description: "TzeroProducerMarketPlace"
+      # FunctionName: !Ref "TzeroProducerMarketPlaceFunctionName"
+      # Handler: "index.handler"
+      # Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
+      # CodeUri: ./LambdaCode
+      # Runtime: "python3.7"
 
-      MemorySize: 128
-      Timeout: 25
+      # MemorySize: 128
+      # Timeout: 25
       
-  TzeroConsumerMarketPlace:
-    Type: "AWS::Serverless::Function"
-    Properties:
-      Description: "TzeroConsumerMarketPlace"
-      FunctionName: !Ref "TzeroConsumerMarketPlaceFunctionName"
-      Handler: "index.handler"
-      Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
-      CodeUri: ./LambdaCode
-      Runtime: "python3.7"
+  # TzeroConsumerMarketPlace:
+    # Type: "AWS::Serverless::Function"
+    # Properties:
+      # Description: "TzeroConsumerMarketPlace"
+      # FunctionName: !Ref "TzeroConsumerMarketPlaceFunctionName"
+      # Handler: "index.handler"
+      # Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
+      # CodeUri: ./LambdaCode
+      # Runtime: "python3.7"
 
-      MemorySize: 128
-      Timeout: 25
+      # MemorySize: 128
+      # Timeout: 25
 
-  TzeroConsumerReportContent:
-    Type: "AWS::Serverless::Function"
-    Properties:
-      Description: "TzeroConsumerReportContent"
-      FunctionName: !Ref "TzeroConsumerReportContentFunctionName"
-      Handler: "index.handler"
-      Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
-      CodeUri: ./LambdaCode
-      Runtime: "python3.7"
+  # TzeroConsumerReportContent:
+    # Type: "AWS::Serverless::Function"
+    # Properties:
+      # Description: "TzeroConsumerReportContent"
+      # FunctionName: !Ref "TzeroConsumerReportContentFunctionName"
+      # Handler: "index.handler"
+      # Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
+      # CodeUri: ./LambdaCode
+      # Runtime: "python3.7"
 
-      MemorySize: 128
-      Timeout: 25
+      # MemorySize: 128
+      # Timeout: 25
 
-  TzeroProducerSurveyManagement:
-    Type: "AWS::Serverless::Function"
-    Properties:
-      Description: "TzeroProducerSurveyManagement"
-      FunctionName: !Ref "TzeroProducerSurveyManagementFunctionName"
-      Handler: "index.handler"
-      Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
-      CodeUri: ./LambdaCode
-      Runtime: "python3.7"
+  # TzeroProducerSurveyManagement:
+    # Type: "AWS::Serverless::Function"
+    # Properties:
+      # Description: "TzeroProducerSurveyManagement"
+      # FunctionName: !Ref "TzeroProducerSurveyManagementFunctionName"
+      # Handler: "index.handler"
+      # Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
+      # CodeUri: ./LambdaCode
+      # Runtime: "python3.7"
 
-      MemorySize: 128
-      Timeout: 25
+      # MemorySize: 128
+      # Timeout: 25
       
-  TzeroConsumerAdvertViewsLikesUpdate:
-    Type: "AWS::Serverless::Function"
-    Properties:
-      Description: "TzeroConsumerAdvertViewsLikesUpdate"
-      FunctionName: !Ref "TzeroConsumerAdvertViewsLikesUpdateFunctionName"
-      Handler: "index.handler"
-      Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
-      CodeUri: ./LambdaCode
-      Runtime: "python3.7"
+  # TzeroConsumerAdvertViewsLikesUpdate:
+    # Type: "AWS::Serverless::Function"
+    # Properties:
+      # Description: "TzeroConsumerAdvertViewsLikesUpdate"
+      # FunctionName: !Ref "TzeroConsumerAdvertViewsLikesUpdateFunctionName"
+      # Handler: "index.handler"
+      # Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
+      # CodeUri: ./LambdaCode
+      # Runtime: "python3.7"
 
-      MemorySize: 128
-      Timeout: 25
+      # MemorySize: 128
+      # Timeout: 25
       
-  TzeroConsumerProfileUpdate:
-    Type: "AWS::Serverless::Function"
-    Properties:
-      Description: "TzeroConsumerProfileUpdate"
-      FunctionName: !Ref "TzeroConsumerProfileUpdateFunctionName"
-      Handler: "index.handler"
-      Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
-      CodeUri: ./LambdaCode
-      Runtime: "python3.7"
+  # TzeroConsumerProfileUpdate:
+    # Type: "AWS::Serverless::Function"
+    # Properties:
+      # Description: "TzeroConsumerProfileUpdate"
+      # FunctionName: !Ref "TzeroConsumerProfileUpdateFunctionName"
+      # Handler: "index.handler"
+      # Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
+      # CodeUri: ./LambdaCode
+      # Runtime: "python3.7"
 
-      MemorySize: 128
-      Timeout: 25
+      # MemorySize: 128
+      # Timeout: 25
 
 # ********** Tzero Lambda Function Resource- End**************
 
