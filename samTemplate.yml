@@ -271,21 +271,24 @@ Parameters:
     Default: 'backend/Producer/Registration/Tzero-Producer-Registration.zip'
     
 #Lambda Function Environment Variables
-  ConsumerClientId:
-    Type: "String"
-  ProducerClientId:
-    Type: "String"
-  ProducerPoolID:
-    Type: "String"
-  TempPass:
-    Type: "String"
-    Default: "Test@09876"
-  ConfigBucket:
-    Type: "String"
-    Default: "tzero-telkom-backend-dev"
-  Configpath:
-    Type: "String"
-    Default: "Config/TzeroConfig.json"
+  # ConsumerClientId:
+    # Type: "String"
+    # Default: "45lajldmbah9731rfa6n1p7s01"
+  # ProducerClientId:
+    # Type: "String"
+    # Default: "Test@09876"
+  # ProducerPoolID:
+    # Type: "String"
+    # Default: "Test@09876"
+  # TempPass:
+    # Type: "String"
+    # Default: "Test@09876"
+  # ConfigBucket:
+    # Type: "String"
+    # Default: "tzero-telkom-backend-dev"
+  # Configpath:
+    # Type: "String"
+    # Default: "Config/TzeroConfig.json"
     
 # ********** Tzero Lambda Functions Parameters- End **************
 
@@ -758,5 +761,22 @@ Resources:
 # ********** Tzero Lambda Function Resource- End**************
 
 # ********** Tzero Lambda Function Output - Start**************
-      
+Outputs:
+  TzeroProducerUserPoolId:
+    Value: !Ref TzeroProducerUserPool
+#    Export:
+#      Name: "TzeroProducerUserPoolId"
+  TzeroConsumerUserPoolId:
+    Value: !Ref TzeroConsumerUserPool
+#    Export:
+#      Name: "TzeroConsumerUserPoolId"
+  TzeroProducerAppClientId:
+    Value: !Ref TzeroProducerAppClient
+#    Export:
+#      Name: "TzeroProducerAppClientId"
+  TzeroConsumerAppClientId:
+    Value: !Ref TzeroConsumerAppClient
+#    Export:
+#      Name: "TzeroConsumerAppClientId"
+
  # ********** Tzero Lambda Function Output- End**************
