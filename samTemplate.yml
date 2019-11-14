@@ -9,10 +9,7 @@ Parameters:
     AllowedPattern: ^.*[^0-9]$
     ConstraintDescription: Must end with non numeric character.
     Type: String
-    AllowedValues:
-      - Dev
-      - Test
-      - Prod
+    Default: "Dev"
   TzeroProducerUserPoolName:
     Description: Producer user pool name
     Type: String
@@ -32,47 +29,6 @@ Parameters:
 # ********** Tzero Cognito "UserPool/ClientID" Parameters- End **************
 
 # ********** Tzero DynamoDB Parameters -Start **************
-  TzeroProducerTableName:
-    Description:  This table is containing all the producer related informations 
-    Type: String
-    Default: 'TzeroProducerTable' 
-  TzeroProducerAdvertTableName:
-    Description:  This table is containing all the producer Advertisement informations 
-    Type: String
-    Default: 'TzeroProducerAdvertTable'
-  TzeroProducerSupportTicketTableName:
-    Description: This table contain all the support tickets is been logged by the producer
-    Type: String
-    Default: 'TzeroProducerSupportTicketTable'
-  TzeroProducerIndustryTagsTableName:
-    Description: This table is used to store Produce Industry informations
-    Type: String
-    Default: 'TzeroProducerIndustryTagsTable'
-  TzeroConsumerTableName:
-    Description: This table is containing all the consumer related informations
-    Type: String
-    Default: 'TzeroConsumerTable'
-  TzeroConsumerTransactionsTableName:
-    Description: This table is used for the consumer Transactions details 
-    Type: String
-    Default: 'TzeroConsumerTransactionsTable'
-  TzeroConsumerCredentialsTableName:
-    Description: This table is used to store consumer login Credentials
-    Type: String
-    Default: 'TzeroConsumerCredentialsTable'
-  TzeroConsumerExperiencePointsTableName:
-    Description: This table is used to store consumer experience point details
-    Type: String
-    Default: 'TzeroConsumerExperiencePointsTable'
-  TzeroSurveyTableName:
-    Description: This table is used to store producer survey details
-    Type: String
-    Default: 'TzeroSurveyTable'
-  TzeroBusinessRulesTableName:
-    Description: 'This table is used to store all the business rules --
-    table data is manually imported as per the business rules as configuration'
-    Type: String
-    Default: 'TzeroBusinessRulesTable' 
   ReadCapacityUnits:
     Description: Provisioned read throughput
     Type: Number
@@ -229,7 +185,7 @@ Resources:
       AttributeDefinitions:
       - AttributeName: producerID
         AttributeType: S
-      TableName: !Ref "TzeroProducerTableName"
+      TableName: !Sub ${EnvName}_TzeroProducerTable
       ProvisionedThroughput:
         ReadCapacityUnits: !Ref 'ReadCapacityUnits'
         WriteCapacityUnits: !Ref 'WriteCapacityUnits'
@@ -242,7 +198,7 @@ Resources:
       AttributeDefinitions:
       - AttributeName: advertisement_id
         AttributeType: N
-      TableName: !Ref "TzeroProducerAdvertTableName"
+      TableName: !Sub ${EnvName}_TzeroProducerAdvertTable
       ProvisionedThroughput:
         ReadCapacityUnits: !Ref 'ReadCapacityUnits'
         WriteCapacityUnits: !Ref 'WriteCapacityUnits'
@@ -255,7 +211,7 @@ Resources:
       AttributeDefinitions:
       - AttributeName: supportTicketID
         AttributeType: N
-      TableName: !Ref "TzeroProducerSupportTicketTableName"
+      TableName: !Sub ${EnvName}_TzeroProducerSupportTicketTable
       ProvisionedThroughput:
         ReadCapacityUnits: !Ref 'ReadCapacityUnits'
         WriteCapacityUnits: !Ref 'WriteCapacityUnits'  
@@ -268,7 +224,7 @@ Resources:
       AttributeDefinitions:
       - AttributeName: Industry
         AttributeType: S
-      TableName: !Ref "TzeroProducerIndustryTagsTableName"
+      TableName: !Sub ${EnvName}_TzeroProducerIndustryTagsTable
       ProvisionedThroughput:
         ReadCapacityUnits: !Ref 'ReadCapacityUnits'
         WriteCapacityUnits: !Ref 'WriteCapacityUnits'
@@ -285,7 +241,7 @@ Resources:
         AttributeType: S
       - AttributeName: Phone_Number
         AttributeType: S
-      TableName: !Ref "TzeroConsumerTableName"
+      TableName: !Sub ${EnvName}_TzeroConsumerTable
       ProvisionedThroughput:
         ReadCapacityUnits: !Ref 'ReadCapacityUnits'
         WriteCapacityUnits: !Ref 'WriteCapacityUnits'
@@ -302,7 +258,7 @@ Resources:
         AttributeType: S
       - AttributeName: Phone_Number
         AttributeType: S
-      TableName: !Ref "TzeroConsumerTransactionsTableName"
+      TableName: !Sub ${EnvName}_TzeroConsumerTransactionsTable
       ProvisionedThroughput:
         ReadCapacityUnits: !Ref 'ReadCapacityUnits'
         WriteCapacityUnits: !Ref 'WriteCapacityUnits'
@@ -315,7 +271,7 @@ Resources:
       AttributeDefinitions:
       - AttributeName: User_Name
         AttributeType: S
-      TableName: !Ref "TzeroConsumerCredentialsTableName"
+      TableName: !Sub ${EnvName}_TzeroConsumerCredentialsTable
       ProvisionedThroughput:
         ReadCapacityUnits: !Ref 'ReadCapacityUnits'
         WriteCapacityUnits: !Ref 'WriteCapacityUnits'
@@ -328,7 +284,7 @@ Resources:
       AttributeDefinitions:
       - AttributeName: transactionId
         AttributeType: N
-      TableName: !Ref "TzeroConsumerExperiencePointsTableName"
+      TableName: !Sub ${EnvName}_TzeroConsumerExperiencePointsTable
       ProvisionedThroughput:
         ReadCapacityUnits: !Ref 'ReadCapacityUnits'
         WriteCapacityUnits: !Ref 'WriteCapacityUnits'
@@ -341,7 +297,7 @@ Resources:
       AttributeDefinitions:
       - AttributeName: survey_id
         AttributeType: N
-      TableName: !Ref "TzeroSurveyTableName"
+      TableName: !Sub ${EnvName}_TzeroSurveyTable
       ProvisionedThroughput:
         ReadCapacityUnits: !Ref 'ReadCapacityUnits'
         WriteCapacityUnits: !Ref 'WriteCapacityUnits'
@@ -354,7 +310,7 @@ Resources:
       AttributeDefinitions:
       - AttributeName: ruleName
         AttributeType: S
-      TableName: !Ref "TzeroBusinessRulesTableName"
+      TableName: !Sub ${EnvName}_TzeroBusinessRulesTable
       ProvisionedThroughput:
         ReadCapacityUnits: !Ref 'ReadCapacityUnits'
         WriteCapacityUnits: !Ref 'WriteCapacityUnits'
@@ -427,7 +383,7 @@ Resources:
     Type: "AWS::Serverless::Function"
     Properties:
       Description: "TzeroConsumerChangePhoneNumber"
-      FunctionName: !Sub ${EnvName}_TzeroConsumerChangePhoneNumber"
+      FunctionName: !Sub ${EnvName}_TzeroConsumerChangePhoneNumber
       Handler: "index.handler"
       Role:
         Fn::GetAtt:
@@ -446,7 +402,7 @@ Resources:
     Type: "AWS::Serverless::Function"
     Properties:
       Description: "TzeroConsumerAccess"
-      FunctionName: !Sub ${EnvName}_TzeroConsumerAccess"
+      FunctionName: !Sub ${EnvName}_TzeroConsumerAccess
       Handler: "index.handler"
       Role:
         Fn::GetAtt:
@@ -490,7 +446,7 @@ Resources:
     Type: "AWS::Serverless::Function"
     Properties:
       Description: "TzeroGetConsumerTransactions"
-      FunctionName: !Sub ${EnvName}_TzeroGetConsumerTransactions"
+      FunctionName: !Sub ${EnvName}_TzeroGetConsumerTransactions
       Handler: "index.handler"
       Role:
         Fn::GetAtt:
