@@ -365,7 +365,7 @@ Resources:
     Type: "AWS::Serverless::Function"
     Properties:
       Description: "TzeroConsumerProfile"
-      FunctionName: !Sub ${EnvName}_TzeroConsumerProfile"
+      FunctionName: !Sub ${EnvName}_TzeroConsumerProfile
       Handler: "index.handler"
       Role:
         Fn::GetAtt:
@@ -425,7 +425,7 @@ Resources:
     Type: "AWS::Serverless::Function"
     Properties:
       Description: "TzeroConsumerGetDetails"
-      FunctionName: !Sub ${EnvName}_TzeroConsumerGetDetails"
+      FunctionName: !Sub ${EnvName}_TzeroConsumerGetDetails
       Handler: "index.handler"
       Role:
         Fn::GetAtt:
@@ -465,7 +465,7 @@ Resources:
     Type: "AWS::Serverless::Function"
     Properties:
       Description: "TzeroCosumerGetImageAdvert"
-      FunctionName: !Sub ${EnvName}_TzeroCosumerGetImageAdvert"
+      FunctionName: !Sub ${EnvName}_TzeroCosumerGetImageAdvert
       Handler: "index.handler"
       Role:
         Fn::GetAtt:
@@ -485,7 +485,7 @@ Resources:
     Type: "AWS::Serverless::Function"
     Properties:
       Description: "TzeroProducerGetAdvertDetails"
-      FunctionName: !Sub ${EnvName}_TzeroProducerGetAdvertDetails"
+      FunctionName: !Sub ${EnvName}_TzeroProducerGetAdvertDetails
       Handler: "index.handler"
       Role:
         Fn::GetAtt:
@@ -504,7 +504,7 @@ Resources:
     Type: "AWS::Serverless::Function"
     Properties:
       Description: "TzeroDisplayAdvertToConsumers"
-      FunctionName: !Sub ${EnvName}_TzeroDisplayAdvertToConsumers"
+      FunctionName: !Sub ${EnvName}_TzeroDisplayAdvertToConsumers
       Handler: "index.handler"
       Role:
         Fn::GetAtt:
@@ -525,7 +525,7 @@ Resources:
     Type: "AWS::Serverless::Function"
     Properties:
       Description: "TzeroProducerAccountAdministration"
-      FunctionName: !Sub ${EnvName}_TzeroProducerAccountAdministration"
+      FunctionName: !Sub ${EnvName}_TzeroProducerAccountAdministration
       Handler: "index.handler"
       Role:
         Fn::GetAtt:
@@ -545,7 +545,7 @@ Resources:
     Type: "AWS::Serverless::Function"
     Properties:
       Description: "TzeroProducerMarketPlace"
-      FunctionName: !Sub ${EnvName}_TzeroProducerMarketPlace"
+      FunctionName: !Sub ${EnvName}_TzeroProducerMarketPlace
       Handler: "index.handler"
       Role:
         Fn::GetAtt:
@@ -571,7 +571,7 @@ Resources:
     Type: "AWS::Serverless::Function"
     Properties:
       Description: "TzeroConsumerMarketPlace"
-      FunctionName: !Sub ${EnvName}_TzeroConsumerMarketPlace"
+      FunctionName: !Sub ${EnvName}_TzeroConsumerMarketPlace
       Handler: "index.handler"
       Role:
         Fn::GetAtt:
@@ -592,7 +592,7 @@ Resources:
     Type: "AWS::Serverless::Function"
     Properties:
       Description: "TzeroConsumerReportContent"
-      FunctionName: !Sub ${EnvName}_TzeroConsumerReportContent"
+      FunctionName: !Sub ${EnvName}_TzeroConsumerReportContent
       Handler: "index.handler"
       Role:
         Fn::GetAtt:
@@ -613,7 +613,7 @@ Resources:
     Type: "AWS::Serverless::Function"
     Properties:
       Description: "TzeroProducerSurveyManagement"
-      FunctionName: !Sub ${EnvName}_TzeroProducerSurveyManagement"
+      FunctionName: !Sub ${EnvName}_TzeroProducerSurveyManagement
       Handler: "index.handler"
       Role:
         Fn::GetAtt:
@@ -632,7 +632,7 @@ Resources:
     Type: "AWS::Serverless::Function"
     Properties:
       Description: "TzeroConsumerAdvertViewsLikesUpdate"
-      FunctionName: !Sub ${EnvName}_TzeroConsumerAdvertViewsLikesUpdate"
+      FunctionName: !Sub ${EnvName}_TzeroConsumerAdvertViewsLikesUpdate
       Handler: "index.handler"
       Role:
         Fn::GetAtt:
@@ -651,7 +651,7 @@ Resources:
     Type: "AWS::Serverless::Function"
     Properties:
       Description: "TzeroConsumerProfileUpdate"
-      FunctionName: !Sub ${EnvName}_TzeroConsumerProfileUpdate"
+      FunctionName: !Sub ${EnvName}_TzeroConsumerProfileUpdate
       Handler: "index.handler"
       Role:
         Fn::GetAtt:
