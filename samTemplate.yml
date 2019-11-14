@@ -662,7 +662,8 @@ Outputs:
   TzeroProducerUserPoolId:
     Value: !Ref TzeroProducerUserPool
     Export:
-      Name: "${EnvName}_TzeroProducerUserPoolId"
+      Name: 
+        Fn::Sub: ${EnvName}_TzeroProducerUserPool
   TzeroConsumerUserPoolId:
     Value: !Ref TzeroConsumerUserPool
   TzeroProducerAppClientId:
