@@ -3,31 +3,12 @@ Transform: 'AWS::Serverless-2016-10-31'
 Description: 'Telkom Tzero CloudFormation For AWS Resources Cognito,
               DynamoDB, Lambda and API Gateway'
 Parameters:
-# ********** Tzero Cognito "UserPool/ClientID" Parameters- Start **************
   EnvName:
     Description: Name of an environment. 'dev', 'staging', 'prod' and any name.
     AllowedPattern: ^.*[^0-9]$
     ConstraintDescription: Must end with non numeric character.
     Type: String
     Default: "Test"
-  TzeroProducerUserPoolName:
-    Description: Producer user pool name
-    Type: String
-    Default: 'TzeroProducerUserPool'    
-  TzeroConsumerUserPoolName:
-    Description: Consumer user pool name
-    Type: String
-    Default: 'TzeroConsumerUserPool'    
-  TzeroProducerAppClientName:
-    Description: Producer app client name
-    Type: String
-    Default: 'TzeroProducerAppClient'
-  TzeroConsumerAppClientName:
-    Description: Consumer App client name
-    Type: String
-    Default: 'TzeroConsumerAppClient'
-# ********** Tzero Cognito "UserPool/ClientID" Parameters- End **************
-
 # ********** Tzero DynamoDB Parameters -Start **************
   ReadCapacityUnits:
     Description: Provisioned read throughput
@@ -680,19 +661,20 @@ Resources:
 Outputs:
   TzeroProducerUserPoolId:
     Value: !Ref TzeroProducerUserPool
-#    Export:
-#      Name: "TzeroProducerUserPoolId"
+    Export:
+      Name: "TzeroProducerUserPoolId"
   TzeroConsumerUserPoolId:
     Value: !Ref TzeroConsumerUserPool
-#    Export:
-#      Name: "TzeroConsumerUserPoolId"
   TzeroProducerAppClientId:
     Value: !Ref TzeroProducerAppClient
-#    Export:
-#      Name: "TzeroProducerAppClientId"
   TzeroConsumerAppClientId:
     Value: !Ref TzeroConsumerAppClient
-#    Export:
-#      Name: "TzeroConsumerAppClientId"
+  TzeroRegistrationFunctionName:
+    Value: !Ref TzeroRegistration
+  LambdaFunctionARN:
+    Value: !GetAtt TzeroRegistration.Arn
+    Export:
+      Name: !Sub ${EnvName}_LambdaFunctionARN
+
 
  # ********** Tzero Lambda Function Output- End**************
