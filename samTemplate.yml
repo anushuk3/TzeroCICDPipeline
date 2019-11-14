@@ -4,6 +4,15 @@ Description: 'Telkom Tzero CloudFormation For AWS Resources Cognito,
               DynamoDB, Lambda and API Gateway'
 Parameters:
 # ********** Tzero Cognito "UserPool/ClientID" Parameters- Start **************
+  EnvName:
+    Description: Name of an environment. 'dev', 'staging', 'prod' and any name.
+    AllowedPattern: ^.*[^0-9]$
+    ConstraintDescription: Must end with non numeric character.
+    Type: String
+    AllowedValues:
+      - Dev
+      - Test
+      - Prod
   TzeroProducerUserPoolName:
     Description: Producer user pool name
     Type: String
@@ -81,79 +90,7 @@ Parameters:
 # ********** Tzero DynamoDB Parameters- End **************
 
 # ********** Tzero Lambda Functions Parameters- Start **************
-  EnvName:
-    Description: Name of an environment. 'dev', 'staging', 'prod' and any name.
-    AllowedPattern: ^.*[^0-9]$
-    ConstraintDescription: Must end with non numeric character.
-    Type: String
-    Default: 'Dev'
-
-# Lambda Functions Name
-  TzeroRegistrationFunctionName:
-    Description: TzeroRegistrationFunction for both Consumer & Producer 
-    Type: String
-    Default: 'TzeroRegistration'
-  TzeroConsumerProfileFunctionName:
-    Description: TzeroConsumerProfileFunction
-    Type: String
-    Default: 'TzeroConsumerProfile'    
-  TzeroConsumerChangePhoneNumberFunctionName:
-    Description: TzeroConsumerChangePhoneNumberFunction
-    Type: String
-    Default: 'TzeroConsumerChangePhoneNumber'    
-  TzeroConsumerAccessFunctionName:
-    Description: TzeroConsumerAccessFunction
-    Type: String
-    Default: 'TzeroConsumerAccess'    
-  TzeroConsumerGetDetailsFunctionName:
-    Description: TzeroConsumerGetDetailsFunction
-    Type: String
-    Default: 'TzeroConsumerGetDetails'
-  TzeroGetConsumerTransactionsFunctionName:
-    Description: TzeroGetConsumerTransactionsFunction
-    Type: String
-    Default: 'TzeroGetConsumerTransactions'   
-  TzeroCosumerGetImageAdvertFunctionName:
-    Description: TzeroCosumerGetImageAdvertFunction
-    Type: String
-    Default: 'TzeroCosumerGetImageAdvert'   
-  TzeroProducerGetAdvertDetailsFunctionName:
-    Description: TzeroProducerGetAdvertDetailsFunction
-    Type: String
-    Default: 'TzeroProducerGetAdvertDetails'    
-  TzeroDisplayAdvertToConsumersFunctionName:
-    Description: TzeroDisplayAdvertToConsumersFunction
-    Type: String
-    Default: 'TzeroDisplayAdvertToConsumers'    
-  TzeroProducerAccountAdministrationFunctionName:
-    Description: TzeroProducerAccountAdministrationFunction 
-    Type: String
-    Default: 'TzeroProducerAccountAdministration'    
-  TzeroProducerMarketPlaceFunctionName:
-    Description: TzeroProducerMarketPlaceFunction
-    Type: String
-    Default: 'TzeroProducerMarketPlace'    
-  TzeroConsumerMarketPlaceFunctionName:
-    Description: TzeroConsumerMarketPlaceFunction
-    Type: String
-    Default: 'TzeroConsumerMarketPlace'    
-  TzeroConsumerReportContentFunctionName:
-    Description: TzeroConsumerReportContentFunction
-    Type: String
-    Default: 'TzeroConsumerReportContent'    
-  TzeroProducerSurveyManagementFunctionName:
-    Description: TzeroProducerSurveyManagementFunction
-    Type: String
-    Default: 'TzeroProducerSurveyManagement'    
-  TzeroConsumerAdvertViewsLikesUpdateFunctionName:
-    Description: TzeroConsumerAdvertViewsLikesUpdateFunction
-    Type: String
-    Default: 'TzeroConsumerAdvertViewsLikesUpdate'    
-  TzeroConsumerProfileUpdateFunctionName:
-    Description: TzeroConsumerProfileUpdateFunction
-    Type: String
-    Default: 'TzeroConsumerProfileUpdate'
-  
+ 
 # Lambda Function Target S3 key(CodePath) name
   TzeroRegistrationS3Key:
     Description: s3 key name for the lambda package in s3
@@ -448,12 +385,9 @@ Resources:
   TzeroRegistration:
     Type: "AWS::Serverless::Function"
     Properties:
-      FunctionName:
-        Fn::Sub: ${EnvName}_TzeroRegistration
+      FunctionName: !Sub ${EnvName}_TzeroRegistration
       Description: "TzeroRegistration"
-#      FunctionName: !Ref "TzeroRegistrationFunctionName"
       Handler: "index.handler"
-#      Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
       Role:
         Fn::GetAtt:
           - TzeroLambdaRole
@@ -475,9 +409,12 @@ Resources:
     Type: "AWS::Serverless::Function"
     Properties:
       Description: "TzeroConsumerProfile"
-      FunctionName: !Ref "TzeroConsumerProfileFunctionName"
+      FunctionName: !Sub ${EnvName}_TzeroConsumerProfile"
       Handler: "index.handler"
-      Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
+      Role:
+        Fn::GetAtt:
+          - TzeroLambdaRole
+          - Arn    
       CodeUri: ./LambdaCode
       Runtime: "python3.7"
       Environment:
@@ -490,9 +427,12 @@ Resources:
     Type: "AWS::Serverless::Function"
     Properties:
       Description: "TzeroConsumerChangePhoneNumber"
-      FunctionName: !Ref "TzeroConsumerChangePhoneNumberFunctionName"
+      FunctionName: !Sub ${EnvName}_TzeroConsumerChangePhoneNumber"
       Handler: "index.handler"
-      Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
+      Role:
+        Fn::GetAtt:
+          - TzeroLambdaRole
+          - Arn    
       CodeUri: ./LambdaCode
       Runtime: "python3.7"
       Environment:
@@ -506,9 +446,12 @@ Resources:
     Type: "AWS::Serverless::Function"
     Properties:
       Description: "TzeroConsumerAccess"
-      FunctionName: !Ref "TzeroConsumerAccessFunctionName"
+      FunctionName: !Sub ${EnvName}_TzeroConsumerAccess"
       Handler: "index.handler"
-      Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
+      Role:
+        Fn::GetAtt:
+          - TzeroLambdaRole
+          - Arn    
       CodeUri: ./LambdaCode
       Runtime: "python3.7"
       Environment:
@@ -526,9 +469,12 @@ Resources:
     Type: "AWS::Serverless::Function"
     Properties:
       Description: "TzeroConsumerGetDetails"
-      FunctionName: !Ref "TzeroConsumerGetDetailsFunctionName"
+      FunctionName: !Sub ${EnvName}_TzeroConsumerGetDetails"
       Handler: "index.handler"
-      Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
+      Role:
+        Fn::GetAtt:
+          - TzeroLambdaRole
+          - Arn    
       CodeUri: ./LambdaCode
       Runtime: "python3.7"
       Environment:
@@ -544,9 +490,12 @@ Resources:
     Type: "AWS::Serverless::Function"
     Properties:
       Description: "TzeroGetConsumerTransactions"
-      FunctionName: !Ref "TzeroGetConsumerTransactionsFunctionName"
+      FunctionName: !Sub ${EnvName}_TzeroGetConsumerTransactions"
       Handler: "index.handler"
-      Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
+      Role:
+        Fn::GetAtt:
+          - TzeroLambdaRole
+          - Arn    
       CodeUri: ./LambdaCode
       Runtime: "python3.7"
       Environment:
@@ -560,9 +509,12 @@ Resources:
     Type: "AWS::Serverless::Function"
     Properties:
       Description: "TzeroCosumerGetImageAdvert"
-      FunctionName: !Ref "TzeroCosumerGetImageAdvertFunctionName"
+      FunctionName: !Sub ${EnvName}_TzeroCosumerGetImageAdvert"
       Handler: "index.handler"
-      Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
+      Role:
+        Fn::GetAtt:
+          - TzeroLambdaRole
+          - Arn    
       CodeUri: ./LambdaCode
       Runtime: "python3.7"
       Environment:
@@ -577,9 +529,12 @@ Resources:
     Type: "AWS::Serverless::Function"
     Properties:
       Description: "TzeroProducerGetAdvertDetails"
-      FunctionName: !Ref "TzeroProducerGetAdvertDetailsFunctionName"
+      FunctionName: !Sub ${EnvName}_TzeroProducerGetAdvertDetails"
       Handler: "index.handler"
-      Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
+      Role:
+        Fn::GetAtt:
+          - TzeroLambdaRole
+          - Arn    
       CodeUri: ./LambdaCode
       Runtime: "python3.7"
       Environment:
@@ -593,9 +548,12 @@ Resources:
     Type: "AWS::Serverless::Function"
     Properties:
       Description: "TzeroDisplayAdvertToConsumers"
-      FunctionName: !Ref "TzeroDisplayAdvertToConsumersFunctionName"
+      FunctionName: !Sub ${EnvName}_TzeroDisplayAdvertToConsumers"
       Handler: "index.handler"
-      Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
+      Role:
+        Fn::GetAtt:
+          - TzeroLambdaRole
+          - Arn    
       CodeUri: ./LambdaCode
       Runtime: "python3.7"
       Environment:
@@ -611,9 +569,12 @@ Resources:
     Type: "AWS::Serverless::Function"
     Properties:
       Description: "TzeroProducerAccountAdministration"
-      FunctionName: !Ref "TzeroProducerAccountAdministrationFunctionName"
+      FunctionName: !Sub ${EnvName}_TzeroProducerAccountAdministration"
       Handler: "index.handler"
-      Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
+      Role:
+        Fn::GetAtt:
+          - TzeroLambdaRole
+          - Arn 
       CodeUri: ./LambdaCode
       Runtime: "python3.7"
       Environment:
@@ -628,9 +589,12 @@ Resources:
     Type: "AWS::Serverless::Function"
     Properties:
       Description: "TzeroProducerMarketPlace"
-      FunctionName: !Ref "TzeroProducerMarketPlaceFunctionName"
+      FunctionName: !Sub ${EnvName}_TzeroProducerMarketPlace"
       Handler: "index.handler"
-      Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
+      Role:
+        Fn::GetAtt:
+          - TzeroLambdaRole
+          - Arn 
       CodeUri: ./LambdaCode
       Runtime: "python3.7"
       Environment:
@@ -651,9 +615,12 @@ Resources:
     Type: "AWS::Serverless::Function"
     Properties:
       Description: "TzeroConsumerMarketPlace"
-      FunctionName: !Ref "TzeroConsumerMarketPlaceFunctionName"
+      FunctionName: !Sub ${EnvName}_TzeroConsumerMarketPlace"
       Handler: "index.handler"
-      Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
+      Role:
+        Fn::GetAtt:
+          - TzeroLambdaRole
+          - Arn 
       CodeUri: ./LambdaCode
       Runtime: "python3.7"
       Environment:
@@ -669,9 +636,12 @@ Resources:
     Type: "AWS::Serverless::Function"
     Properties:
       Description: "TzeroConsumerReportContent"
-      FunctionName: !Ref "TzeroConsumerReportContentFunctionName"
+      FunctionName: !Sub ${EnvName}_TzeroConsumerReportContent"
       Handler: "index.handler"
-      Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
+      Role:
+        Fn::GetAtt:
+          - TzeroLambdaRole
+          - Arn 
       CodeUri: ./LambdaCode
       Runtime: "python3.7"
       Environment:
@@ -687,9 +657,12 @@ Resources:
     Type: "AWS::Serverless::Function"
     Properties:
       Description: "TzeroProducerSurveyManagement"
-      FunctionName: !Ref "TzeroProducerSurveyManagementFunctionName"
+      FunctionName: !Sub ${EnvName}_TzeroProducerSurveyManagement"
       Handler: "index.handler"
-      Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
+      Role:
+        Fn::GetAtt:
+          - TzeroLambdaRole
+          - Arn 
       CodeUri: ./LambdaCode
       Runtime: "python3.7"
       Environment:
@@ -703,9 +676,12 @@ Resources:
     Type: "AWS::Serverless::Function"
     Properties:
       Description: "TzeroConsumerAdvertViewsLikesUpdate"
-      FunctionName: !Ref "TzeroConsumerAdvertViewsLikesUpdateFunctionName"
+      FunctionName: !Sub ${EnvName}_TzeroConsumerAdvertViewsLikesUpdate"
       Handler: "index.handler"
-      Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
+      Role:
+        Fn::GetAtt:
+          - TzeroLambdaRole
+          - Arn 
       CodeUri: ./LambdaCode
       Runtime: "python3.7"
       Environment:
@@ -719,9 +695,12 @@ Resources:
     Type: "AWS::Serverless::Function"
     Properties:
       Description: "TzeroConsumerProfileUpdate"
-      FunctionName: !Ref "TzeroConsumerProfileUpdateFunctionName"
+      FunctionName: !Sub ${EnvName}_TzeroConsumerProfileUpdate"
       Handler: "index.handler"
-      Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
+      Role:
+        Fn::GetAtt:
+          - TzeroLambdaRole
+          - Arn 
       CodeUri: ./LambdaCode
       Runtime: "python3.7"
       Environment:
