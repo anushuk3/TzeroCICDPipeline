@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: 'AWS::Serverless-2016-10-31'
-Description: Telkom Tzero CloudFormation For AWS Resources : Cognito, DynamoDB, Lambda and API Gateway
+Description: 'Telkom Tzero CloudFormation For AWS Resources Cognito, DynamoDB, Lambda and API Gateway'
 Parameters:
 
 # ********** Tzero Cognito "UserPool/ClientID" Parameters- Start **************
@@ -285,7 +285,7 @@ Parameters:
     Default: "tzero-telkom-backend-dev"
   Configpath:
     Type: "String"
-     Default: "Config/TzeroConfig.json"
+    Default: "Config/TzeroConfig.json"
     
 # ********** Tzero Lambda Functions Parameters- End **************
 
