@@ -661,6 +661,8 @@ Resources:
 Outputs:
   TzeroProducerUserPoolId:
     Value: !Ref TzeroProducerUserPool
+    Export:
+      Name: "TzeroProducerUserPoolId"
   TzeroConsumerUserPoolId:
     Value: !Ref TzeroConsumerUserPool
   TzeroProducerAppClientId:
@@ -674,7 +676,8 @@ Outputs:
       Fn::GetAtt:
         - TzeroRegistration
         - Arn
-      
+     Export:
+      Name: "TzeroRegistrationLambdaFunctionARN"     
       
 
  # ********** Tzero Lambda Function Output- End**************
