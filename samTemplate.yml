@@ -554,7 +554,7 @@ Resources:
       Runtime: "python3.7"
       Environment:
         Variables:
-          ConsumerTableName:!Ref "TzeroConsumerTable"
+          ConsumerTableName: !Ref "TzeroConsumerTable"
       MemorySize: 128
       Timeout: 25
 
