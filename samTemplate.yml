@@ -733,8 +733,8 @@ Resources:
           ConsumerTransactionsTable: !Ref "TzeroConsumerTransactionsTable"
           FilePath: Producer/Media/
           ProducerAdsTable: !Ref "TzeroProducerAdvertTable"
-          ProducerInfoTable:!Ref "TzeroProducerTable"
-          ProducerMediaBucket: tzero-telkom-backend-dev
+          ProducerInfoTable: !Ref "TzeroProducerTable"
+          ProducerMediaBucket: "tzero-telkom-backend-dev"
           Region: !Ref "Region"
       MemorySize: 128
       Timeout: 25
