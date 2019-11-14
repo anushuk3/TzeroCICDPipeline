@@ -82,10 +82,11 @@ Parameters:
 
 # ********** Tzero Lambda Functions Parameters- Start **************
   EnvName:
-    Type: String
     Description: Name of an environment. 'dev', 'staging', 'prod' and any name.
     AllowedPattern: ^.*[^0-9]$
     ConstraintDescription: Must end with non numeric character.
+    Type: String
+    Default: 'Dev'
 
 # Lambda Functions Name
   TzeroRegistrationFunctionName:
