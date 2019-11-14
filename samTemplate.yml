@@ -671,7 +671,7 @@ Outputs:
     Value: !Ref TzeroConsumerAppClient
   TzeroRegistrationFunctionName:
     Value: !Ref TzeroRegistration
-  LambdaFunctionARN:
+  TzeroRegistrationLambdaFunctionARN:
     Value:
       Fn::GetAtt:
         - TzeroRegistration
