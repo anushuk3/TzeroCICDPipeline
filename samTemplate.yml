@@ -530,7 +530,7 @@ Resources:
       FunctionName: !Ref "TzeroRegistrationFunctionName"
       Handler: "index.handler"
       Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
-      CodeUri: !Ref "TzeroRegistrationS3Key"
+      CodeUri: ./LambdaCode
       Runtime: "python3.7"
       Environment:
         Variables:
@@ -543,42 +543,57 @@ Resources:
       MemorySize: 128
       Timeout: 25
 
-  # TzeroConsumerProfile:
-    # Type: "AWS::Serverless::Function"
-    # Properties:
-      # Description: "TzeroConsumerProfile"
-      # FunctionName: !Ref "TzeroConsumerProfileFunctionName"
-      # Handler: "index.handler"
-      # Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
-      # CodeUri: ./LambdaCode
-      # Runtime: "python3.7"
+  TzeroConsumerProfile:
+    Type: "AWS::Serverless::Function"
+    Properties:
+      Description: "TzeroConsumerProfile"
+      FunctionName: !Ref "TzeroConsumerProfileFunctionName"
+      Handler: "index.handler"
+      Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
+      CodeUri: ./LambdaCode
+      Runtime: "python3.7"
+      Environment:
+        Variables:
+          ConsumerTableName:!Ref "TzeroConsumerTable"
+      MemorySize: 128
+      Timeout: 25
 
-      # MemorySize: 128
-      # Timeout: 25
+  TzeroConsumerChangePhoneNumber:
+    Type: "AWS::Serverless::Function"
+    Properties:
+      Description: "TzeroConsumerChangePhoneNumber"
+      FunctionName: !Ref "TzeroConsumerChangePhoneNumberFunctionName"
+      Handler: "index.handler"
+      Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
+      CodeUri: ./LambdaCode
+      Runtime: "python3.7"
+      Environment:
+        Variables:
+          ClientId: !Ref "TzeroConsumerAppClient"
+          UserPoolId: !Ref "TzeroConsumerUserPool"
+      MemorySize: 128
+      Timeout: 25             
 
-  # TzeroConsumerChangePhoneNumber:
-    # Type: "AWS::Serverless::Function"
-    # Properties:
-      # Description: "TzeroConsumerChangePhoneNumber"
-      # FunctionName: !Ref "TzeroConsumerChangePhoneNumberFunctionName"
-      # Handler: "index.handler"
-      # Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
-      # CodeUri: ./LambdaCode
-      # Runtime: "python3.7"
 
-
-  # TzeroConsumerAccess:
-    # Type: "AWS::Serverless::Function"
-    # Properties:
-      # Description: "TzeroConsumerAccess"
-      # FunctionName: !Ref "TzeroConsumerAccessFunctionName"
-      # Handler: "index.handler"
-      # Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
-      # CodeUri: ./LambdaCode
-      # Runtime: "python3.7"
-
-      # MemorySize: 128
-      # Timeout: 25
+  TzeroConsumerAccess:
+    Type: "AWS::Serverless::Function"
+    Properties:
+      Description: "TzeroConsumerAccess"
+      FunctionName: !Ref "TzeroConsumerAccessFunctionName"
+      Handler: "index.handler"
+      Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
+      CodeUri: ./LambdaCode
+      Runtime: "python3.7"
+      Environment:
+        Variables:
+          ConsumerClientID: !Ref "TzeroConsumerAppClient"
+          ConsumerPasswordTable: !Ref "TzeroConsumerCredentialsTable"
+          ConsumerTable: !Ref "TzeroConsumerTable"
+          ConsumerUserPool: !Ref "TzeroConsumerUserPool"
+          TempPass: "Test@09876"
+#          UpdateRewardsLambda: Lambda Name "ConsumerRewardManagement-Dev" needs to be created
+      MemorySize: 128
+      Timeout: 25
       
   # TzeroConsumerGetDetails:
     # Type: "AWS::Serverless::Function"
