@@ -675,7 +675,7 @@ Outputs:
   LambdaFunctionARN:
     Value:
       Fn::GetAtt:
-        - TzeroRegistration
+        - TzeroRegistrationFunctionName
         - Arn
     Export:
       Name: 
