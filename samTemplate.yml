@@ -672,9 +672,14 @@ Outputs:
   TzeroRegistrationFunctionName:
     Value: !Ref TzeroRegistration
   LambdaFunctionARN:
-    Value: !GetAtt TzeroRegistration.Arn
+    Value:
+      Fn::GetAtt:
+        - TzeroRegistration
+        - Arn
     Export:
-      Name: !Sub ${EnvName}_LambdaFunctionARN
-
+      Name:
+        Fn::Sub: ${EnvName}_LambdaFunctionARN
+      
+      
 
  # ********** Tzero Lambda Function Output- End**************
