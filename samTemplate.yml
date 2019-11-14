@@ -451,7 +451,7 @@ Resources:
       FunctionName:
         Fn::Sub: ${EnvName}_TzeroRegistration
       Description: "TzeroRegistration"
-      FunctionName: !Ref "TzeroRegistrationFunctionName"
+#      FunctionName: !Ref "TzeroRegistrationFunctionName"
       Handler: "index.handler"
 #      Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
       Role:
