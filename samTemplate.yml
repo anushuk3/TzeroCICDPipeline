@@ -677,8 +677,7 @@ Outputs:
         - TzeroRegistration
         - Arn
     Export:
-      Name:
-        Fn::Sub: ${EnvName}_LambdaFunctionARN
+      Name: LambdaFunctionARN
       
       
 
