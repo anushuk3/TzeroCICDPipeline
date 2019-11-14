@@ -455,7 +455,7 @@ Resources:
       Handler: "index.handler"
 #      Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
       Role:
-        fn::GetAtt:
+        Fn::GetAtt:
           - TzeroLambdaRole
           - Arn    
       CodeUri: ./LambdaCode
