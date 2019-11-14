@@ -1,6 +1,7 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: 'AWS::Serverless-2016-10-31'
 Description: 'Telkom Tzero CloudFormation For AWS Resources Cognito, DynamoDB, Lambda and API Gateway'
+
 Parameters:
 
 # ********** Tzero Cognito "UserPool/ClientID" Parameters- Start **************
@@ -188,7 +189,7 @@ Parameters:
   TzeroRegistrationS3Key:
     Description: s3 key name for the lambda package in s3
     Type: String
-    Default: 'backend/Consumer/Registration/Tzero-Consumer-Registration.zip'
+    Default: './LambdaCode'
 
   TzeroConsumerProfileS3Key:
     Description: s3 key name for the lambda package in s3
@@ -271,15 +272,6 @@ Parameters:
     Default: 'backend/Producer/Registration/Tzero-Producer-Registration.zip'
     
 #Lambda Function Environment Variables
-  ConsumerClientId:
-    Type: "String"
-    Default: "45lajldmbah9731rfa6n1p7s01"
-  ProducerClientId:
-    Type: "String"
-    Default: "Test@09876"
-  ProducerPoolID:
-    Type: "String"
-    Default: "Test@09876"
   TempPass:
     Type: "String"
     Default: "Test@09876"
@@ -538,7 +530,7 @@ Resources:
       FunctionName: !Ref "TzeroRegistrationFunctionName"
       Handler: "index.handler"
       Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
-      CodeUri: ./LambdaCode
+      CodeUri: !Ref "TzeroRegistrationS3Key"
       Runtime: "python3.7"
       Environment:
         Variables:
