@@ -129,11 +129,6 @@ Parameters:
     Description: TzeroGetConsumerTransactionsFunction
     Type: String
     Default: 'TzeroGetConsumerTransactions'
-
-  TzeroConsumerTransactionsFunctionName:
-    Description: TzeroConsumerTransactionsFunction
-    Type: String
-    Default: 'TzeroConsumerTransactions'
     
   TzeroCosumerGetImageAdvertFunctionName:
     Description: TzeroCosumerGetImageAdvertFunction
@@ -215,12 +210,7 @@ Parameters:
     Description: s3 key name for the lambda package in s3
     Type: String
     Default: 'backend/Producer/Registration/Tzero-Producer-Registration.zip'
-    
-  TzeroConsumerTransactionsS3Key:
-    Description: s3 key name for the lambda package in s3
-    Type: String
-    Default: 'backend/Producer/Registration/Tzero-Producer-Registration.zip'
-    
+
   TzeroCosumerGetImageAdvertS3Key:
     Description: s3 key name for the lambda package in s3
     Type: String
@@ -281,6 +271,12 @@ Parameters:
   Configpath:
     Type: "String"
     Default: "Config/TzeroConfig.json"
+  CompressedConsumerMediasCloudfrontDomainName:
+     Type: "String"
+     Default: "db8b0orzamzr7.cloudfront.net"
+  Region:
+    Type: "String"
+    Default: "eu-west-1"
     
 # ********** Tzero Lambda Functions Parameters- End **************
 
@@ -537,9 +533,9 @@ Resources:
           ConsumerClientId: !Ref "TzeroConsumerAppClient"
           ProducerClientId: !Ref "TzeroProducerAppClient"
           ProducerPoolID: !Ref "TzeroProducerUserPool"
-          TempPass: "Test@09876"
-          ConfigBucket: "tzero-telkom-backend-dev"
-          Configpath: Config/TzeroConfig.json
+          TempPass: !Ref "TempPass"
+          ConfigBucket: !Ref "ConfigBucket"
+          Configpath: !Ref "Configpath"
       MemorySize: 128
       Timeout: 25
 
@@ -590,63 +586,63 @@ Resources:
           ConsumerPasswordTable: !Ref "TzeroConsumerCredentialsTable"
           ConsumerTable: !Ref "TzeroConsumerTable"
           ConsumerUserPool: !Ref "TzeroConsumerUserPool"
-          TempPass: "Test@09876"
+          TempPass: !Ref "TempPass"
 #          UpdateRewardsLambda: Lambda Name "ConsumerRewardManagement-Dev" needs to be created
       MemorySize: 128
       Timeout: 25
       
-  # TzeroConsumerGetDetails:
-    # Type: "AWS::Serverless::Function"
-    # Properties:
-      # Description: "TzeroConsumerGetDetails"
-      # FunctionName: !Ref "TzeroConsumerGetDetailsFunctionName"
-      # Handler: "index.handler"
-      # Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
-      # CodeUri: ./LambdaCode
-      # Runtime: "python3.7"
+  TzeroConsumerGetDetails:
+    Type: "AWS::Serverless::Function"
+    Properties:
+      Description: "TzeroConsumerGetDetails"
+      FunctionName: !Ref "TzeroConsumerGetDetailsFunctionName"
+      Handler: "index.handler"
+      Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
+      CodeUri: ./LambdaCode
+      Runtime: "python3.7"
+      Environment:
+        Variables:
+          CompressedConsumerMedias: !Ref "CompressedConsumerMediasCloudfrontDomainName"
+          ConsumerInfoTable: !Ref "TzeroConsumerTable"
+          ConsumerTransactionsTable: !Ref "TzeroConsumerTransactionsTable"
+          ProducerAdsTable: !Ref "TzeroProducerAdvertTable"
+          Region: !Ref "Region"
+      MemorySize: 128
+      Timeout: 25
 
-      # MemorySize: 128
-      # Timeout: 25
+  TzeroGetConsumerTransactions:
+    Type: "AWS::Serverless::Function"
+    Properties:
+      Description: "TzeroGetConsumerTransactions"
+      FunctionName: !Ref "TzeroGetConsumerTransactionsFunctionName"
+      Handler: "index.handler"
+      Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
+      CodeUri: ./LambdaCode
+      Runtime: "python3.7"
+      Environment:
+        Variables:
+          ConsumerInfoTable: !Ref "TzeroConsumerTable"
+          ConsumerTransactionsTable: !Ref "TzeroConsumerTransactionsTable"
+      MemorySize: 128
+      Timeout: 25
 
-  # TzeroGetConsumerTransactions:
-    # Type: "AWS::Serverless::Function"
-    # Properties:
-      # Description: "TzeroGetConsumerTransactions"
-      # FunctionName: !Ref "TzeroGetConsumerTransactionsFunctionName"
-      # Handler: "index.handler"
-      # Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
-      # CodeUri: ./LambdaCode
-      # Runtime: "python3.7"
-
-      # MemorySize: 128
-      # Timeout: 25
-      
-  # TzeroConsumerTransactions:
-    # Type: "AWS::Serverless::Function"
-    # Properties:
-      # Description: "TzeroConsumerTransactions"
-      # FunctionName: !Ref "TzeroConsumerTransactionsFunctionName"
-      # Handler: "index.handler"
-      # Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
-      # CodeUri: ./LambdaCode
-      # Runtime: "python3.7"
-
-
-      # MemorySize: 128
-      # Timeout: 25
-      
-  # TzeroCosumerGetImageAdvert:
-    # Type: "AWS::Serverless::Function"
-    # Properties:
-      # Description: "TzeroCosumerGetImageAdvert"
-      # FunctionName: !Ref "TzeroCosumerGetImageAdvertFunctionName"
-      # Handler: "index.handler"
-      # Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
-      # CodeUri: ./LambdaCode
-      # Runtime: "python3.7"
-
-      # MemorySize: 128
-      # Timeout: 25
+  TzeroCosumerGetImageAdvert:
+    Type: "AWS::Serverless::Function"
+    Properties:
+      Description: "TzeroCosumerGetImageAdvert"
+      FunctionName: !Ref "TzeroCosumerGetImageAdvertFunctionName"
+      Handler: "index.handler"
+      Role: 'arn:aws:iam::299869144443:role/LambdaRole_anushukla'
+      CodeUri: ./LambdaCode
+      Runtime: "python3.7"
+      Environment:
+        Variables:
+          CloudfrontDomainName: !Ref "TzeroConsumerTable"
+          ConsumerInfoTable: !Ref "TzeroConsumerTransactionsTable"
+          ProducerAdsTable: !Ref "TzeroProducerAdvertTable"
+          Region: !Ref "Region"
+      MemorySize: 128
+      Timeout: 25
 
   # TzeroProducerGetAdvertDetails:
     # Type: "AWS::Serverless::Function"
