@@ -677,7 +677,8 @@ Outputs:
         - TzeroRegistration
         - Arn
     Export:
-      Name: ${EnvName}_TzeroRegistration
+      Name: 
+        Fn::Sub: ${EnvName}_TzeroRegistration
       
       
 
