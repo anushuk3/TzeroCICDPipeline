@@ -308,8 +308,8 @@ Resources:
        - email
       VerificationMessageTemplate:
         DefaultEmailOption: CONFIRM_WITH_LINK
-      EmailVerificationSubject: 'Tzero Registration'
-      EmailVerificationMessage: '<html> <body> Dear Producer, <Br> <h4>Welcome to Telkom T-Zero Community</h4><BR> Thank you for Registering as a producer, Complete your registration by clicking the link below to verify your email address.Verify Email{####} </p> <br> <p> Click here to Login : http://cloudtechnologies.cloud/login <p> Thanks,<Br> Team Tzero </body> </html>'
+      EmailVerificationSubject: "Tzero Registration Link"
+      EmailVerificationMessage: 'Dear Producer,Welcome to Telkom T-Zero CommunityThank you for Registering as a producer, Complete your registration by clicking the link below to verify your email address.Verify Email{####}  Click here to Login : http://cloudtechnologies.cloud/login Thanks,Team Tzero '
       Schema:
         - Name: name
           AttributeDataType: String
