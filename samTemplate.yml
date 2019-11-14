@@ -9,7 +9,7 @@ Parameters:
     AllowedPattern: ^.*[^0-9]$
     ConstraintDescription: Must end with non numeric character.
     Type: String
-    Default: "Dev"
+    Default: "Test"
   TzeroProducerUserPoolName:
     Description: Producer user pool name
     Type: String
@@ -102,7 +102,7 @@ Resources:
     Type: AWS::Cognito::UserPool
     Properties:
       MfaConfiguration: "OFF"
-      UserPoolName: !Ref "TzeroProducerUserPoolName"
+      UserPoolName: !Sub ${EnvName}_TzeroProducerUserPool
       UsernameAttributes:
        - email
       AutoVerifiedAttributes:
@@ -134,7 +134,7 @@ Resources:
   TzeroProducerAppClient:
     Type: "AWS::Cognito::UserPoolClient"
     Properties:
-     ClientName: !Ref "TzeroProducerAppClientName"
+     ClientName: !Sub ${EnvName}_TzeroProducerAppClient
      GenerateSecret: False
      UserPoolId:
        Ref: TzeroProducerUserPool       
@@ -143,7 +143,7 @@ Resources:
     Type: AWS::Cognito::UserPool
     Properties:
       MfaConfiguration: "OFF"
-      UserPoolName: !Ref "TzeroConsumerUserPoolName"
+      UserPoolName: !Sub ${EnvName}_TzeroConsumerUserPool
       UsernameAttributes:
        - phone_number
       Schema:
@@ -169,7 +169,7 @@ Resources:
   TzeroConsumerAppClient:
     Type: "AWS::Cognito::UserPoolClient"
     Properties:
-     ClientName: !Ref "TzeroConsumerAppClientName"
+     ClientName: !Sub ${EnvName}_TzeroConsumerAppClient
      GenerateSecret: False
      UserPoolId:
        Ref: TzeroConsumerUserPool
