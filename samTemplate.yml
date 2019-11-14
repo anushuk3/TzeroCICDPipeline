@@ -661,9 +661,6 @@ Resources:
 Outputs:
   TzeroProducerUserPoolId:
     Value: !Ref TzeroProducerUserPool
-    Export:
-      Name: 
-        Fn::Sub: ${EnvName}_TzeroProducerUserPool
   TzeroConsumerUserPoolId:
     Value: !Ref TzeroConsumerUserPool
   TzeroProducerAppClientId:
@@ -677,9 +674,6 @@ Outputs:
       Fn::GetAtt:
         - TzeroRegistration
         - Arn
-    Export:
-      Name: 
-        Fn::Sub: ${EnvName}_TzeroRegistration
       
       
 
