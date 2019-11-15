@@ -706,7 +706,8 @@ Resources:
           Region: !Ref "Region"
       MemorySize: 128
       Timeout: 25
-# ********** Tzero Lambda Function Resource- End**************
+#********** Tzero Lambda Function Resource- End**************
+
 #********** API Gateway Resources creation- Start**************
   TzeroRestApi:
     Type: "AWS::ApiGateway::RestApi"
@@ -799,48 +800,45 @@ Resources:
       HttpMethod: OPTIONS
       AuthorizationType: NONE
           
-  # ************ API ROOT METHOD- END**************
+# ************ API ROOT METHOD- END**************
+# ************ ConfirmConsumerRegistration Resource- Start********
+  ConfirmConsumerRegistration:
+     Type: "AWS::ApiGateway::Resource"
+     Properties:
+       ParentId:
+         Fn::GetAtt:
+           - "TzeroRestApi"
+           - "RootResourceId"
+       PathPart: ConfirmConsumerRegistration
+       RestApiId:
+         Ref: "TzeroRestApi"
+  ConfirmConsumerRegistrationMockMethod:
+    Type: 'AWS::ApiGateway::Method'
+    Properties:
+      Integration:
+        Type: MOCK
+        IntegrationResponses:
+          - ResponseTemplates:
+              application/json: ''
+            StatusCode: 200
+            ResponseParameters:
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+              method.response.header.Access-Control-Allow-Methods: "'POST,OPTIONS'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+      MethodResponses:
+        - StatusCode: 200
+          ResponseModels:
+            application/json: 'Empty'
+          ResponseParameters:
+            method.response.header.Access-Control-Allow-Headers: true
+            method.response.header.Access-Control-Allow-Methods: true
+            method.response.header.Access-Control-Allow-Origin: true
+      RestApiId: !Ref TzeroRestApi
+      ResourceId: !Ref ConfirmConsumerRegistration
+      HttpMethod: OPTIONS
+      AuthorizationType: NONE
 
-  # # ************ ConfirmConsumerRegistration METHOD- Start********
-
-  # ConfirmConsumerRegistration:
-     # Type: "AWS::ApiGateway::Resource"
-     # Properties:
-       # ParentId:
-         # Fn::GetAtt:
-           # - "TzeroRestApi"
-           # - "RootResourceId"
-       # PathPart: ConfirmConsumerRegistration
-       # RestApiId:
-         # Ref: "TzeroRestApi"
-
-  # ConfirmConsumerRegistrationMockMethod:
-    # Type: 'AWS::ApiGateway::Method'
-    # Properties:
-      # Integration:
-        # Type: MOCK
-        # IntegrationResponses:
-          # - ResponseTemplates:
-              # application/json: ''
-            # StatusCode: 200
-            # ResponseParameters:
-              # method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
-              # method.response.header.Access-Control-Allow-Methods: "'POST,OPTIONS'"
-              # method.response.header.Access-Control-Allow-Origin: "'*'"
-      # MethodResponses:
-        # - StatusCode: 200
-          # ResponseModels:
-            # application/json: 'Empty'
-          # ResponseParameters:
-            # method.response.header.Access-Control-Allow-Headers: true
-            # method.response.header.Access-Control-Allow-Methods: true
-            # method.response.header.Access-Control-Allow-Origin: true
-      # RestApiId: !Ref TzeroRestApi
-      # ResourceId: !Ref ConfirmConsumerRegistration
-      # HttpMethod: OPTIONS
-      # AuthorizationType: NONE
-
-# # ************ ConfirmConsumerRegistration METHOD- End********
+# ************ ConfirmConsumerRegistration METHOD- End********
 
 # # ************ Consumer METHOD- Start********************
 
