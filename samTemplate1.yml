@@ -654,46 +654,6 @@ Resources:
           Region: !Ref "Region"
       MemorySize: 128
       Timeout: 25
-  ServerlessRepoApiLambdaGetOneDynGetOneLambda:
-    Type: "AWS::Serverless::Function"
-    Properties:
-      Description: "ServerlessRepoApiLambdaGetOneDynGetOneLambda"
-      FunctionName: !Sub ${EnvName}_ServerlessRepoApiLambdaGetOneDynGetOneLambda
-      Handler: "index.handler"
-      Role:
-        Fn::GetAtt:
-          - TzeroLambdaRole
-          - Arn 
-      CodeUri: ./LambdaCode
-      Runtime: "python3.7"
-      Environment:
-        Variables:
-          CORS_ORIGIN: !GetAtt TzeroLambdaRole.Arn
-          IS_CORS: "IsCorsDefined"
-          TABLE_NAME: !Ref "TzeroProducerTable"
-          Region: !Ref "Region"
-      MemorySize: 128
-      Timeout: 25
-  ServerlessRepoApiLambdaUpdateDynaUpdateLambda:
-    Type: "AWS::Serverless::Function"
-    Properties:
-      Description: "ServerlessRepoApiLambdaUpdateDynaUpdateLambda"
-      FunctionName: !Sub ${EnvName}ServerlessRepoApiLambdaUpdateDynaUpdateLambda
-      Handler: "index.handler"
-      Role:
-        Fn::GetAtt:
-          - TzeroLambdaRole
-          - Arn 
-      CodeUri: ./LambdaCode
-      Runtime: "python3.7"
-      Environment:
-        Variables:
-          CORS_ORIGIN: !GetAtt TzeroLambdaRole.Arn
-          IS_CORS: "IsCorsDefined"
-          TABLE_NAME: !Ref "TzeroProducerTable"
-          Region: !Ref "Region"
-      MemorySize: 128
-      Timeout: 25
 # ********** Tzero Lambda Function Resource- End**************
 
 # ********** Tzero Lambda Function Output - Start**************
