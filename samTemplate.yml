@@ -1988,6 +1988,60 @@ Resources:
       RestApiId: !Ref TzeroRestApi
       ResourceId: !Ref updateconsumerprofile
 # ************updateconsumerprofile resource- End********
+
+# ************producerSurveyManagement resource- start********
+  producerSurveyManagement:
+    Type: "AWS::ApiGateway::Resource"
+    Properties:
+      ParentId:
+        Fn::GetAtt:
+          - "TzeroRestApi"
+          - "RootResourceId"
+      PathPart: producerSurveyManagement
+      RestApiId:
+        Ref: "TzeroRestApi"
+  producerSurveyManagementMockMethod:
+    Type: 'AWS::ApiGateway::Method'
+    Properties:
+      Integration:
+        Type: MOCK
+        IntegrationResponses:
+          - ResponseTemplates:
+              application/json: ''
+            StatusCode: 200
+            ResponseParameters:
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+              method.response.header.Access-Control-Allow-Methods: "'POST,OPTIONS'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+      MethodResponses:
+        - StatusCode: 200
+          ResponseModels:
+            application/json: 'Empty'
+          ResponseParameters:
+            method.response.header.Access-Control-Allow-Headers: true
+            method.response.header.Access-Control-Allow-Methods: true
+            method.response.header.Access-Control-Allow-Origin: true
+      RestApiId: !Ref TzeroRestApi
+      ResourceId: !Ref producerSurveyManagement
+      HttpMethod: OPTIONS
+      AuthorizationType: NONE
+  producerSurveyManagementAnyMethod:
+    Type: "AWS::ApiGateway::Method"
+    Properties:
+      HttpMethod: ANY
+      AuthorizationType: NONE
+      Integration:
+        IntegrationHttpMethod: GET
+        Type: AWS_PROXY
+        Uri: !Sub
+          - "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${lambdaArn}/invocations"
+          - lambdaArn: !GetAtt "TzeroProducerSurveyManagement.Arn"
+      MethodResponses:
+        - StatusCode: 200
+          ResponseModels:
+            application/json: 'Empty'
+      RestApiId: !Ref TzeroRestApi
+      ResourceId: !Ref producerSurveyManagement
 # ********** Tzero Lambda Function Output - Start**************
 Outputs:
   TzeroProducerUserPoolId:
