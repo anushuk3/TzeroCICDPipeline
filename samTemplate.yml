@@ -73,7 +73,19 @@ Parameters:
     Type: "String"
     Default: "tzero@telkom.co.za"    
 # ********** Tzero Lambda Functions Parameters- End **************
-
+# ********** Tzero APIGateway Parameters- Start **************
+  TzeroRestApiName:
+    Description: API gateway name
+    Type: String
+    Default: 'TzeroRestApi'
+  TzeroApiGatewayStageName:
+    Type: "String"
+    AllowedPattern: "^[a-z0-9]+$"
+    Default: "dev"
+  TzeroApiDeploymentStageName:
+     Type: "String"
+     Default: "dev"
+# ********** Tzero APIGateway Parameters- End **************
 Resources:
 # ********** Tzero Cognito "UserPool/ClientID" Resource- Start**************
 # TRIGGER NEED TO BE ADDED IN THIS CF 
@@ -678,7 +690,7 @@ Resources:
     Type: "AWS::Serverless::Function"
     Properties:
       Description: "ServerlessRepoApiLambdaUpdateDynaUpdateLambda"
-      FunctionName: !Sub ${EnvName}ServerlessRepoApiLambdaUpdateDynaUpdateLambda
+      FunctionName: !Sub ${EnvName}_ServerlessRepoApiLambdaUpdateDynaUpdateLambda
       Handler: "index.handler"
       Role:
         Fn::GetAtt:
@@ -695,6 +707,308 @@ Resources:
       MemorySize: 128
       Timeout: 25
 # ********** Tzero Lambda Function Resource- End**************
+#********** API Gateway Resources creation- Start**************
+  TzeroRestApi:
+    Type: "AWS::ApiGateway::RestApi"
+    Properties:
+      Description: "Tzero Rest Api"
+      EndpointConfiguration:
+        Types:
+          - REGIONAL
+      Name: !Sub ${EnvName}_TzeroRestApi"
+# ************ API ROOT METHOD- START**************
+  RootGetMethod:
+    Type: 'AWS::ApiGateway::Method'
+    Properties:
+      Integration:
+        Type: MOCK
+        IntegrationResponses:
+          - ResponseTemplates:
+              application/json: ''
+            StatusCode: 200
+            ResponseParameters:
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+              method.response.header.Access-Control-Allow-Methods: "'GET,POST,OPTIONS'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+      MethodResponses:
+          - StatusCode: 200
+            ResponseModels:
+              application/json: 'Empty'
+            ResponseParameters:
+              method.response.header.Access-Control-Allow-Headers: true
+              method.response.header.Access-Control-Allow-Methods: true
+              method.response.header.Access-Control-Allow-Origin: true
+      RestApiId: !Ref TzeroRestApi
+      ResourceId: !GetAtt
+          - TzeroRestApi
+          - RootResourceId
+      HttpMethod: GET
+      AuthorizationType: NONE
+  RootPostMethod:
+    Type: "AWS::ApiGateway::Method"
+    Properties:
+      HttpMethod: POST
+      AuthorizationType: NONE
+      Integration:
+        IntegrationResponses:
+          - ResponseTemplates:
+              application/json: ''
+            StatusCode: 200
+            ResponseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+        IntegrationHttpMethod: POST
+        Type: AWS
+        Uri: !Sub
+          - "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${lambdaArn}/invocations"
+          - lambdaArn: !GetAtt "TzeroRegistration.Arn"
+      MethodResponses:
+        - StatusCode: 200
+          ResponseModels:
+            application/json: 'Empty'
+          ResponseParameters:
+            method.response.header.Access-Control-Allow-Origin: true
+      RestApiId: !Ref TzeroRestApi
+      ResourceId: !GetAtt
+        - TzeroRestApi
+        - RootResourceId        
+  RootMockMethod:
+    Type: 'AWS::ApiGateway::Method'
+    Properties:
+      Integration:
+        Type: MOCK
+        IntegrationResponses:
+          - ResponseTemplates:
+              application/json: ''
+            StatusCode: 200
+            ResponseParameters:
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+              method.response.header.Access-Control-Allow-Methods: "'POST,OPTIONS'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+      MethodResponses:
+        - StatusCode: 200
+          ResponseModels:
+            application/json: 'Empty'
+          ResponseParameters:
+            method.response.header.Access-Control-Allow-Headers: true
+            method.response.header.Access-Control-Allow-Methods: true
+            method.response.header.Access-Control-Allow-Origin: true
+      RestApiId: !Ref TzeroRestApi
+      ResourceId: !GetAtt
+        - TzeroRestApi
+        - RootResourceId
+      HttpMethod: OPTIONS
+      AuthorizationType: NONE
+          
+  # ************ API ROOT METHOD- END**************
+
+  # # ************ ConfirmConsumerRegistration METHOD- Start********
+
+  # ConfirmConsumerRegistration:
+     # Type: "AWS::ApiGateway::Resource"
+     # Properties:
+       # ParentId:
+         # Fn::GetAtt:
+           # - "TzeroRestApi"
+           # - "RootResourceId"
+       # PathPart: ConfirmConsumerRegistration
+       # RestApiId:
+         # Ref: "TzeroRestApi"
+
+  # ConfirmConsumerRegistrationMockMethod:
+    # Type: 'AWS::ApiGateway::Method'
+    # Properties:
+      # Integration:
+        # Type: MOCK
+        # IntegrationResponses:
+          # - ResponseTemplates:
+              # application/json: ''
+            # StatusCode: 200
+            # ResponseParameters:
+              # method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+              # method.response.header.Access-Control-Allow-Methods: "'POST,OPTIONS'"
+              # method.response.header.Access-Control-Allow-Origin: "'*'"
+      # MethodResponses:
+        # - StatusCode: 200
+          # ResponseModels:
+            # application/json: 'Empty'
+          # ResponseParameters:
+            # method.response.header.Access-Control-Allow-Headers: true
+            # method.response.header.Access-Control-Allow-Methods: true
+            # method.response.header.Access-Control-Allow-Origin: true
+      # RestApiId: !Ref TzeroRestApi
+      # ResourceId: !Ref ConfirmConsumerRegistration
+      # HttpMethod: OPTIONS
+      # AuthorizationType: NONE
+
+# # ************ ConfirmConsumerRegistration METHOD- End********
+
+# # ************ Consumer METHOD- Start********************
+
+  # Consumer:
+    # Type: "AWS::ApiGateway::Resource"
+    # Properties:
+      # ParentId:
+        # Fn::GetAtt:
+          # - "TzeroRestApi"
+          # - "RootResourceId"
+      # PathPart: Consumer
+      # RestApiId:
+        # Ref: "TzeroRestApi"
+  # ConsumerMockMethod:
+    # Type: 'AWS::ApiGateway::Method'
+    # Properties:
+      # Integration:
+        # Type: MOCK
+        # IntegrationResponses:
+          # - ResponseTemplates:
+              # application/json: ''
+            # StatusCode: 200
+            # ResponseParameters:
+              # method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+              # method.response.header.Access-Control-Allow-Methods: "'POST,OPTIONS'"
+              # method.response.header.Access-Control-Allow-Origin: "'*'"
+      # MethodResponses:
+        # - StatusCode: 200
+          # ResponseModels:
+            # application/json: 'Empty'
+          # ResponseParameters:
+            # method.response.header.Access-Control-Allow-Headers: true
+            # method.response.header.Access-Control-Allow-Methods: true
+            # method.response.header.Access-Control-Allow-Origin: true
+      # RestApiId: !Ref TzeroRestApi
+      # ResourceId: !Ref Consumer
+      # HttpMethod: OPTIONS
+      # AuthorizationType: NONE
+          
+  # ConsumerPhoneNumber:
+    # Type: "AWS::ApiGateway::Resource"
+    # Properties:
+      # ParentId: !Ref Consumer
+      # PathPart: "{phoneNumber}"
+      # RestApiId:
+        # Ref: "TzeroRestApi"
+        
+  # ConsumerPhoneNumberGetMethod:
+    # Type: "AWS::ApiGateway::Method"
+    # Properties:
+      # HttpMethod: GET
+      # AuthorizationType: NONE
+      # Integration:
+        # IntegrationHttpMethod: GET
+        # Type: AWS_PROXY
+        # Uri: !Sub
+          # - "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${lambdaArn}/invocations"
+          # - lambdaArn: !GetAtt "TzeroConsumerProfile.Arn"
+      # MethodResponses:
+        # - StatusCode: 200
+          # ResponseModels:
+            # application/json: 'Empty'
+      # RestApiId: !Ref TzeroRestApi
+      # ResourceId: !Ref ConsumerPhoneNumber
+
+  # ConsumerPhoneNumberMockMethod:
+    # Type: 'AWS::ApiGateway::Method'
+    # Properties:
+      # Integration:
+        # Type: MOCK
+        # IntegrationResponses:
+          # - ResponseTemplates:
+              # application/json: ''
+            # StatusCode: 200
+            # ResponseParameters:
+              # method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+              # method.response.header.Access-Control-Allow-Methods: "'POST,OPTIONS'"
+              # method.response.header.Access-Control-Allow-Origin: "'*'"
+      # MethodResponses:
+        # - StatusCode: 200
+          # ResponseModels:
+            # application/json: 'Empty'
+          # ResponseParameters:
+            # method.response.header.Access-Control-Allow-Headers: true
+            # method.response.header.Access-Control-Allow-Methods: true
+            # method.response.header.Access-Control-Allow-Origin: true
+      # RestApiId: !Ref TzeroRestApi
+      # ResourceId: !Ref ConsumerPhoneNumber
+      # HttpMethod: OPTIONS
+      # AuthorizationType: NONE
+
+  # ConsumerPhoneNumberPatchMethod:
+    # Type: "AWS::ApiGateway::Method"
+    # Properties:
+      # HttpMethod: PATCH
+      # AuthorizationType: NONE
+      # Integration:
+        # IntegrationHttpMethod: PATCH
+        # Type: AWS_PROXY
+        # Uri: !Sub
+          # - "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${lambdaArn}/invocations"
+          # - lambdaArn: !GetAtt "TzeroConsumerProfile.Arn"
+      # MethodResponses:
+        # - StatusCode: 200
+          # ResponseModels:
+            # application/json: 'Empty'
+      # RestApiId: !Ref TzeroRestApi
+      # ResourceId: !Ref ConsumerPhoneNumber
+    
+  # ConsumerChangePhoneNumber:
+    # Type: "AWS::ApiGateway::Resource"
+    # Properties:
+      # ParentId: !Ref ConsumerPhoneNumber
+      # PathPart: "ChangePhoneNumber"
+      # RestApiId:
+        # Ref: "TzeroRestApi"
+    
+  # ConsumerChangePhoneNumberMockMethod:
+    # Type: 'AWS::ApiGateway::Method'
+    # Properties:
+      # Integration:
+        # Type: MOCK
+        # IntegrationResponses:
+          # - ResponseTemplates:
+              # application/json: ''
+            # StatusCode: 200
+            # ResponseParameters:
+              # method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+              # method.response.header.Access-Control-Allow-Methods: "'POST,OPTIONS'"
+              # method.response.header.Access-Control-Allow-Origin: "'*'"
+      # MethodResponses:
+        # - StatusCode: 200
+          # ResponseModels:
+            # application/json: 'Empty'
+          # ResponseParameters:
+            # method.response.header.Access-Control-Allow-Headers: true
+            # method.response.header.Access-Control-Allow-Methods: true
+            # method.response.header.Access-Control-Allow-Origin: true
+      # RestApiId: !Ref TzeroRestApi
+      # ResourceId: !Ref ConsumerChangePhoneNumber
+      # HttpMethod: OPTIONS
+      # AuthorizationType: NONE
+
+  # ConsumerChangePhoneNumberPostMethod:
+    # Type: "AWS::ApiGateway::Method"
+    # Properties:
+      # HttpMethod: POST
+      # AuthorizationType: NONE
+      # Integration:
+        # IntegrationResponses:
+          # - ResponseTemplates:
+              # application/json: ''
+            # StatusCode: 200
+            # ResponseParameters:
+              # method.response.header.Access-Control-Allow-Origin: "'*'"
+        # IntegrationHttpMethod: POST
+        # Type: AWS
+        # Uri: !Sub
+          # - "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${lambdaArn}/invocations"
+          # - lambdaArn: !GetAtt "TzeroConsumerChangePhoneNumber.Arn"
+      # MethodResponses:
+        # - StatusCode: 200
+          # ResponseModels:
+            # application/json: 'Empty'
+          # ResponseParameters:
+            # method.response.header.Access-Control-Allow-Origin: true
+      # RestApiId: !Ref TzeroRestApi
+      # ResourceId: !Ref ConsumerChangePhoneNumber
 
 # ********** Tzero Lambda Function Output - Start**************
 Outputs:
