@@ -1453,72 +1453,64 @@ Resources:
             application/json: 'Empty'
       RestApiId: !Ref TzeroRestApi
       ResourceId: !Ref getimageadvert
-# # ************getimageadvert resource- End********
+# ************getimageadvert resource- End********
 
-# # ************getproduceradvertdetails resource- Start********
-  # getproduceradvertdetails:
-    # Type: "AWS::ApiGateway::Resource"
-    # Properties:
-      # ParentId:
-        # Fn::GetAtt:
-          # - "TzeroRestApi"
-          # - "RootResourceId"
-      # PathPart: getproduceradvertdetails
-      # RestApiId:
-        # Ref: "TzeroRestApi"
-  # getimageadvertMockMethod:
-    # Type: 'AWS::ApiGateway::Method'
-    # Properties:
-      # Integration:
-        # Type: MOCK
-        # IntegrationResponses:
-          # - ResponseTemplates:
-              # application/json: ''
-            # StatusCode: 200
-            # ResponseParameters:
-              # method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
-              # method.response.header.Access-Control-Allow-Methods: "'POST,OPTIONS'"
-              # method.response.header.Access-Control-Allow-Origin: "'*'"
-      # MethodResponses:
-        # - StatusCode: 200
-          # ResponseModels:
-            # application/json: 'Empty'
-          # ResponseParameters:
-            # method.response.header.Access-Control-Allow-Headers: true
-            # method.response.header.Access-Control-Allow-Methods: true
-            # method.response.header.Access-Control-Allow-Origin: true
-      # RestApiId: !Ref TzeroRestApi
-      # ResourceId: !Ref getproduceradvertdetails
-      # HttpMethod: OPTIONS
-      # AuthorizationType: NONE
-  # getimageadvertGetMethod:
-    # Type: "AWS::ApiGateway::Method"
-    # Properties:
-      # HttpMethod: GET
-      # AuthorizationType: NONE
-      # Integration:
-        # IntegrationResponses:
-          # - ResponseTemplates:
-              # application/json: ''
-            # StatusCode: 200
-            # ResponseParameters:
-              # method.response.header.Access-Control-Allow-Origin: "'*'"
-        # IntegrationHttpMethod: GET
-        # Type: AWS
-        # Uri: !Sub
-          # - "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${lambdaArn}/invocations"
-          # - lambdaArn: !GetAtt "TzeroProducerGetAdvertDetails.Arn"
-      # MethodResponses:
-        # - StatusCode: 200
-          # ResponseModels:
-            # application/json: 'Empty'
-          # ResponseParameters:
-            # method.response.header.Access-Control-Allow-Origin: true
-      # RestApiId: !Ref TzeroRestApi
-      # ResourceId: !Ref getproduceradvertdetails 
-# # ************getproduceradvertdetails resource- End********
+# ************getproduceradvertdetails resource- Start********
+  getproduceradvertdetails:
+    Type: "AWS::ApiGateway::Resource"
+    Properties:
+      ParentId:
+        Fn::GetAtt:
+          - "TzeroRestApi"
+          - "RootResourceId"
+      PathPart: getproduceradvertdetails
+      RestApiId:
+        Ref: "TzeroRestApi"
+  getproduceradvertdetailsMockMethod:
+    Type: 'AWS::ApiGateway::Method'
+    Properties:
+      Integration:
+        Type: MOCK
+        IntegrationResponses:
+          - ResponseTemplates:
+              application/json: ''
+            StatusCode: 200
+            ResponseParameters:
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+              method.response.header.Access-Control-Allow-Methods: "'POST,OPTIONS'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+      MethodResponses:
+        - StatusCode: 200
+          ResponseModels:
+            application/json: 'Empty'
+          ResponseParameters:
+            method.response.header.Access-Control-Allow-Headers: true
+            method.response.header.Access-Control-Allow-Methods: true
+            method.response.header.Access-Control-Allow-Origin: true
+      RestApiId: !Ref TzeroRestApi
+      ResourceId: !Ref getproduceradvertdetails
+      HttpMethod: OPTIONS
+      AuthorizationType: NONE
+  getproduceradvertdetailsGetMethod:
+    Type: "AWS::ApiGateway::Method"
+    Properties:
+      HttpMethod: GET
+      AuthorizationType: NONE
+      Integration:
+        IntegrationHttpMethod: GET
+        Type: AWS_PROXY
+        Uri: !Sub
+          - "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${lambdaArn}/invocations"
+          - lambdaArn: !GetAtt "TzeroProducerGetAdvertDetails.Arn"
+      MethodResponses:
+        - StatusCode: 200
+          ResponseModels:
+            application/json: 'Empty'
+      RestApiId: !Ref TzeroRestApi
+      ResourceId: !Ref getproduceradvertdetails
+# ************getproduceradvertdetails resource- End********
 
-# # ************loadadverttoconsume resource- Start********
+# ************loadadverttoconsume resource- Start********
   # loadadverttoconsume:
     # Type: "AWS::ApiGateway::Resource"
     # Properties:
