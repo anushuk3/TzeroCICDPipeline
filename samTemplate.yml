@@ -1798,70 +1798,196 @@ Resources:
       ResourceId: !Ref ProducerRegistration
       HttpMethod: OPTIONS
       AuthorizationType: NONE
-# # ************ProducerRegistration resource- End********
+# ************ProducerRegistration resource- End********
 
-# # ************ProducerResetPassword resource- Start********
-  # ProducerResetPassword:
-    # Type: "AWS::ApiGateway::Resource"
-    # Properties:
-      # ParentId:
-        # Fn::GetAtt:
-          # - "TzeroRestApi"
-          # - "RootResourceId"
-      # PathPart: ProducerResetPassword
-      # RestApiId:
-        # Ref: "TzeroRestApi"
-  # ProducerResetPasswordMockMethod:
-    # Type: 'AWS::ApiGateway::Method'
-    # Properties:
-      # Integration:
-        # Type: MOCK
-        # IntegrationResponses:
-          # - ResponseTemplates:
-              # application/json: ''
-            # StatusCode: 200
-            # ResponseParameters:
-              # method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
-              # method.response.header.Access-Control-Allow-Methods: "'POST,OPTIONS'"
-              # method.response.header.Access-Control-Allow-Origin: "'*'"
-      # MethodResponses:
-        # - StatusCode: 200
-          # ResponseModels:
-            # application/json: 'Empty'
-          # ResponseParameters:
-            # method.response.header.Access-Control-Allow-Headers: true
-            # method.response.header.Access-Control-Allow-Methods: true
-            # method.response.header.Access-Control-Allow-Origin: true
-      # RestApiId: !Ref TzeroRestApi
-      # ResourceId: !Ref ProducerResetPassword
-      # HttpMethod: OPTIONS
-      # AuthorizationType: NONE
-  # ProducerResetPasswordPostMethod:
-    # Type: "AWS::ApiGateway::Method"
-    # Properties:
-      # HttpMethod: POST
-      # AuthorizationType: NONE
-      # Integration:
-        # IntegrationResponses:
-          # - ResponseTemplates:
-              # application/json: ''
-            # StatusCode: 200
-            # ResponseParameters:
-              # method.response.header.Access-Control-Allow-Origin: "'*'"
-        # IntegrationHttpMethod: POST
-        # Type: AWS
-        # Uri: !Sub
-          # - "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${lambdaArn}/invocations"
-          # - lambdaArn: !GetAtt "TzeroRegistration.Arn"
-      # MethodResponses:
-        # - StatusCode: 200
-          # ResponseModels:
-            # application/json: 'Empty'
-          # ResponseParameters:
-            # method.response.header.Access-Control-Allow-Origin: true
-      # RestApiId: !Ref TzeroRestApi
-      # ResourceId: !Ref ProducerResetPassword
-# # ************ProducerResetPassword resource- End********
+# ************producerupdatesurvey resource- Start********
+  producerupdatesurvey:
+    Type: "AWS::ApiGateway::Resource"
+    Properties:
+      ParentId:
+        Fn::GetAtt:
+          - "TzeroRestApi"
+          - "RootResourceId"
+      PathPart: producerupdatesurvey
+      RestApiId:
+        Ref: "TzeroRestApi"
+  producerupdatesurveyMockMethod:
+    Type: 'AWS::ApiGateway::Method'
+    Properties:
+      Integration:
+        Type: MOCK
+        IntegrationResponses:
+          - ResponseTemplates:
+              application/json: ''
+            StatusCode: 200
+            ResponseParameters:
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+              method.response.header.Access-Control-Allow-Methods: "'POST,OPTIONS'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+      MethodResponses:
+        - StatusCode: 200
+          ResponseModels:
+            application/json: 'Empty'
+          ResponseParameters:
+            method.response.header.Access-Control-Allow-Headers: true
+            method.response.header.Access-Control-Allow-Methods: true
+            method.response.header.Access-Control-Allow-Origin: true
+      RestApiId: !Ref TzeroRestApi
+      ResourceId: !Ref producerupdatesurvey
+      HttpMethod: OPTIONS
+      AuthorizationType: NONE
+  producerupdatesurveyPostMethod:
+    Type: "AWS::ApiGateway::Method"
+    Properties:
+      HttpMethod: POST
+      AuthorizationType: NONE
+      Integration:
+        IntegrationResponses:
+          - ResponseTemplates:
+              application/json: ''
+            StatusCode: 200
+            ResponseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+        IntegrationHttpMethod: POST
+        Type: AWS
+        Uri: !Sub
+          - "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${lambdaArn}/invocations"
+          - lambdaArn: !GetAtt "TzeroProducerSurveyManagement.Arn"
+      MethodResponses:
+        - StatusCode: 200
+          ResponseModels:
+            application/json: 'Empty'
+          ResponseParameters:
+            method.response.header.Access-Control-Allow-Origin: true
+      RestApiId: !Ref TzeroRestApi
+      ResourceId: !Ref producerupdatesurvey
+# ************producerupdatesurvey resource- End********
+
+# ************updateadvertviews resource- Start********
+  updateadvertviews:
+    Type: "AWS::ApiGateway::Resource"
+    Properties:
+      ParentId:
+        Fn::GetAtt:
+          - "TzeroRestApi"
+          - "RootResourceId"
+      PathPart: updateadvertviews
+      RestApiId:
+        Ref: "TzeroRestApi"
+  updateadvertviewsMockMethod:
+    Type: 'AWS::ApiGateway::Method'
+    Properties:
+      Integration:
+        Type: MOCK
+        IntegrationResponses:
+          - ResponseTemplates:
+              application/json: ''
+            StatusCode: 200
+            ResponseParameters:
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+              method.response.header.Access-Control-Allow-Methods: "'POST,OPTIONS'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+      MethodResponses:
+        - StatusCode: 200
+          ResponseModels:
+            application/json: 'Empty'
+          ResponseParameters:
+            method.response.header.Access-Control-Allow-Headers: true
+            method.response.header.Access-Control-Allow-Methods: true
+            method.response.header.Access-Control-Allow-Origin: true
+      RestApiId: !Ref TzeroRestApi
+      ResourceId: !Ref updateadvertviews
+      HttpMethod: OPTIONS
+      AuthorizationType: NONE
+  updateadvertviewsPostMethod:
+    Type: "AWS::ApiGateway::Method"
+    Properties:
+      HttpMethod: POST
+      AuthorizationType: NONE
+      Integration:
+        IntegrationResponses:
+          - ResponseTemplates:
+              application/json: ''
+            StatusCode: 200
+            ResponseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+        IntegrationHttpMethod: POST
+        Type: AWS
+        Uri: !Sub
+          - "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${lambdaArn}/invocations"
+          - lambdaArn: !GetAtt "TzeroConsumerAdvertViewsLikesUpdate.Arn"
+      MethodResponses:
+        - StatusCode: 200
+          ResponseModels:
+            application/json: 'Empty'
+          ResponseParameters:
+            method.response.header.Access-Control-Allow-Origin: true
+      RestApiId: !Ref TzeroRestApi
+      ResourceId: !Ref updateadvertviews
+# ************updateadvertviews resource- End********
+
+# ************updateconsumerprofile resource- Start********
+  updateconsumerprofile:
+    Type: "AWS::ApiGateway::Resource"
+    Properties:
+      ParentId:
+        Fn::GetAtt:
+          - "TzeroRestApi"
+          - "RootResourceId"
+      PathPart: updateconsumerprofile
+      RestApiId:
+        Ref: "TzeroRestApi"
+  updateconsumerprofileMockMethod:
+    Type: 'AWS::ApiGateway::Method'
+    Properties:
+      Integration:
+        Type: MOCK
+        IntegrationResponses:
+          - ResponseTemplates:
+              application/json: ''
+            StatusCode: 200
+            ResponseParameters:
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+              method.response.header.Access-Control-Allow-Methods: "'POST,OPTIONS'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+      MethodResponses:
+        - StatusCode: 200
+          ResponseModels:
+            application/json: 'Empty'
+          ResponseParameters:
+            method.response.header.Access-Control-Allow-Headers: true
+            method.response.header.Access-Control-Allow-Methods: true
+            method.response.header.Access-Control-Allow-Origin: true
+      RestApiId: !Ref TzeroRestApi
+      ResourceId: !Ref updateconsumerprofile
+      HttpMethod: OPTIONS
+      AuthorizationType: NONE
+  updateconsumerprofilePostMethod:
+    Type: "AWS::ApiGateway::Method"
+    Properties:
+      HttpMethod: POST
+      AuthorizationType: NONE
+      Integration:
+        IntegrationResponses:
+          - ResponseTemplates:
+              application/json: ''
+            StatusCode: 200
+            ResponseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+        IntegrationHttpMethod: POST
+        Type: AWS
+        Uri: !Sub
+          - "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${lambdaArn}/invocations"
+          - lambdaArn: !GetAtt "TzeroConsumerProfileUpdate.Arn"
+      MethodResponses:
+        - StatusCode: 200
+          ResponseModels:
+            application/json: 'Empty'
+          ResponseParameters:
+            method.response.header.Access-Control-Allow-Origin: true
+      RestApiId: !Ref TzeroRestApi
+      ResourceId: !Ref updateconsumerprofile
+# ************updateconsumerprofile resource- End********
 # ********** Tzero Lambda Function Output - Start**************
 Outputs:
   TzeroProducerUserPoolId:
