@@ -1280,69 +1280,61 @@ Resources:
             application/json: 'Empty'
       RestApiId: !Ref TzeroRestApi
       ResourceId: !Ref getconsumerdetail
-# # ************getconsumerdetail resource- End************
+# ************getconsumerdetail resource- End************
 
-# # ************getconsumerdetails resource- Start**********
-  # getconsumerdetails:
-    # Type: "AWS::ApiGateway::Resource"
-    # Properties:
-      # ParentId:
-        # Fn::GetAtt:
-          # - "TzeroRestApi"
-          # - "RootResourceId"
-      # PathPart: getconsumerdetails
-      # RestApiId:
-        # Ref: "TzeroRestApi"
-  # getconsumerdetailsMockMethod:
-    # Type: 'AWS::ApiGateway::Method'
-    # Properties:
-      # Integration:
-        # Type: MOCK
-        # IntegrationResponses:
-          # - ResponseTemplates:
-              # application/json: ''
-            # StatusCode: 200
-            # ResponseParameters:
-              # method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
-              # method.response.header.Access-Control-Allow-Methods: "'POST,OPTIONS'"
-              # method.response.header.Access-Control-Allow-Origin: "'*'"
-      # MethodResponses:
-        # - StatusCode: 200
-          # ResponseModels:
-            # application/json: 'Empty'
-          # ResponseParameters:
-            # method.response.header.Access-Control-Allow-Headers: true
-            # method.response.header.Access-Control-Allow-Methods: true
-            # method.response.header.Access-Control-Allow-Origin: true
-      # RestApiId: !Ref TzeroRestApi
-      # ResourceId: !Ref getconsumerdetails
-      # HttpMethod: OPTIONS
-      # AuthorizationType: NONE
-  # getconsumerdetailGetMethod:
-    # Type: "AWS::ApiGateway::Method"
-    # Properties:
-      # HttpMethod: GET
-      # AuthorizationType: NONE
-      # Integration:
-        # IntegrationResponses:
-          # - ResponseTemplates:
-              # application/json: ''
-            # StatusCode: 200
-            # ResponseParameters:
-              # method.response.header.Access-Control-Allow-Origin: "'*'"
-        # IntegrationHttpMethod: GET
-        # Type: AWS
-        # Uri: !Sub
-          # - "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${lambdaArn}/invocations"
-          # - lambdaArn: !GetAtt "TzeroConsumerGetDetails.Arn"
-      # MethodResponses:
-        # - StatusCode: 200
-          # ResponseModels:
-            # application/json: 'Empty'
-          # ResponseParameters:
-            # method.response.header.Access-Control-Allow-Origin: true
-      # RestApiId: !Ref TzeroRestApi
-      # ResourceId: !Ref getconsumerdetails 
+# ************getconsumerdetails resource- Start**********
+  getconsumerdetails:
+    Type: "AWS::ApiGateway::Resource"
+    Properties:
+      ParentId:
+        Fn::GetAtt:
+          - "TzeroRestApi"
+          - "RootResourceId"
+      PathPart: getconsumerdetails
+      RestApiId:
+        Ref: "TzeroRestApi"
+  getconsumerdetailsMockMethod:
+    Type: 'AWS::ApiGateway::Method'
+    Properties:
+      Integration:
+        Type: MOCK
+        IntegrationResponses:
+          - ResponseTemplates:
+              application/json: ''
+            StatusCode: 200
+            ResponseParameters:
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+              method.response.header.Access-Control-Allow-Methods: "'POST,OPTIONS'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+      MethodResponses:
+        - StatusCode: 200
+          ResponseModels:
+            application/json: 'Empty'
+          ResponseParameters:
+            method.response.header.Access-Control-Allow-Headers: true
+            method.response.header.Access-Control-Allow-Methods: true
+            method.response.header.Access-Control-Allow-Origin: true
+      RestApiId: !Ref TzeroRestApi
+      ResourceId: !Ref getconsumerdetails
+      HttpMethod: OPTIONS
+      AuthorizationType: NONE
+  getconsumerdetailsGetMethod:
+    Type: "AWS::ApiGateway::Method"
+    Properties:
+      HttpMethod: GET
+      AuthorizationType: NONE
+      Integration:
+        IntegrationHttpMethod: GET
+        Type: AWS_PROXY
+        Uri: !Sub
+          - "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${lambdaArn}/invocations"
+          - lambdaArn: !GetAtt "TzeroConsumerGetDetails.Arn"
+      MethodResponses:
+        - StatusCode: 200
+          ResponseModels:
+            application/json: 'Empty'
+      RestApiId: !Ref TzeroRestApi
+      ResourceId: !Ref getconsumerdetails
 # # ************getconsumerdetails resource- End************
 
 # # ************getconsumertransactions resource- Start******
