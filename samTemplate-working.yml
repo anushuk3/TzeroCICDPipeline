@@ -26,7 +26,8 @@ Parameters:
     ConstraintDescription: must be between 5 and 10000
 # ********** Tzero DynamoDB Parameters- End **************
 
-# ********** Tzero Lambda Functions Parameters- Start ************** 
+# ********** Tzero Lambda Functions Parameters- Start **************
+ 
 # Lambda Function Target S3 key(CodePath) name
   TzeroRegistrationS3Key:
     Description: s3 key name for the lambda package in s3
@@ -641,7 +642,7 @@ Resources:
       Runtime: "python3.7"
       Environment:
         Variables:
-          AssumeRoleArn: !GetAtt TzeroLambdaRole.Arn
+#          AssumeRoleArn: arn:aws:iam::299869144443:role/Tzero-Roles-TzeroStsAssumeRole-EA88CQ4J1JAR
           AssumeRoleExpiry: 1000
           BusinessRulesTable: !Ref "TzeroBusinessRulesTable"
           ConsumerInfoTable: !Ref "TzeroConsumerTable"
@@ -668,28 +669,6 @@ Outputs:
     Value: !Ref TzeroProducerAppClient
   TzeroConsumerAppClientId:
     Value: !Ref TzeroConsumerAppClient
-  TzeroProducerTableName:
-    Value: !Ref 'TzeroProducerTable'
-    Export:
-      Name: "TzeroProducerTable"
-  TzeroProducerAdvertTableName:
-    Value: !Ref 'TzeroProducerAdvertTable'
-  TzeroProducerSupportTicketTableName:
-    Value: !Ref 'TzeroProducerSupportTicketTable'
-  TzeroProducerIndustryTagsTableName:
-    Value: !Ref 'TzeroProducerIndustryTagsTable'
-  TzeroConsumerTableName:
-    Value: !Ref 'TzeroConsumerTable'
-  TzeroConsumerTransactionsTableName:
-    Value: !Ref 'TzeroConsumerTransactionsTable'
-  TzeroConsumerCredentialsTableName:
-    Value: !Ref 'TzeroConsumerCredentialsTable'
-  TzeroConsumerExperiencePointsTableName:
-    Value: !Ref 'TzeroConsumerExperiencePointsTable'
-  TzeroSurveyTableName:
-    Value: !Ref 'TzeroSurveyTable'
-  TzeroBusinessRulesTableName:
-    Value: !Ref 'TzeroBusinessRulesTable'
   TzeroRegistrationFunctionName:
     Value: !Ref TzeroRegistration
   TzeroRegistrationLambdaFunctionARN:
