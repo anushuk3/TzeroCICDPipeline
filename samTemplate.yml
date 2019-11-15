@@ -1772,68 +1772,68 @@ Resources:
       ResourceId: !Ref ProducerLogin
 # ************ProducerLogin resource- End********
 
-# ************producermarketplace resource- Start********
-  producermarketplace:
-    Type: "AWS::ApiGateway::Resource"
-    Properties:
-      ParentId:
-        Fn::GetAtt:
-          - "TzeroRestApi"
-          - "RootResourceId"
-      PathPart: producermarketplace
-      RestApiId:
-        Ref: "TzeroRestApi"
-  ProducerLoginMockMethod:
-    Type: 'AWS::ApiGateway::Method'
-    Properties:
-      Integration:
-        Type: MOCK
-        IntegrationResponses:
-          - ResponseTemplates:
-              application/json: ''
-            StatusCode: 200
-            ResponseParameters:
-              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
-              method.response.header.Access-Control-Allow-Methods: "'POST,OPTIONS'"
-              method.response.header.Access-Control-Allow-Origin: "'*'"
-      MethodResponses:
-        - StatusCode: 200
-          ResponseModels:
-            application/json: 'Empty'
-          ResponseParameters:
-            method.response.header.Access-Control-Allow-Headers: true
-            method.response.header.Access-Control-Allow-Methods: true
-            method.response.header.Access-Control-Allow-Origin: true
-      RestApiId: !Ref TzeroRestApi
-      ResourceId: !Ref producermarketplace
-      HttpMethod: OPTIONS
-      AuthorizationType: NONE
-  producermarketplacePostMethod:
-    Type: "AWS::ApiGateway::Method"
-    Properties:
-      HttpMethod: POST
-      AuthorizationType: NONE
-      Integration:
-        IntegrationResponses:
-          - ResponseTemplates:
-              application/json: ''
-            StatusCode: 200
-            ResponseParameters:
-              method.response.header.Access-Control-Allow-Origin: "'*'"
-        IntegrationHttpMethod: POST
-        Type: AWS
-        Uri: !Sub
-          - "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${lambdaArn}/invocations"
-          - lambdaArn: !GetAtt "TzeroProducerMarketPlace.Arn"
-      MethodResponses:
-        - StatusCode: 200
-          ResponseModels:
-            application/json: 'Empty'
-          ResponseParameters:
-            method.response.header.Access-Control-Allow-Origin: true
-      RestApiId: !Ref TzeroRestApi
-      ResourceId: !Ref producermarketplace
-# ************producermarketplace resource- End********
+# # ************producermarketplace resource- Start********
+  # producermarketplace:
+    # Type: "AWS::ApiGateway::Resource"
+    # Properties:
+      # ParentId:
+        # Fn::GetAtt:
+          # - "TzeroRestApi"
+          # - "RootResourceId"
+      # PathPart: producermarketplace
+      # RestApiId:
+        # Ref: "TzeroRestApi"
+  # producermarketplaceMockMethod:
+    # Type: 'AWS::ApiGateway::Method'
+    # Properties:
+      # Integration:
+        # Type: MOCK
+        # IntegrationResponses:
+          # - ResponseTemplates:
+              # application/json: ''
+            # StatusCode: 200
+            # ResponseParameters:
+              # method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+              # method.response.header.Access-Control-Allow-Methods: "'POST,OPTIONS'"
+              # method.response.header.Access-Control-Allow-Origin: "'*'"
+      # MethodResponses:
+        # - StatusCode: 200
+          # ResponseModels:
+            # application/json: 'Empty'
+          # ResponseParameters:
+            # method.response.header.Access-Control-Allow-Headers: true
+            # method.response.header.Access-Control-Allow-Methods: true
+            # method.response.header.Access-Control-Allow-Origin: true
+      # RestApiId: !Ref TzeroRestApi
+      # ResourceId: !Ref producermarketplace
+      # HttpMethod: OPTIONS
+      # AuthorizationType: NONE
+  # producermarketplacePostMethod:
+    # Type: "AWS::ApiGateway::Method"
+    # Properties:
+      # HttpMethod: POST
+      # AuthorizationType: NONE
+      # Integration:
+        # IntegrationResponses:
+          # - ResponseTemplates:
+              # application/json: ''
+            # StatusCode: 200
+            # ResponseParameters:
+              # method.response.header.Access-Control-Allow-Origin: "'*'"
+        # IntegrationHttpMethod: POST
+        # Type: AWS
+        # Uri: !Sub
+          # - "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${lambdaArn}/invocations"
+          # - lambdaArn: !GetAtt "TzeroProducerMarketPlace.Arn"
+      # MethodResponses:
+        # - StatusCode: 200
+          # ResponseModels:
+            # application/json: 'Empty'
+          # ResponseParameters:
+            # method.response.header.Access-Control-Allow-Origin: true
+      # RestApiId: !Ref TzeroRestApi
+      # ResourceId: !Ref producermarketplace
+# # ************producermarketplace resource- End********
 
 # ************ProducerRegistration resource- Start********
   ProducerRegistration:
