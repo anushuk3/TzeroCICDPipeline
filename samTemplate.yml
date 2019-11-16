@@ -2031,7 +2031,7 @@ Resources:
       HttpMethod: ANY
       AuthorizationType: NONE
       Integration:
-        IntegrationHttpMethod: GET
+        IntegrationHttpMethod: ANY
         Type: AWS_PROXY
         Uri: !Sub
           - "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${lambdaArn}/invocations"
@@ -2042,6 +2042,186 @@ Resources:
             application/json: 'Empty'
       RestApiId: !Ref TzeroRestApi
       ResourceId: !Ref producerSurveyManagement
+# ************producerSurveyManagement resource- End********
+
+# ************ Producers resource- Start********************
+  Producers:
+    Type: "AWS::ApiGateway::Resource"
+    Properties:
+      ParentId:
+        Fn::GetAtt:
+          - "TzeroRestApi"
+          - "RootResourceId"
+      PathPart: Producers
+      RestApiId:
+        Ref: "TzeroRestApi"
+  ProducersGetMethod:
+    Type: "AWS::ApiGateway::Method"
+    Properties:
+      HttpMethod: GET
+      AuthorizationType: NONE
+      Integration:
+        IntegrationHttpMethod: GET
+        Type: AWS_PROXY
+        Uri: !Sub
+          - "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${lambdaArn}/invocations"
+          - lambdaArn: !GetAtt "TzeroConsumerMarketPlace.Arn"
+      MethodResponses:
+        - StatusCode: 200
+          ResponseModels:
+            application/json: 'Empty'
+      RestApiId: !Ref TzeroRestApi
+      ResourceId: !Ref Producers
+  ProducersMockMethod:
+    Type: 'AWS::ApiGateway::Method'
+    Properties:
+      Integration:
+        Type: MOCK
+        IntegrationResponses:
+          - ResponseTemplates:
+              application/json: ''
+            StatusCode: 200
+            ResponseParameters:
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+              method.response.header.Access-Control-Allow-Methods: "'POST,OPTIONS'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+      MethodResponses:
+        - StatusCode: 200
+          ResponseModels:
+            application/json: 'Empty'
+          ResponseParameters:
+            method.response.header.Access-Control-Allow-Headers: true
+            method.response.header.Access-Control-Allow-Methods: true
+            method.response.header.Access-Control-Allow-Origin: true
+      RestApiId: !Ref TzeroRestApi
+      ResourceId: !Ref Producers
+      HttpMethod: OPTIONS
+      AuthorizationType: NONE         
+  ProducersproducerId:
+    Type: "AWS::ApiGateway::Resource"
+    Properties:
+      ParentId: !Ref Producers
+      PathPart: "{producerId}"
+      RestApiId:
+        Ref: "TzeroRestApi"      
+  ProducersproducerIdGetMethod:
+    Type: "AWS::ApiGateway::Method"
+    Properties:
+      HttpMethod: GET
+      AuthorizationType: NONE
+      Integration:
+        IntegrationHttpMethod: GET
+        Type: AWS_PROXY
+        Uri: !Sub
+          - "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${lambdaArn}/invocations"
+          - lambdaArn: !GetAtt "ServerlessRepoApiLambdaGetOneDynGetOneLambda.Arn"
+      MethodResponses:
+        - StatusCode: 200
+          ResponseModels:
+            application/json: 'Empty'
+      RestApiId: !Ref TzeroRestApi
+      ResourceId: !Ref ProducersproducerId
+  ProducersproducerIdMockMethod:
+    Type: 'AWS::ApiGateway::Method'
+    Properties:
+      Integration:
+        Type: MOCK
+        IntegrationResponses:
+          - ResponseTemplates:
+              application/json: ''
+            StatusCode: 200
+            ResponseParameters:
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+              method.response.header.Access-Control-Allow-Methods: "'POST,OPTIONS'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+      MethodResponses:
+        - StatusCode: 200
+          ResponseModels:
+            application/json: 'Empty'
+          ResponseParameters:
+            method.response.header.Access-Control-Allow-Headers: true
+            method.response.header.Access-Control-Allow-Methods: true
+            method.response.header.Access-Control-Allow-Origin: true
+      RestApiId: !Ref TzeroRestApi
+      ResourceId: !Ref ProducersproducerId
+      HttpMethod: OPTIONS
+      AuthorizationType: NONE
+  ProducersproducerIdPutMethod:
+    Type: "AWS::ApiGateway::Method"
+    Properties:
+      HttpMethod: PUT
+      AuthorizationType: NONE
+      Integration:
+        IntegrationHttpMethod: PUT
+        Type: AWS_PROXY
+        Uri: !Sub
+          - "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${lambdaArn}/invocations"
+          - lambdaArn: !GetAtt "ServerlessRepoApiLambdaUpdateDynaUpdateLambda.Arn"
+      MethodResponses:
+        - StatusCode: 200
+          ResponseModels:
+            application/json: 'Empty'
+      RestApiId: !Ref TzeroRestApi
+      ResourceId: !Ref ProducersproducerId   
+  ProducersReportedContent:
+    Type: "AWS::ApiGateway::Resource"
+    Properties:
+      ParentId: !Ref ProducersproducerId
+      PathPart: "ProducersReportedContent"
+      RestApiId:
+        Ref: "TzeroRestApi" 
+  ProducersReportedContentMockMethod:
+    Type: 'AWS::ApiGateway::Method'
+    Properties:
+      Integration:
+        Type: MOCK
+        IntegrationResponses:
+          - ResponseTemplates:
+              application/json: ''
+            StatusCode: 200
+            ResponseParameters:
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+              method.response.header.Access-Control-Allow-Methods: "'POST,OPTIONS'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+      MethodResponses:
+        - StatusCode: 200
+          ResponseModels:
+            application/json: 'Empty'
+          ResponseParameters:
+            method.response.header.Access-Control-Allow-Headers: true
+            method.response.header.Access-Control-Allow-Methods: true
+            method.response.header.Access-Control-Allow-Origin: true
+      RestApiId: !Ref TzeroRestApi
+      ResourceId: !Ref ProducersReportedContent
+      HttpMethod: OPTIONS
+      AuthorizationType: NONE
+  ProducersReportedContentPostMethod:
+    Type: "AWS::ApiGateway::Method"
+    Properties:
+      HttpMethod: POST
+      AuthorizationType: NONE
+      Integration:
+        IntegrationResponses:
+          - ResponseTemplates:
+              application/json: ''
+            StatusCode: 200
+            ResponseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+        IntegrationHttpMethod: POST
+        Type: AWS
+        Uri: !Sub
+          - "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${lambdaArn}/invocations"
+          - lambdaArn: !GetAtt "TzeroConsumerReportContent.Arn"
+      MethodResponses:
+        - StatusCode: 200
+          ResponseModels:
+            application/json: 'Empty'
+          ResponseParameters:
+            method.response.header.Access-Control-Allow-Origin: true
+      RestApiId: !Ref TzeroRestApi
+      ResourceId: !Ref ProducersReportedContent
+# ************ Producers resource- End********************
+
 # ********** Tzero Lambda Function Output - Start**************
 Outputs:
   TzeroProducerUserPoolId:
