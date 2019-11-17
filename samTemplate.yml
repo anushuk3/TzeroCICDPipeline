@@ -2330,10 +2330,10 @@ Resources:
   TzeroApiGatewayStage:
     Type: AWS::ApiGateway::Stage
     Properties:
-      DeploymentId: !Ref ApiGatewayDeployment
-      Description: Mock API Stage v0
-      RestApiId: !Ref TzeroRestApiDev
-      StageName: !Ref TzeroApiGatewayStageName
+      DeploymentId: !Ref TzeroApiDeploymentStage
+      Description: Tzero API Stage Test
+      RestApiId: !Ref TzeroRestApi
+      StageName: !Sub ${EnvName}
 
   TzeroApiDeploymentStage:
     Type: AWS::ApiGateway::Deployment
