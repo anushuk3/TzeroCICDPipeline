@@ -2323,9 +2323,26 @@ Resources:
           ResponseModels:
             application/json: 'Empty'
       RestApiId: !Ref TzeroRestApi
-      ResourceId: !Ref ProducerAccountusername  
+      ResourceId: !Ref ProducerAccountusername
       
 # ************ ProducerAccount resource- End********************
+# *****************API Deployment*************
+  TzeroApiGatewayStage:
+    Type: AWS::ApiGateway::Stage
+    Properties:
+      DeploymentId: !Ref ApiGatewayDeployment
+      Description: Mock API Stage v0
+      RestApiId: !Ref TzeroRestApiDev
+      StageName: !Ref TzeroApiGatewayStageName
+
+  TzeroApiDeploymentStage:
+    Type: AWS::ApiGateway::Deployment
+    DependsOn: ConsumerChangePhoneNumberPostMethod
+    Properties:
+      Description: Tzero API Deployment
+      RestApiId: !Ref TzeroRestApi      
+
+
 
 # ********** Tzero Lambda Function Output - Start**************
 Outputs:
