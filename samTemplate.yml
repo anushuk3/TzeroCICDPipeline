@@ -28,10 +28,12 @@ Parameters:
 
 # ********** Tzero Lambda Functions Parameters- Start ************** 
 # Lambda Function Target S3 key(CodePath) name
-  TzeroRegistrationS3Key:
-    Description: s3 key name for the lambda package in s3
+  TzeroLambdaCodeUri:
+    Description: S3 bucket name and key name for the lambda package in s3.
     Type: String
-    Default: './LambdaCode'    
+    Default:
+      Bucket: !Ref "test-tzero-pipeline-source"
+      Key: !Ref CodeKey
 #Lambda Function Environment Variables
   LambdaTemporaryPassword:
     Type: "String"
